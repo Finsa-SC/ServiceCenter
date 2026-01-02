@@ -11,7 +11,7 @@ namespace ServiceCenter.core.network
     {
         private static string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
 
-        public static int executeQuery(string query, params SqlParameter[] parameter)
+        public static int executeNonQuery(string query, params SqlParameter[] parameter)
         {
             try
             {

@@ -31,6 +31,11 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             navInfo = new Panel();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            txtUsername = new Label();
+            label2 = new Label();
+            txtRole = new Label();
+            txtTime = new Label();
             panel1 = new Panel();
             btnClose = new Button();
             pictureBox1 = new PictureBox();
@@ -41,19 +46,14 @@
             button1 = new Button();
             pctProfile = new PictureBox();
             pnlActivity = new Panel();
-            txtUsername = new Label();
-            txtRole = new Label();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            label2 = new Label();
-            txtTime = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             navInfo.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             navPanel.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pctProfile).BeginInit();
-            flowLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // navInfo
@@ -68,6 +68,53 @@
             navInfo.Name = "navInfo";
             navInfo.Size = new Size(1902, 45);
             navInfo.TabIndex = 1;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            flowLayoutPanel2.Controls.Add(txtUsername);
+            flowLayoutPanel2.Controls.Add(label2);
+            flowLayoutPanel2.Controls.Add(txtRole);
+            flowLayoutPanel2.Location = new Point(300, 11);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(300, 0);
+            flowLayoutPanel2.TabIndex = 1;
+            // 
+            // txtUsername
+            // 
+            txtUsername.AutoSize = true;
+            txtUsername.Location = new Point(3, 0);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(96, 25);
+            txtUsername.TabIndex = 0;
+            txtUsername.Text = "Username";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(105, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(17, 25);
+            label2.TabIndex = 1;
+            label2.Text = "|";
+            // 
+            // txtRole
+            // 
+            txtRole.AutoSize = true;
+            txtRole.Location = new Point(128, 0);
+            txtRole.Name = "txtRole";
+            txtRole.Size = new Size(49, 25);
+            txtRole.TabIndex = 0;
+            txtRole.Text = "Role";
+            // 
+            // txtTime
+            // 
+            txtTime.AutoSize = true;
+            txtTime.Location = new Point(1490, 11);
+            txtTime.Name = "txtTime";
+            txtTime.Size = new Size(53, 25);
+            txtTime.TabIndex = 0;
+            txtTime.Text = "Time";
             // 
             // panel1
             // 
@@ -129,51 +176,53 @@
             navPanel.Dock = DockStyle.Left;
             navPanel.Location = new Point(0, 48);
             navPanel.Name = "navPanel";
-            navPanel.Size = new Size(300, 957);
+            navPanel.Size = new Size(83, 957);
             navPanel.TabIndex = 3;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Controls.Add(btnUserManagement);
             flowLayoutPanel1.Controls.Add(button1);
+            flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(3, 247);
+            flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(297, 382);
-            flowLayoutPanel1.TabIndex = 1;
+            flowLayoutPanel1.Size = new Size(83, 874);
+            flowLayoutPanel1.TabIndex = 2;
             // 
             // btnUserManagement
             // 
             btnUserManagement.BackColor = Color.Black;
-            btnUserManagement.FlatAppearance.BorderColor = Color.Red;
-            btnUserManagement.FlatAppearance.BorderSize = 3;
+            btnUserManagement.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnUserManagement.FlatAppearance.BorderSize = 0;
             btnUserManagement.FlatAppearance.MouseDownBackColor = Color.DimGray;
             btnUserManagement.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
             btnUserManagement.FlatStyle = FlatStyle.Flat;
             btnUserManagement.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUserManagement.ForeColor = Color.White;
-            btnUserManagement.Location = new Point(3, 3);
+            btnUserManagement.Image = (Image)resources.GetObject("btnUserManagement.Image");
+            btnUserManagement.Location = new Point(6, 3);
+            btnUserManagement.Margin = new Padding(6, 3, 3, 3);
             btnUserManagement.Name = "btnUserManagement";
-            btnUserManagement.Size = new Size(291, 68);
+            btnUserManagement.Size = new Size(73, 68);
             btnUserManagement.TabIndex = 0;
             btnUserManagement.Tag = "1";
-            btnUserManagement.Text = "Users Management";
             btnUserManagement.UseVisualStyleBackColor = false;
-            btnUserManagement.Click += btnUserManagement_Click;
             // 
             // button1
             // 
             button1.BackColor = Color.Black;
-            button1.FlatAppearance.BorderColor = Color.Red;
-            button1.FlatAppearance.BorderSize = 3;
+            button1.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseDownBackColor = Color.DimGray;
             button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(3, 77);
+            button1.Location = new Point(6, 77);
+            button1.Margin = new Padding(6, 3, 3, 3);
             button1.Name = "button1";
-            button1.Size = new Size(291, 68);
+            button1.Size = new Size(73, 68);
             button1.TabIndex = 0;
             button1.Tag = "1";
             button1.Text = "Users Management";
@@ -181,67 +230,22 @@
             // 
             // pctProfile
             // 
-            pctProfile.Location = new Point(78, 53);
+            pctProfile.Dock = DockStyle.Bottom;
+            pctProfile.Location = new Point(0, 874);
             pctProfile.Name = "pctProfile";
-            pctProfile.Size = new Size(150, 150);
+            pctProfile.Size = new Size(83, 83);
             pctProfile.SizeMode = PictureBoxSizeMode.Zoom;
             pctProfile.TabIndex = 0;
             pctProfile.TabStop = false;
+            pctProfile.MouseClick += pctProfile_MouseClick;
             // 
             // pnlActivity
             // 
             pnlActivity.Dock = DockStyle.Fill;
-            pnlActivity.Location = new Point(300, 48);
+            pnlActivity.Location = new Point(83, 48);
             pnlActivity.Name = "pnlActivity";
-            pnlActivity.Size = new Size(1602, 957);
+            pnlActivity.Size = new Size(1819, 957);
             pnlActivity.TabIndex = 4;
-            // 
-            // txtUsername
-            // 
-            txtUsername.AutoSize = true;
-            txtUsername.Location = new Point(3, 0);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(96, 25);
-            txtUsername.TabIndex = 0;
-            txtUsername.Text = "Username";
-            // 
-            // txtRole
-            // 
-            txtRole.AutoSize = true;
-            txtRole.Location = new Point(128, 0);
-            txtRole.Name = "txtRole";
-            txtRole.Size = new Size(49, 25);
-            txtRole.TabIndex = 0;
-            txtRole.Text = "Role";
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            flowLayoutPanel2.Controls.Add(txtUsername);
-            flowLayoutPanel2.Controls.Add(label2);
-            flowLayoutPanel2.Controls.Add(txtRole);
-            flowLayoutPanel2.Location = new Point(300, 11);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(300, 42);
-            flowLayoutPanel2.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(105, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(17, 25);
-            label2.TabIndex = 1;
-            label2.Text = "|";
-            // 
-            // txtTime
-            // 
-            txtTime.AutoSize = true;
-            txtTime.Location = new Point(1490, 11);
-            txtTime.Name = "txtTime";
-            txtTime.Size = new Size(53, 25);
-            txtTime.TabIndex = 0;
-            txtTime.Text = "Time";
             // 
             // timer1
             // 
@@ -264,14 +268,14 @@
             Text = "Form1";
             navInfo.ResumeLayout(false);
             navInfo.PerformLayout();
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             navPanel.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pctProfile).EndInit();
-            flowLayoutPanel2.ResumeLayout(false);
-            flowLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -281,10 +285,6 @@
         private PictureBox pictureBox1;
         private Label label1;
         private Panel navPanel;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Button btnUserManagement;
-        private Button button1;
-        private PictureBox pctProfile;
         private Button btnClose;
         private Panel pnlActivity;
         private FlowLayoutPanel flowLayoutPanel2;
@@ -293,5 +293,9 @@
         private Label label2;
         private Label txtTime;
         private System.Windows.Forms.Timer timer1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button btnUserManagement;
+        private Button button1;
+        private PictureBox pctProfile;
     }
 }

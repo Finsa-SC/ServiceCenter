@@ -6,6 +6,7 @@ namespace ServiceCenter
         {
             InitializeComponent();
             isLogged();
+            loadBottomNav();
 
             pctProfile.Image = UserSession.photo != null ? Image.FromFile(UserSession.photo) : null;
         }
@@ -39,7 +40,7 @@ namespace ServiceCenter
             }
         }
 
-        private void loadBottomNav()
+        public void loadBottomNav()
         {
             if (UserSession.isLogged())
             {
@@ -51,6 +52,11 @@ namespace ServiceCenter
         private void timer1_Tick(object sender, EventArgs e)
         {
             txtTime.Text = DateTime.Now.ToString("yyyy-MMMM-dd HH:mm:ss");
+        }
+
+        private void pctProfile_MouseClick(object sender, MouseEventArgs e)
+        {
+            loadUC(new ProfileUC());
         }
     }
 }

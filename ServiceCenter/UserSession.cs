@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceCenter.core.network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,14 @@ namespace ServiceCenter
         public static string? full_name {  get; private set; }
         public static string? phone {  get; private set; }
         public static string? photo {  get; private set; }
+        public static string? roleString { get; private set; }
 
+
+        private static void setRole()
+        {
+            string query = "select role_name from roles where role_id = @roleId";
+            var result = DBHelper.executeReader(query, dr=>roleString = dr["role_name"].ToString(), new Microsoft.Data.SqlClient.SqlParameter("@roleId", roleId));
+        }
         public static bool isLogged()
         {
             return userId.HasValue && !string.IsNullOrWhiteSpace(userName) && roleId.HasValue;
@@ -34,6 +42,8 @@ namespace ServiceCenter
             roleId = RoleId;
             phone = Phone;
             photo = Photo;
+
+            setRole();
         }
 
         public static void clear()

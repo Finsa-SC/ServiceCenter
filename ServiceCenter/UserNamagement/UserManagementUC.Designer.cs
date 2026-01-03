@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
             textBox1 = new TextBox();
+            btnAdd = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -61,12 +62,12 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.Location = new Point(61, 114);
+            dataGridView1.Location = new Point(41, 97);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(1541, 788);
+            dataGridView1.Size = new Size(1634, 818);
             dataGridView1.TabIndex = 1;
             // 
             // textBox1
@@ -79,16 +80,31 @@
             textBox1.Size = new Size(502, 31);
             textBox1.TabIndex = 2;
             // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = Color.FromArgb(46, 67, 88);
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(1440, 26);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(185, 44);
+            btnAdd.TabIndex = 3;
+            btnAdd.Text = "Add User";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
             // UserManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnAdd);
             Controls.Add(textBox1);
             Controls.Add(dataGridView1);
             Margin = new Padding(20, 3, 20, 20);
             Name = "UserManagementUC";
             Padding = new Padding(20, 3, 20, 20);
-            Size = new Size(1602, 957);
+            Size = new Size(1719, 957);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -98,5 +114,6 @@
 
         private DataGridView dataGridView1;
         private TextBox textBox1;
+        private Button btnAdd;
     }
 }

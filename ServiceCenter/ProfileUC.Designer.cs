@@ -259,6 +259,8 @@
             // 
             // pctProfil
             // 
+            pctProfil.ErrorImage = Properties.Resources.icons8_user_100;
+            pctProfil.Image = Properties.Resources.icons8_user_100;
             pctProfil.Location = new Point(220, 133);
             pctProfil.Name = "pctProfil";
             pctProfil.Size = new Size(180, 180);

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using ServiceCenter.core.network;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -23,13 +25,15 @@ namespace ServiceCenter
             MakePictureBoxOval(pctProfil);
         }
 
-        Form1 form = new Form1();
+        private Form1 form => this.FindForm() as Form1;
 
         private void loadData()
         {
+            UserSession.loadUserSession();
+            form?.initImage();
             txtUsername.Text = UserSession.userName;
             txtPhone.Text = UserSession.phone;
-            loadImage(UserSession.photo);
+            loadImage(pctProfil, UserSession.photo);
             txtRole.Text = UserSession.roleString;
         }
 
@@ -88,15 +92,22 @@ namespace ServiceCenter
             imageOption();
         }
 
-        private void loadImage(string image)
+        public void loadImage(PictureBox box, string image)
         {
-            using (FileStream fs = new FileStream(image, FileMode.Open, FileAccess.Read))
+            if(string.IsNullOrWhiteSpace(image) || !File.Exists(image))
             {
-                using (Image img = Image.FromStream(fs))
-                {
-                    pctProfil.Image = new Bitmap(img);
-                }
+                box.Image?.Dispose();
+                box.Image = Properties.Resources.icons8_user_100;
+                return;
             }
+            try
+            {
+                using(Image img = Image.FromFile(image))
+                {
+                    box.Image?.Dispose();
+                    box.Image = new Bitmap(img);
+                }
+            }catch(Exception ex) { box.Image?.Dispose(); box.Image = Properties.Resources.icons8_user_100;}
         }
 
         private void btnUp_Click(object sender, EventArgs e)
@@ -111,7 +122,6 @@ namespace ServiceCenter
                         new SqlParameter("@userid", UserSession.userId),
                         new SqlParameter("@photo", ofd.FileName)
                     );
-                    UserSession.updatePhoto(ofd.FileName);
                     loadData();
                     imageOption();
                 }
@@ -120,10 +130,18 @@ namespace ServiceCenter
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            if (UserSession.photo != null)
+            if (!string.IsNullOrWhiteSpace(UserSession.photo)||!File.Exists(UserSession.photo))
             {
-
+                ImageShow iform = new ImageShow();
+                iform.ShowDialog();
+                imageOption();
             }
+        }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DBHelper.executeNonQuery("update users set photo_profile = null where user_id = @userid", new SqlParameter("@userid", UserSession.userId));
+            loadData();
+            imageOption();
         }
 
         private void btnCopyPhone_Click(object sender, EventArgs e)
@@ -151,13 +169,5 @@ namespace ServiceCenter
             form.loadBottomNav();
             loadData();
         }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DBHelper.executeNonQuery("update users set photo_profile = null where user_id = @userid", new SqlParameter("@userid", UserSession.userId));
-            loadData();
-        }
     }
-
-
 }

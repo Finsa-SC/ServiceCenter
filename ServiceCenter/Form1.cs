@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace ServiceCenter
 {
     public partial class Form1 : Form
@@ -5,8 +7,14 @@ namespace ServiceCenter
         public Form1()
         {
             InitializeComponent();
-            loadBottomNav();
             initButton();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            isLogged();
+            loadUC(new UserManagementUC());
+            initImage();
+            loadBottomNav();
         }
 
         public void isLogged()
@@ -87,13 +95,11 @@ namespace ServiceCenter
             btn.FlatAppearance.BorderSize = 0;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void initImage()
         {
-            isLogged();
-            pctProfile.Image = UserSession.photo != null ? Image.FromFile(UserSession.photo) : null;
             ProfileUC form = new ProfileUC();
+            form.loadImage(pctProfile, UserSession.photo);
             form.MakePictureBoxOval(pctProfile);
-            loadUC(new UserManagementUC());
         }
 
         bool showProfile = true;

@@ -190,7 +190,7 @@
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(83, 855);
+            flowLayoutPanel1.Size = new Size(83, 943);
             flowLayoutPanel1.TabIndex = 2;
             // 
             // btnUserManagement
@@ -234,7 +234,9 @@
             // 
             // pctProfile
             // 
-            pctProfile.Location = new Point(17, 890);
+            pctProfile.ErrorImage = Properties.Resources.icons8_user_100;
+            pctProfile.Image = Properties.Resources.icons8_user_100;
+            pctProfile.Location = new Point(16, 949);
             pctProfile.Name = "pctProfile";
             pctProfile.Size = new Size(50, 50);
             pctProfile.SizeMode = PictureBoxSizeMode.Zoom;

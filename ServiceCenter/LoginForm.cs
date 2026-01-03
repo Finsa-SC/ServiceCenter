@@ -17,7 +17,6 @@ namespace ServiceCenter
         public LoginForm()
         {
             InitializeComponent();
-            txtUsername.Focus();
         }
 
         private void developerLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -42,13 +41,13 @@ namespace ServiceCenter
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string query = "select user_id, username, role_id, full_name, phone, photo_profile from users where username = @username and password = @password and is_active = 1";
+            string query = "select user_id, username, role_id, full_name, phone, photo_profile from users where email = @email and password = @password and status_id = 1";
             SqlParameter[] parameters =
             {
-                //new SqlParameter("@username", txtUsername.Text.Trim()),
+                //new SqlParameter("@email", txtEmail.Text.Trim()),
                 //new SqlParameter("@password", txtPassword.Text.Trim())
-                new SqlParameter("@username", "agus"),
-                new SqlParameter("@password", "Agus080200")
+                new SqlParameter("@email", "agus@gmail.com"),
+                new SqlParameter("@password", "agus080200")
             };
             var result = DBHelper.executeReader(query, dr =>
             {
@@ -67,6 +66,8 @@ namespace ServiceCenter
 
             if (UserSession.isLogged())
             {
+                DBHelper.executeNonQuery("update users set last_active = GETDATE() where user_id = @userid",
+                    new SqlParameter("@userid", UserSession.userId));
                 this.Close();
             }
             else

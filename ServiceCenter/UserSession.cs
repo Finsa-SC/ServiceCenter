@@ -28,6 +28,16 @@ namespace ServiceCenter
             return userId.HasValue && !string.IsNullOrWhiteSpace(userName) && roleId.HasValue;
         }
 
+        public static void updatePhoto(string Photo)
+        {
+            photo = Photo;
+        }
+
+        public static void updateUsername(string username)
+        {
+            userName = username;
+        }
+
         public static void setSession(
             int UserID,
             string Username,
@@ -40,6 +50,7 @@ namespace ServiceCenter
             userId = UserID;
             userName = Username;
             roleId = RoleId;
+            full_name = FullName;
             phone = Phone;
             photo = Photo;
 

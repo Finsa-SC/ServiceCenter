@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,28 @@ namespace ServiceCenter.core.network
             }
         }
 
+        public static DataTable executeQuery(string query, params SqlParameter[] parameter)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    if(parameter!=null) cmd.Parameters.AddRange(parameter);
+                    conn.Open();
+                    using(SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return new DataTable();
+            }
+        }
         public static List<T> executeReader<T>(string query, Func<SqlDataReader, T> func ,params SqlParameter[] parameter)
         {
             List<T> list = new List<T>();

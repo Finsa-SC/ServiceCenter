@@ -32,8 +32,8 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label2 = new Label();
-            txtUsername = new TextBox();
             txtPassword = new TextBox();
+            txtEmail = new TextBox();
             label3 = new Label();
             developerLink = new LinkLabel();
             btnLogin = new Button();
@@ -72,30 +72,30 @@
             label2.TabIndex = 2;
             label2.Text = "Fairy";
             // 
-            // txtUsername
-            // 
-            txtUsername.BackColor = Color.Black;
-            txtUsername.BorderStyle = BorderStyle.FixedSingle;
-            txtUsername.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
-            txtUsername.ForeColor = Color.White;
-            txtUsername.Location = new Point(37, 456);
-            txtUsername.Name = "txtUsername";
-            txtUsername.PlaceholderText = "  Username...";
-            txtUsername.Size = new Size(393, 42);
-            txtUsername.TabIndex = 4;
-            // 
             // txtPassword
             // 
             txtPassword.BackColor = Color.Black;
             txtPassword.BorderStyle = BorderStyle.FixedSingle;
             txtPassword.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
             txtPassword.ForeColor = Color.White;
-            txtPassword.Location = new Point(37, 541);
+            txtPassword.Location = new Point(37, 533);
             txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '•';
-            txtPassword.PlaceholderText = "  Password...";
+            txtPassword.PasswordChar = '◆';
+            txtPassword.PlaceholderText = " Password...";
             txtPassword.Size = new Size(393, 42);
             txtPassword.TabIndex = 4;
+            // 
+            // txtEmail
+            // 
+            txtEmail.BackColor = Color.Black;
+            txtEmail.BorderStyle = BorderStyle.FixedSingle;
+            txtEmail.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
+            txtEmail.ForeColor = Color.White;
+            txtEmail.Location = new Point(37, 455);
+            txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderText = " Email...";
+            txtEmail.Size = new Size(393, 42);
+            txtEmail.TabIndex = 4;
             // 
             // label3
             // 
@@ -145,8 +145,8 @@
             Controls.Add(btnLogin);
             Controls.Add(developerLink);
             Controls.Add(label3);
+            Controls.Add(txtEmail);
             Controls.Add(txtPassword);
-            Controls.Add(txtUsername);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(label2);
@@ -165,8 +165,8 @@
         private PictureBox pictureBox1;
         private Label label1;
         private Label label2;
-        private TextBox txtUsername;
         private TextBox txtPassword;
+        private TextBox txtEmail;
         private Label label3;
         private LinkLabel developerLink;
         private Button btnLogin;

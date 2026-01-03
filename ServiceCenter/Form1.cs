@@ -58,10 +58,6 @@ namespace ServiceCenter
             txtTime.Text = DateTime.Now.ToString("yyyy-MMMM-dd    HH:mm:ss");
         }
 
-        private void pctProfile_MouseClick(object sender, MouseEventArgs e)
-        {
-            loadUC(new ProfileUC());
-        }
 
         private void btnUserManagement_Click_1(object sender, EventArgs e)
         {
@@ -98,6 +94,49 @@ namespace ServiceCenter
             ProfileUC form = new ProfileUC();
             form.MakePictureBoxOval(pctProfile);
             loadUC(new UserManagementUC());
+        }
+
+        bool showProfile = true;
+        private void pctProfile_MouseClick(object sender, MouseEventArgs e)
+        {
+            pnlProfile.Controls.Add(new ProfileUC());
+            tmrSlide.Start();
+            showSpeed = 37;
+            hideSpeed = 0;
+        }
+        int hideSpeed;
+        int showSpeed;
+        private void tmrSlide_Tick(object sender, EventArgs e)
+        {
+            if(showProfile)
+            {
+                if(pnlProfile.Left < 83)
+                {
+                    pnlProfile.Left += showSpeed;
+                    if (showSpeed > 1) { showSpeed -= 1; } else { showSpeed = 2; }
+                }
+                else
+                {
+                    pnlProfile.Left = 83;
+                    tmrSlide.Stop();
+                    showProfile = !showProfile;
+                }
+            }
+            else
+            {
+                if (pnlProfile.Left >= -pnlProfile.Width)
+                {
+                    pnlProfile.Left -= hideSpeed;
+                    hideSpeed += 1;
+                }
+                else
+                {
+                    pnlProfile.Left = -pnlProfile.Width;
+                    tmrSlide.Stop();
+                    showProfile = !showProfile;
+                    pnlProfile.Controls.Clear();
+                }
+            }
         }
     }
 }

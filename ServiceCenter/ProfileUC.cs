@@ -19,6 +19,7 @@ namespace ServiceCenter
         {
             InitializeComponent();
             loadData();
+            UserSession.loadUserSession();
             MakePictureBoxOval(pctProfil);
         }
 
@@ -89,9 +90,9 @@ namespace ServiceCenter
 
         private void loadImage(string image)
         {
-            using(FileStream fs = new FileStream(image, FileMode.Open, FileAccess.Read))
+            using (FileStream fs = new FileStream(image, FileMode.Open, FileAccess.Read))
             {
-                using(Image img = Image.FromStream(fs))
+                using (Image img = Image.FromStream(fs))
                 {
                     pctProfil.Image = new Bitmap(img);
                 }
@@ -100,13 +101,13 @@ namespace ServiceCenter
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog ofd = new OpenFileDialog())
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Image Files | *.png;*.img;*.jpeg;*.jpg;";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string query = "update users set photo_profile = @photo where user_id = @userid";
-                    DBHelper.executeNonQuery(query, 
+                    DBHelper.executeNonQuery(query,
                         new SqlParameter("@userid", UserSession.userId),
                         new SqlParameter("@photo", ofd.FileName)
                     );
@@ -148,6 +149,12 @@ namespace ServiceCenter
             LoginForm loginform = new LoginForm();
             loginform.ShowDialog();
             form.loadBottomNav();
+            loadData();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DBHelper.executeNonQuery("update users set photo_profile = null where user_id = @userid", new SqlParameter("@userid", UserSession.userId));
             loadData();
         }
     }

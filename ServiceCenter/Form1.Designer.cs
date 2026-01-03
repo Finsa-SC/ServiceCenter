@@ -45,8 +45,10 @@
             btnUserManagement = new Button();
             btnAssignment = new Button();
             pctProfile = new PictureBox();
-            pnlActivity = new Panel();
+            pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
+            tmrSlide = new System.Windows.Forms.Timer(components);
+            pnlActivity = new Panel();
             navInfo.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -124,9 +126,9 @@
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.ForeColor = Color.White;
-            panel1.Location = new Point(0, 0);
+            panel1.Location = new Point(83, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1802, 48);
+            panel1.Size = new Size(1719, 48);
             panel1.TabIndex = 2;
             // 
             // btnClose
@@ -139,9 +141,9 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(1758, 4);
+            btnClose.Location = new Point(1675, 4);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(38, 39);
+            btnClose.Size = new Size(39, 39);
             btnClose.TabIndex = 2;
             btnClose.Text = "X";
             btnClose.TextAlign = ContentAlignment.MiddleRight;
@@ -174,9 +176,9 @@
             navPanel.Controls.Add(flowLayoutPanel1);
             navPanel.Controls.Add(pctProfile);
             navPanel.Dock = DockStyle.Left;
-            navPanel.Location = new Point(0, 48);
+            navPanel.Location = new Point(0, 0);
             navPanel.Name = "navPanel";
-            navPanel.Size = new Size(83, 957);
+            navPanel.Size = new Size(83, 1005);
             navPanel.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -240,28 +242,41 @@
             pctProfile.TabStop = false;
             pctProfile.MouseClick += pctProfile_MouseClick;
             // 
-            // pnlActivity
+            // pnlProfile
             // 
-            pnlActivity.Dock = DockStyle.Fill;
-            pnlActivity.Location = new Point(83, 48);
-            pnlActivity.Name = "pnlActivity";
-            pnlActivity.Size = new Size(1719, 957);
-            pnlActivity.TabIndex = 4;
+            pnlProfile.BackColor = Color.Black;
+            pnlProfile.Location = new Point(-635, 48);
+            pnlProfile.Name = "pnlProfile";
+            pnlProfile.Size = new Size(635, 957);
+            pnlProfile.TabIndex = 0;
             // 
             // timer1
             // 
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick;
             // 
+            // tmrSlide
+            // 
+            tmrSlide.Interval = 1;
+            tmrSlide.Tick += tmrSlide_Tick;
+            // 
+            // pnlActivity
+            // 
+            pnlActivity.Location = new Point(83, 48);
+            pnlActivity.Name = "pnlActivity";
+            pnlActivity.Size = new Size(1719, 957);
+            pnlActivity.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1802, 1050);
-            Controls.Add(pnlActivity);
-            Controls.Add(navPanel);
             Controls.Add(panel1);
+            Controls.Add(navPanel);
+            Controls.Add(pnlProfile);
             Controls.Add(navInfo);
+            Controls.Add(pnlActivity);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             ShowIcon = false;
@@ -288,7 +303,6 @@
         private Label label1;
         private Panel navPanel;
         private Button btnClose;
-        private Panel pnlActivity;
         private FlowLayoutPanel flowLayoutPanel2;
         private Label txtUsername;
         private Label txtRole;
@@ -299,5 +313,8 @@
         private Button btnUserManagement;
         private Button btnAssignment;
         private PictureBox pctProfile;
+        private Panel pnlProfile;
+        private System.Windows.Forms.Timer tmrSlide;
+        private Panel pnlActivity;
     }
 }

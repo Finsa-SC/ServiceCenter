@@ -36,7 +36,7 @@
             label2 = new Label();
             txtRole = new Label();
             txtTime = new Label();
-            panel1 = new Panel();
+            pnlTitle = new Panel();
             btnClose = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
@@ -47,11 +47,12 @@
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
-            tmrSlide = new System.Windows.Forms.Timer(components);
+            tmrProfileSlide = new System.Windows.Forms.Timer(components);
             pnlActivity = new Panel();
+            tmrTitleSlide = new System.Windows.Forms.Timer(components);
             navInfo.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
-            panel1.SuspendLayout();
+            pnlTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             navPanel.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
@@ -77,7 +78,7 @@
             flowLayoutPanel2.Controls.Add(txtUsername);
             flowLayoutPanel2.Controls.Add(label2);
             flowLayoutPanel2.Controls.Add(txtRole);
-            flowLayoutPanel2.Location = new Point(83, 11);
+            flowLayoutPanel2.Location = new Point(83, 9);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new Size(300, 34);
             flowLayoutPanel2.TabIndex = 1;
@@ -112,24 +113,25 @@
             // txtTime
             // 
             txtTime.AutoSize = true;
-            txtTime.Location = new Point(1490, 11);
+            txtTime.Location = new Point(1490, 8);
             txtTime.Name = "txtTime";
             txtTime.Size = new Size(53, 25);
             txtTime.TabIndex = 0;
             txtTime.Text = "Time";
             // 
-            // panel1
+            // pnlTitle
             // 
-            panel1.BackColor = Color.FromArgb(29, 31, 31);
-            panel1.Controls.Add(btnClose);
-            panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(label1);
-            panel1.Dock = DockStyle.Top;
-            panel1.ForeColor = Color.White;
-            panel1.Location = new Point(83, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1719, 48);
-            panel1.TabIndex = 2;
+            pnlTitle.BackColor = Color.FromArgb(29, 31, 31);
+            pnlTitle.Controls.Add(btnClose);
+            pnlTitle.Controls.Add(pictureBox1);
+            pnlTitle.Controls.Add(label1);
+            pnlTitle.ForeColor = Color.White;
+            pnlTitle.Location = new Point(83, -44);
+            pnlTitle.Name = "pnlTitle";
+            pnlTitle.Size = new Size(1719, 56);
+            pnlTitle.TabIndex = 2;
+            pnlTitle.MouseEnter += pnlTitle_MouseEnter;
+            pnlTitle.MouseLeave += pnlTitle_MouseLeave;
             // 
             // btnClose
             // 
@@ -141,7 +143,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(1673, 5);
+            btnClose.Location = new Point(1670, 5);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(39, 39);
             btnClose.TabIndex = 2;
@@ -247,9 +249,9 @@
             // pnlProfile
             // 
             pnlProfile.BackColor = Color.Black;
-            pnlProfile.Location = new Point(-635, 48);
+            pnlProfile.Location = new Point(-635, 7);
             pnlProfile.Name = "pnlProfile";
-            pnlProfile.Size = new Size(635, 957);
+            pnlProfile.Size = new Size(635, 998);
             pnlProfile.TabIndex = 0;
             // 
             // timer1
@@ -257,24 +259,29 @@
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick;
             // 
-            // tmrSlide
+            // tmrProfileSlide
             // 
-            tmrSlide.Interval = 1;
-            tmrSlide.Tick += tmrSlide_Tick;
+            tmrProfileSlide.Interval = 1;
+            tmrProfileSlide.Tick += tmrProfileSlide_Tick;
             // 
             // pnlActivity
             // 
-            pnlActivity.Location = new Point(83, 48);
+            pnlActivity.Location = new Point(83, 12);
             pnlActivity.Name = "pnlActivity";
-            pnlActivity.Size = new Size(1719, 957);
+            pnlActivity.Size = new Size(1719, 993);
             pnlActivity.TabIndex = 6;
+            // 
+            // tmrTitleSlide
+            // 
+            tmrTitleSlide.Interval = 1;
+            tmrTitleSlide.Tick += tmrTitleSlide_Tick;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1802, 1050);
-            Controls.Add(panel1);
+            Controls.Add(pnlTitle);
             Controls.Add(navPanel);
             Controls.Add(pnlProfile);
             Controls.Add(navInfo);
@@ -289,8 +296,8 @@
             navInfo.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlTitle.ResumeLayout(false);
+            pnlTitle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             navPanel.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
@@ -300,7 +307,7 @@
 
         #endregion
         private Panel navInfo;
-        private Panel panel1;
+        private Panel pnlTitle;
         private PictureBox pictureBox1;
         private Label label1;
         private Panel navPanel;
@@ -316,7 +323,8 @@
         private Button btnAssignment;
         private PictureBox pctProfile;
         private Panel pnlProfile;
-        private System.Windows.Forms.Timer tmrSlide;
+        private System.Windows.Forms.Timer tmrProfileSlide;
         private Panel pnlActivity;
+        private System.Windows.Forms.Timer tmrTitleSlide;
     }
 }

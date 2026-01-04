@@ -106,17 +106,17 @@ namespace ServiceCenter
         private void pctProfile_MouseClick(object sender, MouseEventArgs e)
         {
             pnlProfile.Controls.Add(new ProfileUC());
-            tmrSlide.Start();
+            tmrProfileSlide.Start();
             showSpeed = 37;
             hideSpeed = 0;
         }
         int hideSpeed;
         int showSpeed;
-        private void tmrSlide_Tick(object sender, EventArgs e)
+        private void tmrProfileSlide_Tick(object sender, EventArgs e)
         {
-            if(showProfile)
+            if (showProfile)
             {
-                if(pnlProfile.Left < 83)
+                if (pnlProfile.Left < 83)
                 {
                     pnlProfile.Left += showSpeed;
                     if (showSpeed > 1) { showSpeed -= 1; } else { showSpeed = 2; }
@@ -124,7 +124,7 @@ namespace ServiceCenter
                 else
                 {
                     pnlProfile.Left = 83;
-                    tmrSlide.Stop();
+                    tmrProfileSlide.Stop();
                     showProfile = !showProfile;
                 }
             }
@@ -138,9 +138,62 @@ namespace ServiceCenter
                 else
                 {
                     pnlProfile.Left = -pnlProfile.Width;
-                    tmrSlide.Stop();
+                    tmrProfileSlide.Stop();
                     showProfile = !showProfile;
                     pnlProfile.Controls.Clear();
+                }
+            }
+        }
+
+        bool wantShow=false;
+        private void tmrTitleSlide_Tick(object sender, EventArgs e)
+        {
+            int speed = 2;
+            int hidePos = -pnlTitle.Height + 12;
+            if (wantShow)
+            {
+                if (pnlTitle.Top < 0)
+                {
+                    pnlTitle.Top += speed;
+                }
+                else
+                {
+                    pnlTitle.Top = 0;
+                    tmrTitleSlide.Stop();
+                }
+            }
+            else
+            {
+                if (pnlTitle.Top >= hidePos)
+                {
+                    pnlTitle.Top -= speed;
+                }
+                else
+                {
+                    pnlTitle.Top = hidePos;
+                    tmrTitleSlide.Stop();
+                }
+            }
+        }
+
+        private void pnlTitle_MouseEnter(object sender, EventArgs e)
+        {
+            wantShow = true;
+            if (!tmrTitleSlide.Enabled)
+            {
+                tmrTitleSlide.Start();
+            }
+        }
+
+        private void pnlTitle_MouseLeave(object sender, EventArgs e)
+        {
+            if(!pnlTitle.ClientRectangle.Contains(
+                pnlTitle.PointToClient(Cursor.Position)))
+            {
+                wantShow = false;
+                if (!tmrTitleSlide.Enabled)
+                {
+                    tmrTitleSlide.Start();
                 }
             }
         }

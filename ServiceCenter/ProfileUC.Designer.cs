@@ -72,7 +72,7 @@
             panel1.ForeColor = Color.White;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(635, 957);
+            panel1.Size = new Size(635, 998);
             panel1.TabIndex = 0;
             // 
             // btnLogout
@@ -84,7 +84,7 @@
             btnLogout.ForeColor = Color.FromArgb(251, 80, 97);
             btnLogout.Image = (Image)resources.GetObject("btnLogout.Image");
             btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLogout.Location = new Point(14, 895);
+            btnLogout.Location = new Point(9, 937);
             btnLogout.Name = "btnLogout";
             btnLogout.Padding = new Padding(0, 3, 3, 3);
             btnLogout.Size = new Size(202, 50);
@@ -275,7 +275,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Name = "ProfileUC";
-            Size = new Size(1602, 957);
+            Size = new Size(635, 998);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             pnlOption.ResumeLayout(false);

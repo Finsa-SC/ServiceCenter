@@ -64,19 +64,29 @@ namespace ServiceCenter.UserNamagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return ;
+            if (ValidationHelper.isNullInput(this)) return;
+            if(!txtEmail.Text.Trim().EndsWith("@gmail.com")) { UIHelper.toast("Invalid Format", "Email format is incorrect"); return; }
+            if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Password Doesn't Match", "password is not the same, please pay attention to your password"); return; }
+            if(txtPassword.TextLength < 8) { UIHelper.toast("Security Report", "Your password is too weak to be called a password, please try a stronger password."); return; }
+            if(!txtPhone.Text.Trim().StartsWith("08")) { UIHelper.toast("Invalid Format", "phone number format is incorrect"); return; }
+
             string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
                 new SqlParameter("@e", txtEmail.Text.Trim()),
                 new SqlParameter("@u", txtUsername.Text.Trim()),
-                new SqlParameter("@p", txtPhone.Text.Trim()),
-                new SqlParameter("@r", cmbRole.SelectedIndex < 0 ? cmbRole.SelectedValue : 1),
+                new SqlParameter("@p", txtPassword.Text.Trim()),
+                new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
-                new SqlParameter("@s", cmbStatus.SelectedIndex < 0 ? cmbStatus.SelectedValue : 1),
+                new SqlParameter("@s", cmbStatus.SelectedValue),
                 new SqlParameter("@img", !string.IsNullOrWhiteSpace(image) ? image : DBNull.Value)
             );
-            if (i > 0) { this.Close();}
+            if (i > 0) { this.Close(); }
+        }
+
+        private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ValidationHelper.onlyDigit(e);
         }
     }
 }

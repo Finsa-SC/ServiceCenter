@@ -8,6 +8,15 @@ namespace ServiceCenter.core.util
 {
     internal class ValidationHelper
     {
+
+        public static void onlyDigit(KeyPressEventArgs e)
+        {
+            if(!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                UIHelper.toast("Invalid Type", "only allows digit input");
+                e.Handled = true;
+            } 
+        }
         public static bool isNullInput(Control parent)
         {
             if(parent != null)
@@ -21,6 +30,15 @@ namespace ServiceCenter.core.util
                         { 
                             UIHelper.toast("Invalid Input", "Please Fill All of Input");
                             return true; 
+                        }
+                    }
+                    if(ctrl is ComboBox cmb)
+                    {
+                        if (cmb.Tag == "nullable") continue;
+                        if(cmb.SelectedIndex < 0)
+                        {
+                            UIHelper.toast("Invalid Decision", "Please Select Literally one option");
+                            return true;
                         }
                     }
                     if(ctrl is PictureBox pct)

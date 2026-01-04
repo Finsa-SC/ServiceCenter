@@ -57,6 +57,7 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.FromArgb(243, 248, 254);
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(46, 67, 88);
             dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -70,18 +71,20 @@
             dataGridViewCellStyle2.BackColor = Color.FromArgb(243, 248, 254);
             dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.FromArgb(46, 65, 88);
+            dataGridViewCellStyle2.Padding = new Padding(0, 12, 0, 12);
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(243, 248, 254);
             dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(46, 65, 88);
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.Location = new Point(41, 97);
+            dataGridView1.Location = new Point(37, 97);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(1634, 859);
             dataGridView1.TabIndex = 1;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // txtName
             // 
@@ -226,6 +229,7 @@
             Name = "UserManagementUC";
             Padding = new Padding(20, 3, 20, 20);
             Size = new Size(1719, 993);
+            Load += UserManagementUC_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

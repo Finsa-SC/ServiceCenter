@@ -18,9 +18,21 @@ namespace ServiceCenter
         public UserManagementUC()
         {
             InitializeComponent();
+            initSearchMethod();
+        }
+        private void UserManagementUC_Load(object sender, EventArgs e)
+        {
             loadUser();
             loadStatus();
             loadRole();
+            addEditButton();
+            addDeleteButton();
+
+            dataGridView1.RowTemplate.Height = 50;
+        }
+
+        private void initSearchMethod()
+        {
             txtName.KeyPress += loadChange;
             cmbRole.SelectedValueChanged += loadChange;
             cmbStatus.SelectedValueChanged += loadChange;
@@ -69,7 +81,7 @@ namespace ServiceCenter
                 new SqlParameter("@name", "%" + txtName.Text + "%"),
                 new SqlParameter("@role", cmbRole.SelectedValue == null ? (object)DBNull.Value : cmbRole.SelectedValue),
                 new SqlParameter("@status", cmbStatus.SelectedValue == null ? (object)DBNull.Value : cmbStatus.SelectedValue),
-                new SqlParameter("@date", dteDate.Value == null? (object)DBNull.Value:dateValue)
+                new SqlParameter("@date", dteDate.Value == null ? (object)DBNull.Value : dateValue)
             );
         }
         private void loadRole()
@@ -104,6 +116,41 @@ namespace ServiceCenter
             loadUser();
         }
 
-        
+        private void addEditButton()
+        {
+            if (dataGridView1.Columns.Contains("btnEdit")) return;
+
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            img.Name = "btnEdit";
+            img.HeaderText = "  Act";
+            img.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            img.Image = Properties.Resources.icons8_pencil_64;
+            img.Width = 50;
+            img.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+
+            dataGridView1.Columns.Add(img);
+        }
+        private void addDeleteButton()
+        {
+            if (dataGridView1.Columns.Contains("btnDelete")) return;
+
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            img.Name = "btnDelete";
+            img.HeaderText = "ion";
+            img.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            img.Image = Properties.Resources.icons8_trash_24;
+            img.Width = 50;
+            img.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+
+            dataGridView1.Columns.Add(img);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+
+            }
+        }
     }
 }

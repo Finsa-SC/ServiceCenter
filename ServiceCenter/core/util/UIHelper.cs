@@ -8,5 +8,12 @@ namespace ServiceCenter.core.util
 {
     internal class UIHelper
     {
+        public static void toast(string title, string message)
+        {
+            ToastForm form = new ToastForm(title, message);
+            form.BringToFront();
+            form.Activate();
+            form.Show();
+        }
     }
 }

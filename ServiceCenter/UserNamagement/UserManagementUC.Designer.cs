@@ -121,8 +121,9 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = SystemColors.Window;
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(73, 30);
+            pictureBox1.Location = new Point(72, 31);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(40, 40);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -132,10 +133,11 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = SystemColors.Window;
+            pictureBox2.BorderStyle = BorderStyle.FixedSingle;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(563, 31);
+            pictureBox2.Location = new Point(576, 31);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(56, 40);
+            pictureBox2.Size = new Size(43, 40);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
@@ -154,10 +156,11 @@
             // pictureBox3
             // 
             pictureBox3.BackColor = SystemColors.Window;
+            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(843, 31);
+            pictureBox3.Location = new Point(856, 31);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(56, 40);
+            pictureBox3.Size = new Size(43, 40);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 5;
             pictureBox3.TabStop = false;
@@ -165,10 +168,11 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = SystemColors.Window;
+            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(1089, 29);
+            pictureBox4.Location = new Point(1107, 29);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(56, 40);
+            pictureBox4.Size = new Size(38, 40);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 5;
             pictureBox4.TabStop = false;

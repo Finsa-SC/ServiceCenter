@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using ServiceCenter.core.network;
+using ServiceCenter.core.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -124,6 +125,7 @@ namespace ServiceCenter
                     );
                     loadData();
                     imageOption();
+                    UIHelper.toast("Changes", "successfully Update profile photo");
                 }
             }
         }
@@ -142,11 +144,13 @@ namespace ServiceCenter
             DBHelper.executeNonQuery("update users set photo_profile = null where user_id = @userid", new SqlParameter("@userid", UserSession.userId));
             loadData();
             imageOption();
+            UIHelper.toast("Deleted", "successfully deleted profile photo");
         }
 
         private void btnCopyPhone_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(txtPhone.Text);
+            UIHelper.toast("Coppied", "Success copied to clipboard");
         }
 
         private void btnLogout_MouseEnter(object sender, EventArgs e)

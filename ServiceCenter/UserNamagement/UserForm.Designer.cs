@@ -71,7 +71,8 @@
             // 
             // pctProfile
             // 
-            pctProfile.Location = new Point(76, 60);
+            pctProfile.Image = Properties.Resources.icons8_user_100;
+            pctProfile.Location = new Point(91, 118);
             pctProfile.Margin = new Padding(4);
             pctProfile.Name = "pctProfile";
             pctProfile.Size = new Size(341, 341);
@@ -87,7 +88,7 @@
             btnImport.FlatStyle = FlatStyle.Flat;
             btnImport.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnImport.ForeColor = Color.White;
-            btnImport.Location = new Point(69, 445);
+            btnImport.Location = new Point(84, 503);
             btnImport.Margin = new Padding(4);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(372, 47);

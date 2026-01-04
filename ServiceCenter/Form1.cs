@@ -1,3 +1,4 @@
+using ServiceCenter.core.util;
 using System.Windows.Forms;
 
 namespace ServiceCenter
@@ -24,6 +25,7 @@ namespace ServiceCenter
                 LoginForm form = new LoginForm();
                 form.ShowDialog();
             }
+            UIHelper.toast("Login Success", $"Welcome Back Again {UserSession.userName}, Great to Meet You!");
         }
 
         private void btnClose_Click(object sender, EventArgs e)

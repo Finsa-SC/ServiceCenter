@@ -17,13 +17,20 @@ namespace ServiceCenter.core.util
                     if(ctrl is TextBox txt)
                     {
                         if (txt.Tag?.ToString().Contains("nullable") == true) continue;
-                        if (string.IsNullOrWhiteSpace(txt.Text)) { MessageBox.Show("Please Fill All of Input", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error); return true; };
+                        if (string.IsNullOrWhiteSpace(txt.Text)) 
+                        { 
+                            UIHelper.toast("Invalid Input", "Please Fill All of Input");
+                            return true; 
+                        }
                     }
                     if(ctrl is PictureBox pct)
                     {
                         if (pct.Tag?.ToString().Contains("nullable") == true) continue;
-                        if(pct.Image == null) { MessageBox.Show("Please Insert Your Image Actually", "Blank Image", MessageBoxButtons.OK, MessageBoxIcon.Error); return true; }
-                        ;
+                        if(pct.Image == null) 
+                        {
+                            UIHelper.toast("Blank Image", "Please Insert Your Image Actually");
+                            return true;
+                        }
                     }
                     if (parent.HasChildren)
                     {

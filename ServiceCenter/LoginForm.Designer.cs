@@ -54,7 +54,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Red;
+            label1.ForeColor = Color.FromArgb(96, 232, 254);
             label1.Location = new Point(142, 344);
             label1.Name = "label1";
             label1.Size = new Size(119, 21);
@@ -123,11 +123,11 @@
             // 
             btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnLogin.AutoSize = true;
-            btnLogin.BackColor = Color.Red;
+            btnLogin.BackColor = Color.FromArgb(96, 232, 254);
             btnLogin.FlatAppearance.BorderSize = 2;
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Arial", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogin.ForeColor = Color.White;
+            btnLogin.ForeColor = SystemColors.ActiveCaptionText;
             btnLogin.Location = new Point(309, 604);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(121, 40);

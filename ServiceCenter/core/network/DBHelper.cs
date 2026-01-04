@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using ServiceCenter.core.util;
 
 namespace ServiceCenter.core.network
 {
@@ -24,7 +25,7 @@ namespace ServiceCenter.core.network
                     return cmd.ExecuteNonQuery();
                 }
             }catch (Exception ex) {
-                MessageBox.Show(ex.Message);
+                UIHelper.toast("Failed Execution", ex.Message);
                 return -1;
             }
         }
@@ -47,7 +48,7 @@ namespace ServiceCenter.core.network
                 }
             }catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                UIHelper.toast("Failed Load Data", ex.Message);
                 return new DataTable();
             }
         }
@@ -69,7 +70,7 @@ namespace ServiceCenter.core.network
                         }
                     }
                 }
-            }catch(Exception ex) { MessageBox.Show(ex.Message); }
+            }catch(Exception ex) {UIHelper.toast("Failed to Get Data", ex.Message); }
             return list;
         }
     }

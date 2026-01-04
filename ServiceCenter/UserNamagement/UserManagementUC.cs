@@ -41,6 +41,7 @@ namespace ServiceCenter
         {
             UserForm form = new UserForm();
             form.ShowDialog();
+            loadUser();
         }
     }
 }

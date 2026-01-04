@@ -67,16 +67,16 @@ namespace ServiceCenter.UserNamagement
             if (ValidationHelper.isNullInput(this)) return ;
             string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
             int i = DBHelper.executeNonQuery(query,
-                new SqlParameter("@f",txtFullName.Text.Trim()),
-                new SqlParameter("@e",txtEmail.Text.Trim()),
-                new SqlParameter("@u",txtUsername.Text.Trim()),
-                new SqlParameter("@p",txtPhone.Text.Trim()),
+                new SqlParameter("@f", txtFullName.Text.Trim()),
+                new SqlParameter("@e", txtEmail.Text.Trim()),
+                new SqlParameter("@u", txtUsername.Text.Trim()),
+                new SqlParameter("@p", txtPhone.Text.Trim()),
                 new SqlParameter("@r", cmbRole.SelectedIndex < 0 ? cmbRole.SelectedValue : 1),
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
                 new SqlParameter("@s", cmbStatus.SelectedIndex < 0 ? cmbStatus.SelectedValue : 1),
-                new SqlParameter("@img", image)
+                new SqlParameter("@img", !string.IsNullOrWhiteSpace(image) ? image : DBNull.Value)
             );
-            this.Close();
+            if (i > 0) { this.Close();}
         }
     }
 }

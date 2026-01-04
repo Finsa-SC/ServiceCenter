@@ -37,7 +37,7 @@
             pctProfile.Dock = DockStyle.Fill;
             pctProfile.Location = new Point(0, 0);
             pctProfile.Name = "pctProfile";
-            pctProfile.Size = new Size(800, 450);
+            pctProfile.Size = new Size(484, 450);
             pctProfile.SizeMode = PictureBoxSizeMode.Zoom;
             pctProfile.TabIndex = 0;
             pctProfile.TabStop = false;
@@ -46,7 +46,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(484, 450);
             Controls.Add(pctProfile);
             Name = "ImageShow";
             StartPosition = FormStartPosition.CenterScreen;

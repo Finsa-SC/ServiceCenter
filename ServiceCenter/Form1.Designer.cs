@@ -50,6 +50,7 @@
             tmrProfileSlide = new System.Windows.Forms.Timer(components);
             pnlActivity = new Panel();
             tmrTitleSlide = new System.Windows.Forms.Timer(components);
+            toolTip1 = new ToolTip(components);
             navInfo.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             pnlTitle.SuspendLayout();
@@ -211,7 +212,7 @@
             btnUserManagement.Name = "btnUserManagement";
             btnUserManagement.Size = new Size(72, 72);
             btnUserManagement.TabIndex = 0;
-            btnUserManagement.Tag = "1";
+            btnUserManagement.Tag = "User Management";
             btnUserManagement.UseVisualStyleBackColor = false;
             btnUserManagement.Click += btnUserManagement_Click_1;
             // 
@@ -230,7 +231,7 @@
             btnAssignment.Name = "btnAssignment";
             btnAssignment.Size = new Size(72, 72);
             btnAssignment.TabIndex = 0;
-            btnAssignment.Tag = "1";
+            btnAssignment.Tag = "apalah";
             btnAssignment.Text = "Users Management";
             btnAssignment.UseVisualStyleBackColor = false;
             // 
@@ -244,6 +245,7 @@
             pctProfile.SizeMode = PictureBoxSizeMode.Zoom;
             pctProfile.TabIndex = 0;
             pctProfile.TabStop = false;
+            pctProfile.Tag = "My Profile";
             pctProfile.MouseClick += pctProfile_MouseClick;
             // 
             // pnlProfile
@@ -326,5 +328,6 @@
         private System.Windows.Forms.Timer tmrProfileSlide;
         private Panel pnlActivity;
         private System.Windows.Forms.Timer tmrTitleSlide;
+        private ToolTip toolTip1;
     }
 }

@@ -85,6 +85,10 @@ namespace ServiceCenter
 
             btnUserManagement.MouseLeave += Hover_MouseLeave;
             btnAssignment.MouseLeave += Hover_MouseLeave;
+
+            btnUserManagement.MouseHover += Mouse_hover_button;
+            btnAssignment.MouseHover += Mouse_hover_button;
+            pctProfile.MouseHover += Mouse_hover_button;
         }
         private void Hover_MouseEnter(object sender, EventArgs e)
         {
@@ -111,6 +115,7 @@ namespace ServiceCenter
             tmrProfileSlide.Start();
             showSpeed = 37;
             hideSpeed = 0;
+            pctProfile.Enabled = false;
         }
         int hideSpeed;
         int showSpeed;
@@ -128,6 +133,7 @@ namespace ServiceCenter
                     pnlProfile.Left = 83;
                     tmrProfileSlide.Stop();
                     showProfile = !showProfile;
+                    pctProfile.Enabled = true;
                 }
             }
             else
@@ -135,7 +141,7 @@ namespace ServiceCenter
                 if (pnlProfile.Left >= -pnlProfile.Width)
                 {
                     pnlProfile.Left -= hideSpeed;
-                    hideSpeed += 1;
+                    hideSpeed += 3;
                 }
                 else
                 {
@@ -143,6 +149,7 @@ namespace ServiceCenter
                     tmrProfileSlide.Stop();
                     showProfile = !showProfile;
                     pnlProfile.Controls.Clear();
+                    pctProfile.Enabled = true;
                 }
             }
         }
@@ -197,6 +204,18 @@ namespace ServiceCenter
                 {
                     tmrTitleSlide.Start();
                 }
+            }
+        }
+
+        private void Mouse_hover_button(object sender, EventArgs e)
+        {
+            if(sender is Button btn)
+            {
+                toolTip1.SetToolTip(btn, btn.Tag.ToString());
+            }
+            else if(sender is PictureBox pct)
+            {
+                toolTip1.SetToolTip(pct, pct.Tag.ToString());
             }
         }
     }

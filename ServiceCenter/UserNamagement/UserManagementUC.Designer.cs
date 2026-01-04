@@ -32,15 +32,16 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserManagementUC));
             dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
+            txtName = new TextBox();
             btnAdd = new Button();
-            comboBox1 = new ComboBox();
+            cmbRole = new ComboBox();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            comboBox2 = new ComboBox();
+            cmbStatus = new ComboBox();
             pictureBox3 = new PictureBox();
             pictureBox4 = new PictureBox();
-            dateTimePicker1 = new DateTimePicker();
+            dteDate = new DateTimePicker();
+            chkDte = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -67,7 +68,7 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(243, 248, 254);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.FromArgb(46, 65, 88);
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(243, 248, 254);
             dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(46, 65, 88);
@@ -82,16 +83,16 @@
             dataGridView1.Size = new Size(1634, 859);
             dataGridView1.TabIndex = 1;
             // 
-            // textBox1
+            // txtName
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(113, 31);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "   Search...";
-            textBox1.Size = new Size(419, 39);
-            textBox1.TabIndex = 2;
+            txtName.BorderStyle = BorderStyle.FixedSingle;
+            txtName.Cursor = Cursors.IBeam;
+            txtName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtName.Location = new Point(113, 31);
+            txtName.Name = "txtName";
+            txtName.PlaceholderText = "   Search...";
+            txtName.Size = new Size(419, 39);
+            txtName.TabIndex = 2;
             // 
             // btnAdd
             // 
@@ -107,16 +108,16 @@
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
-            // comboBox1
+            // cmbRole
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FlatStyle = FlatStyle.System;
-            comboBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(619, 30);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(158, 40);
-            comboBox1.TabIndex = 4;
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRole.FlatStyle = FlatStyle.System;
+            cmbRole.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Location = new Point(619, 30);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(158, 40);
+            cmbRole.TabIndex = 4;
             // 
             // pictureBox1
             // 
@@ -142,16 +143,16 @@
             pictureBox2.TabIndex = 5;
             pictureBox2.TabStop = false;
             // 
-            // comboBox2
+            // cmbStatus
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FlatStyle = FlatStyle.System;
-            comboBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(899, 30);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(158, 40);
-            comboBox2.TabIndex = 4;
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.FlatStyle = FlatStyle.System;
+            cmbStatus.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            cmbStatus.FormattingEnabled = true;
+            cmbStatus.Location = new Point(899, 30);
+            cmbStatus.Name = "cmbStatus";
+            cmbStatus.Size = new Size(158, 40);
+            cmbStatus.TabIndex = 4;
             // 
             // pictureBox3
             // 
@@ -177,27 +178,49 @@
             pictureBox4.TabIndex = 5;
             pictureBox4.TabStop = false;
             // 
-            // dateTimePicker1
+            // dteDate
             // 
-            dateTimePicker1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            dateTimePicker1.Location = new Point(1145, 30);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(264, 37);
-            dateTimePicker1.TabIndex = 6;
+            dteDate.CustomFormat = "MMMMd, yyyy";
+            dteDate.Enabled = false;
+            dteDate.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            dteDate.Format = DateTimePickerFormat.Custom;
+            dteDate.Location = new Point(1145, 30);
+            dteDate.MaxDate = new DateTime(2026, 1, 4, 0, 0, 0, 0);
+            dteDate.Name = "dteDate";
+            dteDate.Size = new Size(264, 37);
+            dteDate.TabIndex = 6;
+            dteDate.Value = new DateTime(2026, 1, 4, 0, 0, 0, 0);
+            // 
+            // chkDte
+            // 
+            chkDte.AutoSize = true;
+            chkDte.FlatAppearance.BorderColor = Color.Red;
+            chkDte.FlatAppearance.BorderSize = 3;
+            chkDte.FlatAppearance.CheckedBackColor = Color.Red;
+            chkDte.FlatStyle = FlatStyle.Flat;
+            chkDte.Font = new Font("Segoe UI", 7F);
+            chkDte.Location = new Point(1145, 68);
+            chkDte.Name = "chkDte";
+            chkDte.Size = new Size(178, 23);
+            chkDte.TabIndex = 7;
+            chkDte.Text = "adjust according to date";
+            chkDte.UseVisualStyleBackColor = true;
+            chkDte.CheckedChanged += chkDte_CheckedChanged;
             // 
             // UserManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(dateTimePicker1);
+            Controls.Add(chkDte);
+            Controls.Add(dteDate);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbStatus);
+            Controls.Add(cmbRole);
             Controls.Add(btnAdd);
-            Controls.Add(textBox1);
+            Controls.Add(txtName);
             Controls.Add(dataGridView1);
             Margin = new Padding(20, 3, 20, 20);
             Name = "UserManagementUC";
@@ -215,14 +238,15 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private TextBox textBox1;
+        private TextBox txtName;
         private Button btnAdd;
-        private ComboBox comboBox1;
+        private ComboBox cmbRole;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
-        private ComboBox comboBox2;
+        private ComboBox cmbStatus;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dteDate;
+        private CheckBox chkDte;
     }
 }

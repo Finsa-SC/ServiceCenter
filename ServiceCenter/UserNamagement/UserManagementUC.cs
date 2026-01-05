@@ -180,9 +180,6 @@ namespace ServiceCenter
             }
         }
 
-        private bool checkEmail()
-        {
-            int i = Convert.ToInt32();
-        }
+        
     }
 }

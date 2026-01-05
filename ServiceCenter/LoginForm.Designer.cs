@@ -37,6 +37,7 @@
             label3 = new Label();
             developerLink = new LinkLabel();
             btnLogin = new Button();
+            lblForgotPass = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -84,6 +85,7 @@
             txtPassword.PlaceholderText = " Password...";
             txtPassword.Size = new Size(393, 42);
             txtPassword.TabIndex = 4;
+            txtPassword.Text = "agus080200";
             // 
             // txtEmail
             // 
@@ -96,6 +98,7 @@
             txtEmail.PlaceholderText = " Email...";
             txtEmail.Size = new Size(393, 42);
             txtEmail.TabIndex = 4;
+            txtEmail.Text = "agus@gmail.com";
             // 
             // label3
             // 
@@ -136,12 +139,23 @@
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
+            // lblForgotPass
+            // 
+            lblForgotPass.AutoSize = true;
+            lblForgotPass.Location = new Point(126, 676);
+            lblForgotPass.Name = "lblForgotPass";
+            lblForgotPass.Size = new Size(201, 25);
+            lblForgotPass.TabIndex = 8;
+            lblForgotPass.Text = "Forgot you'r password?";
+            lblForgotPass.Visible = false;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(461, 837);
+            Controls.Add(lblForgotPass);
             Controls.Add(btnLogin);
             Controls.Add(developerLink);
             Controls.Add(label3);
@@ -170,5 +184,6 @@
         private Label label3;
         private LinkLabel developerLink;
         private Button btnLogin;
+        private Label lblForgotPass;
     }
 }

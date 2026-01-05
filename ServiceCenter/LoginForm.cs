@@ -20,6 +20,7 @@ namespace ServiceCenter
             InitializeComponent();
         }
 
+        int passwordTry = 0;
         private void developerLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -42,28 +43,40 @@ namespace ServiceCenter
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string query = "select user_id, username, role_id, full_name, phone, photo_profile from users where email = @email and password = @password and status_id = 1";
+            security();
+            string? hashed = null;
+            string password = txtPassword.Text.Trim();
+            string query = "select user_id, username, password, role_id, full_name, phone, photo_profile from users where email = @email and status_id = 1";
             SqlParameter[] parameters =
             {
-                //new SqlParameter("@email", txtEmail.Text.Trim()),
-                //new SqlParameter("@password", txtPassword.Text.Trim())
-                new SqlParameter("@email", "agus@gmail.com"),
-                new SqlParameter("@password", "agus080200")
+                new SqlParameter("@email", txtEmail.Text.Trim()),
             };
             var result = DBHelper.executeReader(query, dr =>
             {
-                UserSession.setSession(
-                    Convert.ToInt32(dr["user_id"]),
-                    dr["username"].ToString(),
-                    Convert.ToInt32(dr["role_id"]),
-                    dr["full_name"].ToString(),
-                    dr["phone"].ToString(),
-                    dr["photo_profile"].ToString()
+                hashed = dr["password"].ToString();
+            UserSession.setSession(
+                Convert.ToInt32(dr["user_id"]),
+                dr["username"].ToString(),
+                Convert.ToInt32(dr["role_id"]),
+                dr["full_name"].ToString(),
+                dr["phone"].ToString(),
+                dr["photo_profile"].ToString()
                 );
                 return true;
             },
                 parameters
             );
+
+            if (!result.Any())
+            {
+                UIHelper.toast("Un-Authorization", "Email or Password Wrong");
+                return;
+            }
+            if(!PasswordHelper.Verify(password, hashed))
+            {
+                UIHelper.toast("Un-Authorization", "Email or Password Wrong");
+                return;
+            }
 
             if (UserSession.isLogged())
             {
@@ -73,7 +86,18 @@ namespace ServiceCenter
             }
             else
             {
-                MessageBox.Show("Email or Password Wrong!!", "Un-Authorization", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void security()
+        {
+            passwordTry += 1;
+
+            if (passwordTry == 3) lblForgotPass.Visible = true;
+            if(passwordTry == 5)
+            {
+                btnLogin.Visible = false;
+                UIHelper.toast("Anomaly Detected", "We do not condone negligence of more than 5 times");
             }
         }
     }

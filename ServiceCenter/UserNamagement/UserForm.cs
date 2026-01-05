@@ -88,7 +88,8 @@ namespace ServiceCenter.UserNamagement
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (ValidationHelper.isNullInput(this)) return;
-            
+            if(checkEmail()) { UIHelper.toast("Exists Items", "Email Address Already Taken"); return; }
+
             if (mode == DialogMode.CreateUser)
             {
                 createUser();
@@ -109,18 +110,18 @@ namespace ServiceCenter.UserNamagement
 
         private void createUser()
         {
-            if (!txtEmail.Text.Trim().EndsWith("@gmail.com")) { UIHelper.toast("Invalid Format", "Email format is incorrect"); return; }
-            if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Password Doesn't Match", "password is not the same, please pay attention to your password"); return; }
+            if (!txtEmail.Text.Trim().EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase)) { UIHelper.toast("Invalid Format", "Email format is incorrect"); return; }
+            if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Security Report", "password is not the same, please pay attention to your password"); return; }
             if (txtPassword.TextLength < 8) { UIHelper.toast("Security Report", "Your password is too weak to be called a password, please try a stronger password."); return; }
             if (!txtPhone.Text.Trim().StartsWith("08")) { UIHelper.toast("Invalid Format", "phone number format is incorrect"); return; }
-            if (txtPhone.Text.Length < 10 && txtPhone.Text.Length > 12) { UIHelper.toast("Invalid Number", "phone number is invalid "); return; }
+            if (txtPhone.Text.Length < 10 || txtPhone.Text.Length > 12) { UIHelper.toast("Invalid Number", "phone number is invalid "); return; }
 
             string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
                 new SqlParameter("@e", txtEmail.Text.Trim()),
                 new SqlParameter("@u", txtUsername.Text.Trim()),
-                new SqlParameter("@p", txtPassword.Text.Trim()),
+                new SqlParameter("@p", PasswordHelper.Hash(txtPassword.Text.Trim())),
                 new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
@@ -171,6 +172,15 @@ namespace ServiceCenter.UserNamagement
                 this.Close();
                 UIHelper.toast("Success Updating", "Success Updateing ");
             }
+        }
+        private bool checkEmail()
+        {
+            string query = "select count(*) from users where email = @g";
+            int i = DBHelper.executeReader(query, dr =>
+                Convert.ToInt32(dr[0])
+            ).FirstOrDefault();
+            if (i > 0) return true; 
+            return false;
         }
     }
 }

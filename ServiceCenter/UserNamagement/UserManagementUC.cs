@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using ServiceCenter.core.util;
 
 namespace ServiceCenter
 {
@@ -62,6 +63,7 @@ namespace ServiceCenter
         {
             string query = @"
                     select
+                        u.user_id,
                         u.full_name as [Full Name],
                         u.email as Email,
                         u.username as Username,
@@ -83,6 +85,7 @@ namespace ServiceCenter
                 new SqlParameter("@status", cmbStatus.SelectedValue == null ? (object)DBNull.Value : cmbStatus.SelectedValue),
                 new SqlParameter("@date", dteDate.Value == null ? (object)DBNull.Value : dateValue)
             );
+            if (dataGridView1.Columns.Contains("user_id")) dataGridView1.Columns["user_id"].Visible=false;
         }
         private void loadRole()
         {
@@ -122,7 +125,6 @@ namespace ServiceCenter
 
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             img.Name = "btnEdit";
-            img.HeaderText = "  Act";
             img.ImageLayout = DataGridViewImageCellLayout.Zoom;
             img.Image = Properties.Resources.icons8_pencil_64;
             img.Width = 50;
@@ -136,7 +138,6 @@ namespace ServiceCenter
 
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             img.Name = "btnDelete";
-            img.HeaderText = "ion";
             img.ImageLayout = DataGridViewImageCellLayout.Zoom;
             img.Image = Properties.Resources.icons8_trash_24;
             img.Width = 50;
@@ -149,7 +150,31 @@ namespace ServiceCenter
         {
             if (e.RowIndex >= 0)
             {
-
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                int userid = Convert.ToInt32(row.Cells["user_id"].Value);
+                string username = row.Cells["username"].Value.ToString();
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "btnEdit")
+                {
+                    if (dataGridView1.Columns[e.ColumnIndex].Name == "btnEdit")
+                    {
+                        UserForm form = new UserForm();
+                        form.ShowDialog(userid);
+                    }
+                }
+                else if (dataGridView1.Columns[e.ColumnIndex].Name == "btnDelete")
+                {
+                    if (UIHelper.ConfirmationDialog("Confirm Delete", $"Are Your Sure to Delete {username} From User List? This might prevent {username} from accessing this application."))
+                    {
+                        int i = DBHelper.executeNonQuery("delete from users where user_id = @id",
+                            new SqlParameter("@id", userid)
+                        );
+                        if (i >0)
+                        {
+                            UIHelper.toast("Success Deleting", $"{username} Has Been Deleted From User List");
+                            loadUser();
+                        }
+                    }
+                }
             }
         }
     }

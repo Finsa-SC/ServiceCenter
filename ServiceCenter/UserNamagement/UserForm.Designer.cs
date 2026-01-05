@@ -328,6 +328,7 @@
             Name = "UserForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UserForm";
+            Load += UserForm_Load;
             ((System.ComponentModel.ISupportInitialize)pctProfile).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();

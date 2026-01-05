@@ -15,5 +15,19 @@ namespace ServiceCenter.core.util
             form.Activate();
             form.Show();
         }
+
+        public static bool ConfirmationDialog(string title, string message)
+        {
+            DecisionForm form = new DecisionForm(title, message);
+            form.ShowDialog();
+            if (form.choiceResult())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

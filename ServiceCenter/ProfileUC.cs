@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -113,15 +114,15 @@ namespace ServiceCenter
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            var (dialog, path) = ImageHelper.uploadImage();
+            if (dialog == DialogResult.OK)
             {
-                ofd.Filter = "Image Files | *.png;*.img;*.jpeg;*.jpg;";
-                if (ofd.ShowDialog() == DialogResult.OK)
+                if (UIHelper.ConfirmationDialog("Confirmation", "Are You Sure to Change Your Profile Photo?"))
                 {
                     string query = "update users set photo_profile = @photo where user_id = @userid";
                     DBHelper.executeNonQuery(query,
                         new SqlParameter("@userid", UserSession.userId),
-                        new SqlParameter("@photo", ofd.FileName)
+                        new SqlParameter("@photo", path)
                     );
                     loadData();
                     imageOption();

@@ -23,9 +23,9 @@ namespace ServiceCenter.core.util
             {
                 foreach(Control ctrl in parent.Controls)
                 {
+                    if (ctrl.Tag?.ToString().Contains("nullable") == true) continue;
                     if(ctrl is TextBox txt)
                     {
-                        if (txt.Tag?.ToString().Contains("nullable") == true) continue;
                         if (string.IsNullOrWhiteSpace(txt.Text)) 
                         { 
                             UIHelper.toast("Invalid Input", "Please Fill All of Input");
@@ -34,7 +34,6 @@ namespace ServiceCenter.core.util
                     }
                     if(ctrl is ComboBox cmb)
                     {
-                        if (cmb.Tag == "nullable") continue;
                         if(cmb.SelectedIndex < 0)
                         {
                             UIHelper.toast("Invalid Decision", "Please Select Literally one option");
@@ -43,7 +42,6 @@ namespace ServiceCenter.core.util
                     }
                     if(ctrl is PictureBox pct)
                     {
-                        if (pct.Tag?.ToString().Contains("nullable") == true) continue;
                         if(pct.Image == null) 
                         {
                             UIHelper.toast("Blank Image", "Please Insert Your Image Actually");

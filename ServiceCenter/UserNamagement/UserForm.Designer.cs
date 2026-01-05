@@ -45,9 +45,9 @@
             btnSave = new Button();
             btnCancel = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            label7 = new Label();
+            lblPassword = new Label();
             txtPassword = new TextBox();
-            label8 = new Label();
+            lblCPassword = new Label();
             txtCPassword = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pctProfile).BeginInit();
             flowLayoutPanel1.SuspendLayout();
@@ -248,9 +248,9 @@
             flowLayoutPanel1.Controls.Add(txtEmail);
             flowLayoutPanel1.Controls.Add(label3);
             flowLayoutPanel1.Controls.Add(txtUsername);
-            flowLayoutPanel1.Controls.Add(label7);
+            flowLayoutPanel1.Controls.Add(lblPassword);
             flowLayoutPanel1.Controls.Add(txtPassword);
-            flowLayoutPanel1.Controls.Add(label8);
+            flowLayoutPanel1.Controls.Add(lblCPassword);
             flowLayoutPanel1.Controls.Add(txtCPassword);
             flowLayoutPanel1.Controls.Add(label4);
             flowLayoutPanel1.Controls.Add(txtPhone);
@@ -260,15 +260,15 @@
             flowLayoutPanel1.Size = new Size(478, 501);
             flowLayoutPanel1.TabIndex = 6;
             // 
-            // label7
+            // lblPassword
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(4, 255);
-            label7.Margin = new Padding(4, 10, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(105, 30);
-            label7.TabIndex = 6;
-            label7.Text = "Password";
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(4, 255);
+            lblPassword.Margin = new Padding(4, 10, 4, 0);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(105, 30);
+            lblPassword.TabIndex = 6;
+            lblPassword.Text = "Password";
             // 
             // txtPassword
             // 
@@ -282,16 +282,17 @@
             txtPassword.PasswordChar = 'Ὧ';
             txtPassword.Size = new Size(464, 37);
             txtPassword.TabIndex = 5;
+            txtPassword.Tag = "nullable";
             // 
-            // label8
+            // lblCPassword
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(4, 340);
-            label8.Margin = new Padding(4, 10, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(192, 30);
-            label8.TabIndex = 6;
-            label8.Text = "Confirm Password";
+            lblCPassword.AutoSize = true;
+            lblCPassword.Location = new Point(4, 340);
+            lblCPassword.Margin = new Padding(4, 10, 4, 0);
+            lblCPassword.Name = "lblCPassword";
+            lblCPassword.Size = new Size(192, 30);
+            lblCPassword.TabIndex = 6;
+            lblCPassword.Text = "Confirm Password";
             // 
             // txtCPassword
             // 
@@ -305,6 +306,7 @@
             txtCPassword.PasswordChar = 'Ὧ';
             txtCPassword.Size = new Size(464, 37);
             txtCPassword.TabIndex = 5;
+            txtCPassword.Tag = "nullable";
             // 
             // UserForm
             // 
@@ -355,9 +357,9 @@
         private Button btnSave;
         private Button btnCancel;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Label label7;
+        private Label lblPassword;
         private TextBox txtPassword;
-        private Label label8;
+        private Label lblCPassword;
         private TextBox txtCPassword;
     }
 }

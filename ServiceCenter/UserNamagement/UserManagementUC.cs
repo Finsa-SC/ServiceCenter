@@ -125,6 +125,7 @@ namespace ServiceCenter
 
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             img.Name = "btnEdit";
+            img.HeaderText = "";
             img.ImageLayout = DataGridViewImageCellLayout.Zoom;
             img.Image = Properties.Resources.icons8_pencil_64;
             img.Width = 50;
@@ -138,6 +139,7 @@ namespace ServiceCenter
 
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             img.Name = "btnDelete";
+            img.HeaderText = "";
             img.ImageLayout = DataGridViewImageCellLayout.Zoom;
             img.Image = Properties.Resources.icons8_trash_24;
             img.Width = 50;
@@ -157,8 +159,8 @@ namespace ServiceCenter
                 {
                     if (dataGridView1.Columns[e.ColumnIndex].Name == "btnEdit")
                     {
-                        UserForm form = new UserForm();
-                        form.ShowDialog(userid);
+                        UserForm form = new UserForm(userid);
+                        form.ShowDialog();
                     }
                 }
                 else if (dataGridView1.Columns[e.ColumnIndex].Name == "btnDelete")
@@ -171,11 +173,16 @@ namespace ServiceCenter
                         if (i >0)
                         {
                             UIHelper.toast("Success Deleting", $"{username} Has Been Deleted From User List");
-                            loadUser();
                         }
                     }
                 }
+                loadUser();
             }
+        }
+
+        private bool checkEmail()
+        {
+            int i = Convert.ToInt32();
         }
     }
 }

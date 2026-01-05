@@ -71,7 +71,7 @@
             dataGridViewCellStyle2.BackColor = Color.FromArgb(243, 248, 254);
             dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.FromArgb(46, 65, 88);
-            dataGridViewCellStyle2.Padding = new Padding(0, 12, 0, 12);
+            dataGridViewCellStyle2.Padding = new Padding(0, 6, 0, 12);
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(243, 248, 254);
             dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(46, 65, 88);
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;

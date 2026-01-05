@@ -16,23 +16,31 @@ namespace ServiceCenter.UserNamagement
     public partial class UserForm : Form
     {
         private int userid;
+        private DialogMode mode;
+        private enum DialogMode
+        {
+            CreateUser,
+            UpdateUser
+        }
         public UserForm(int userId = 0)
         {
             InitializeComponent();
             loadRole();
             loadStatus();
-            userid = userId;
+            if(userId != 0)
+            {
+                userid = userId;
+                mode = DialogMode.UpdateUser;
+            }
         }
         private void UserForm_Load(object sender, EventArgs e)
         {
-            if (userid != 0)
-            {
-                createUser();
-            }
-            else
+            if (mode == DialogMode.UpdateUser)
             {
                 txtPassword.Visible = false;
                 txtCPassword.Visible = false;
+                lblCPassword.Visible = false;
+                lblPassword.Visible = false;
                 loadUser(userid);
             }
         }
@@ -79,7 +87,19 @@ namespace ServiceCenter.UserNamagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            if (ValidationHelper.isNullInput(this)) return;
+            
+            if (mode == DialogMode.CreateUser)
+            {
+                createUser();
+            }
+            else if(mode == DialogMode.UpdateUser)
+            {
+                if(UIHelper.ConfirmationDialog("Confirm Update", "Are You Sure To Update Old Data To New Data?"))
+                {
+                    updateUser(userid);
+                }
+            }
         }
 
         private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
@@ -89,11 +109,11 @@ namespace ServiceCenter.UserNamagement
 
         private void createUser()
         {
-            if (ValidationHelper.isNullInput(this)) return;
             if (!txtEmail.Text.Trim().EndsWith("@gmail.com")) { UIHelper.toast("Invalid Format", "Email format is incorrect"); return; }
             if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Password Doesn't Match", "password is not the same, please pay attention to your password"); return; }
             if (txtPassword.TextLength < 8) { UIHelper.toast("Security Report", "Your password is too weak to be called a password, please try a stronger password."); return; }
             if (!txtPhone.Text.Trim().StartsWith("08")) { UIHelper.toast("Invalid Format", "phone number format is incorrect"); return; }
+            if (txtPhone.Text.Length < 10 && txtPhone.Text.Length > 12) { UIHelper.toast("Invalid Number", "phone number is invalid "); return; }
 
             string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
             int i = DBHelper.executeNonQuery(query,
@@ -106,7 +126,10 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@s", cmbStatus.SelectedValue),
                 new SqlParameter("@img", !string.IsNullOrWhiteSpace(image) ? image : DBNull.Value)
             );
-            if (i > 0) { this.Close(); }
+            if (i > 0) { 
+                this.Close();
+                UIHelper.toast("Success Insert", "Success Insert User Into User List ");
+            }
         }
         private void loadUser(int userId)
         {
@@ -131,6 +154,23 @@ namespace ServiceCenter.UserNamagement
             );
         }
 
-        
+        private void updateUser(int userId)
+        {
+            string query = "update users set full_name = @f, email = @e, username = @u, phone = @p, role_id = @r, status_id = @s where user_id = @id";
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@f", txtFullName.Text.Trim()),
+                new SqlParameter("@e", txtEmail.Text.Trim()),
+                new SqlParameter("@u", txtUsername.Text.Trim()),
+                new SqlParameter("@p", txtPhone.Text.Trim()),
+                new SqlParameter("@r", cmbRole.SelectedValue),
+                new SqlParameter("@s", cmbStatus.SelectedValue),
+                new SqlParameter("@id", userid)
+            );
+            if (i > 0)
+            {
+                this.Close();
+                UIHelper.toast("Success Updating", "Success Updateing ");
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace ServiceCenter
 {
     public partial class UserManagementUC : UserControl
     {
+        bool isLoaded = false;
         public UserManagementUC()
         {
             InitializeComponent();
@@ -28,20 +29,24 @@ namespace ServiceCenter
             loadRole();
             addEditButton();
             addDeleteButton();
+            isLoaded = true;
 
             dataGridView1.RowTemplate.Height = 50;
         }
 
         private void initSearchMethod()
         {
-            txtName.KeyPress += loadChange;
             cmbRole.SelectedValueChanged += loadChange;
             cmbStatus.SelectedValueChanged += loadChange;
             dteDate.ValueChanged += loadChange;
             chkDte.CheckedChanged += loadChange;
         }
 
-        private void loadChange(object sender, EventArgs e) => loadUser();
+        private void loadChange(object sender, EventArgs e)
+        {
+            if (!isLoaded) return;
+            loadUser();
+        }
 
 
         object dateValue = (object)DBNull.Value;
@@ -62,7 +67,7 @@ namespace ServiceCenter
         private void loadUser()
         {
             string query = @"
-                    select
+                    SELECT
                         u.user_id,
                         u.full_name as [Full Name],
                         u.email as Email,
@@ -70,22 +75,37 @@ namespace ServiceCenter
                         s.status_name as Status,
                         r.role_name as Role,
                         FORMAT(u.created_at, 'MMMM d, yyyy') as [Joined Date],
-                        u.last_active as [Last Active]
+                        CASE
+                            WHEN DATEDIFF(MINUTE, u.last_active, GETDATE()) < 1
+                                THEN 'Just Now'
+                            WHEN DATEDIFF(MINUTE, u.last_active, GETDATE()) < 60
+                                THEN CAST(DATEDIFF(MINUTE, u.last_active, GETDATE()) AS VARCHAR(20)) + ' minutes ago'
+                            WHEN DATEDIFF(HOUR, u.last_active, GETDATE()) < 24
+                                THEN CAST(DATEDIFF(HOUR, u.last_active, GETDATE()) AS VARCHAR(20))+ ' hours ago'
+                            WHEN DATEDIFF(DAY, u.last_active, GETDATE()) < 30
+                                THEN CAST(DATEDIFF(DAY, u.last_active, GETDATE()) AS VARCHAR(20)) + ' days ago'
+                            WHEN DATEDIFF(WEEK, u.last_active, GETDATE()) < 7
+                                THEN CAST(DATEDIFF(WEEK, u.last_active, GETDATE()) AS VARCHAR(20)) + ' weeks ago'
+                            WHEN DATEDIFF(MONTH, u.last_active, GETDATE()) < 12
+                                THEN CAST(DATEDIFF(MONTH, u.last_active, GETDATE()) AS VARCHAR(20)) + ' months ago'
+                            ELSE 
+                                CAST(DATEDIFF(YEAR, u.last_active, GETDATE()) AS VARCHAR(20))+ ' years ago'
+                        END AS [Last Active]
                     FROM users u
                     JOIN user_status s ON s.status_id = u.status_id
                     JOIN roles r ON r.role_id = u.role_id
                     WHERE 
-                        (@name is null or u.full_name like @name) 
-                        and (@role is null OR r.role_id = @role) 
-                        and (u.status_id = @status or @status is null) 
-                        and (@date is null or cast(@date AS Date) = cast(u.created_at AS Date))";
+                        (@name IS NULL OR u.full_name LIKE @name) 
+                        AND (@role IS NULL OR r.role_id = @role) 
+                        AND (u.status_id = @status or @status IS NULL) 
+                        AND (@date IS NULL OR CAST(@date AS DATE) = CAST(u.created_at AS DATE))";
             dataGridView1.DataSource = DBHelper.executeQuery(query,
                 new SqlParameter("@name", "%" + txtName.Text + "%"),
                 new SqlParameter("@role", cmbRole.SelectedValue == null ? (object)DBNull.Value : cmbRole.SelectedValue),
                 new SqlParameter("@status", cmbStatus.SelectedValue == null ? (object)DBNull.Value : cmbStatus.SelectedValue),
                 new SqlParameter("@date", dteDate.Value == null ? (object)DBNull.Value : dateValue)
             );
-            if (dataGridView1.Columns.Contains("user_id")) dataGridView1.Columns["user_id"].Visible=false;
+            if (dataGridView1.Columns.Contains("user_id")) dataGridView1.Columns["user_id"].Visible = false;
         }
         private void loadRole()
         {
@@ -154,7 +174,7 @@ namespace ServiceCenter
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 int userid = Convert.ToInt32(row.Cells["user_id"].Value);
-                string username = row.Cells["username"].Value.ToString();
+                string username = row.Cells["Username"].Value.ToString();
                 if (dataGridView1.Columns[e.ColumnIndex].Name == "btnEdit")
                 {
                     if (dataGridView1.Columns[e.ColumnIndex].Name == "btnEdit")
@@ -170,7 +190,7 @@ namespace ServiceCenter
                         int i = DBHelper.executeNonQuery("delete from users where user_id = @id",
                             new SqlParameter("@id", userid)
                         );
-                        if (i >0)
+                        if (i > 0)
                         {
                             UIHelper.toast("Success Deleting", $"{username} Has Been Deleted From User List");
                         }
@@ -180,6 +200,16 @@ namespace ServiceCenter
             }
         }
 
-        
+        private void tmrSearchDelay_Tick(object sender, EventArgs e)
+        {
+            tmrSearchDelay.Stop();
+            loadUser();
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            tmrSearchDelay.Stop();
+            tmrSearchDelay.Start();
+        }
     }
 }

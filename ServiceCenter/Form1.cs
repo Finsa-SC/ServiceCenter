@@ -81,13 +81,13 @@ namespace ServiceCenter
         private void initButton()
         {
             btnUserManagement.MouseEnter += Hover_MouseEnter;
-            btnAssignment.MouseEnter += Hover_MouseEnter;
+            btnServiceOrder.MouseEnter += Hover_MouseEnter;
 
             btnUserManagement.MouseLeave += Hover_MouseLeave;
-            btnAssignment.MouseLeave += Hover_MouseLeave;
+            btnServiceOrder.MouseLeave += Hover_MouseLeave;
 
             btnUserManagement.MouseHover += Mouse_hover_button;
-            btnAssignment.MouseHover += Mouse_hover_button;
+            btnServiceOrder.MouseHover += Mouse_hover_button;
             pctProfile.MouseHover += Mouse_hover_button;
         }
         private void Hover_MouseEnter(object sender, EventArgs e)
@@ -154,7 +154,7 @@ namespace ServiceCenter
             }
         }
 
-        bool wantShow=false;
+        bool wantShow = false;
         private void tmrTitleSlide_Tick(object sender, EventArgs e)
         {
             int speed = 2;
@@ -196,7 +196,7 @@ namespace ServiceCenter
 
         private void pnlTitle_MouseLeave(object sender, EventArgs e)
         {
-            if(!pnlTitle.ClientRectangle.Contains(
+            if (!pnlTitle.ClientRectangle.Contains(
                 pnlTitle.PointToClient(Cursor.Position)))
             {
                 wantShow = false;
@@ -209,14 +209,19 @@ namespace ServiceCenter
 
         private void Mouse_hover_button(object sender, EventArgs e)
         {
-            if(sender is Button btn)
+            if (sender is Button btn)
             {
                 toolTip1.SetToolTip(btn, btn.Tag.ToString());
             }
-            else if(sender is PictureBox pct)
+            else if (sender is PictureBox pct)
             {
                 toolTip1.SetToolTip(pct, pct.Tag.ToString());
             }
+        }
+
+        private void btnServiceOrder_Click(object sender, EventArgs e)
+        {
+            loadUC(new ServiceOrder.ServiceOrdersUC());
         }
     }
 }

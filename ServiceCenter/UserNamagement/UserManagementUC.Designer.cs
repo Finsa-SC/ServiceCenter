@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserManagementUC));
@@ -42,6 +43,7 @@
             pictureBox4 = new PictureBox();
             dteDate = new DateTimePicker();
             chkDte = new CheckBox();
+            tmrSearchDelay = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -77,6 +79,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.GridColor = SystemColors.ScrollBar;
             dataGridView1.Location = new Point(37, 97);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
@@ -96,6 +99,7 @@
             txtName.PlaceholderText = "   Search...";
             txtName.Size = new Size(419, 39);
             txtName.TabIndex = 2;
+            txtName.TextChanged += txtName_TextChanged;
             // 
             // btnAdd
             // 
@@ -210,6 +214,11 @@
             chkDte.UseVisualStyleBackColor = true;
             chkDte.CheckedChanged += chkDte_CheckedChanged;
             // 
+            // tmrSearchDelay
+            // 
+            tmrSearchDelay.Interval = 500;
+            tmrSearchDelay.Tick += tmrSearchDelay_Tick;
+            // 
             // UserManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -252,5 +261,6 @@
         private PictureBox pictureBox4;
         private DateTimePicker dteDate;
         private CheckBox chkDte;
+        private System.Windows.Forms.Timer tmrSearchDelay;
     }
 }

@@ -175,9 +175,11 @@ namespace ServiceCenter.UserNamagement
         }
         private bool checkEmail()
         {
-            string query = "select count(*) from users where email = @g";
+            string query = "select count(*) from users where email = @e and user_id != @id";
             int i = DBHelper.executeReader(query, dr =>
-                Convert.ToInt32(dr[0])
+                Convert.ToInt32(dr[0]),
+                new SqlParameter("@e", txtEmail.Text),
+                new SqlParameter("@id", userid != 0? userid:0)
             ).FirstOrDefault();
             if (i > 0) return true; 
             return false;

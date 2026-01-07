@@ -13,6 +13,23 @@ namespace ServiceCenter.core.network
     {
         private static string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
 
+        public static object executeScalar(string query, params SqlParameter[] parameter)
+        {
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(connectionString)) 
+                using(SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    if (parameter != null) cmd.Parameters.AddRange(parameter);
+                    conn.Open();
+                    return cmd.ExecuteScalar();
+                }
+            }
+            catch(Exception ex) {
+                UIHelper.toast("Failed Get Data: ", ex.Message);
+                return -1;
+            }
+        }
         public static int executeNonQuery(string query, params SqlParameter[] parameter)
         {
             try
@@ -70,7 +87,7 @@ namespace ServiceCenter.core.network
                         }
                     }
                 }
-            }catch(Exception ex) {UIHelper.toast("Failed to Get Data", ex.Message); }
+            }catch(Exception ex) {UIHelper.toast("Failed to Read Data", ex.Message); }
             return list;
         }
     }

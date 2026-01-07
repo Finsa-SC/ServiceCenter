@@ -43,7 +43,7 @@
             navPanel = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             btnUserManagement = new Button();
-            btnAssignment = new Button();
+            btnServiceOrder = new Button();
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -188,7 +188,7 @@
             // 
             flowLayoutPanel1.BackColor = Color.FromArgb(29, 31, 31);
             flowLayoutPanel1.Controls.Add(btnUserManagement);
-            flowLayoutPanel1.Controls.Add(btnAssignment);
+            flowLayoutPanel1.Controls.Add(btnServiceOrder);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -216,24 +216,25 @@
             btnUserManagement.UseVisualStyleBackColor = false;
             btnUserManagement.Click += btnUserManagement_Click_1;
             // 
-            // btnAssignment
+            // btnServiceOrder
             // 
-            btnAssignment.BackColor = Color.FromArgb(29, 31, 31);
-            btnAssignment.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
-            btnAssignment.FlatAppearance.BorderSize = 0;
-            btnAssignment.FlatAppearance.MouseDownBackColor = Color.DimGray;
-            btnAssignment.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
-            btnAssignment.FlatStyle = FlatStyle.Flat;
-            btnAssignment.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAssignment.ForeColor = Color.White;
-            btnAssignment.Location = new Point(6, 81);
-            btnAssignment.Margin = new Padding(6, 3, 3, 3);
-            btnAssignment.Name = "btnAssignment";
-            btnAssignment.Size = new Size(72, 72);
-            btnAssignment.TabIndex = 0;
-            btnAssignment.Tag = "apalah";
-            btnAssignment.Text = "Users Management";
-            btnAssignment.UseVisualStyleBackColor = false;
+            btnServiceOrder.BackColor = Color.FromArgb(29, 31, 31);
+            btnServiceOrder.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnServiceOrder.FlatAppearance.BorderSize = 0;
+            btnServiceOrder.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnServiceOrder.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnServiceOrder.FlatStyle = FlatStyle.Flat;
+            btnServiceOrder.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnServiceOrder.ForeColor = Color.White;
+            btnServiceOrder.Image = (Image)resources.GetObject("btnServiceOrder.Image");
+            btnServiceOrder.Location = new Point(6, 81);
+            btnServiceOrder.Margin = new Padding(6, 3, 3, 3);
+            btnServiceOrder.Name = "btnServiceOrder";
+            btnServiceOrder.Size = new Size(72, 72);
+            btnServiceOrder.TabIndex = 0;
+            btnServiceOrder.Tag = "apalah";
+            btnServiceOrder.UseVisualStyleBackColor = false;
+            btnServiceOrder.Click += btnServiceOrder_Click;
             // 
             // pctProfile
             // 
@@ -322,7 +323,7 @@
         private System.Windows.Forms.Timer timer1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button btnUserManagement;
-        private Button btnAssignment;
+        private Button btnServiceOrder;
         private PictureBox pctProfile;
         private Panel pnlProfile;
         private System.Windows.Forms.Timer tmrProfileSlide;

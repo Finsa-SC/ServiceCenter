@@ -12,9 +12,20 @@ namespace ServiceCenter.ServiceOrder
 {
     public partial class AddVehicleUC : UserControl
     {
-        public AddVehicleUC()
+        public AddVehicleUC(string model)
         {
             InitializeComponent();
+            txtMode.Text = model;
+            loadYear();
+        }
+
+        private void loadYear()
+        {
+            cmbYears.Items.Clear();
+            for(int years = DateTime.Now.Year; years >= 1880; years--)
+            {
+                cmbYears.Items.Add(years);
+            }
         }
     }
 }

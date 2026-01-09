@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceCenter.core.util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,11 @@ namespace ServiceCenter.ServiceOrder
         {
             InitializeComponent();
             txtName.Text = customer;
+        }
+
+        private void txtNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ValidationHelper.onlyDigit(e);
         }
     }
 }

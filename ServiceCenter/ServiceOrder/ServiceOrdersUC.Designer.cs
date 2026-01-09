@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            panel1 = new Panel();
-            pictureBox1 = new PictureBox();
-            label3 = new Label();
-            label4 = new Label();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panel2 = new Panel();
+            btnCancel = new Button();
+            btnApply = new Button();
             dteEstimate = new DateTimePicker();
             label2 = new Label();
             label1 = new Label();
-            richTextBox1 = new RichTextBox();
+            txtIssue = new RichTextBox();
             btnAddVehicle = new Button();
             btnAddCustomer = new Button();
             dgvVehicle = new DataGridView();
@@ -51,62 +49,19 @@
             pnlAct = new Panel();
             tmrCustomerDelay = new System.Windows.Forms.Timer(components);
             tmrVehicleDelay = new System.Windows.Forms.Timer(components);
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvVehicle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             SuspendLayout();
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label4);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(903, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(816, 420);
-            panel1.TabIndex = 6;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.fairy_icon;
-            pictureBox1.Location = new Point(253, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(319, 291);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Times New Roman", 15F, FontStyle.Bold | FontStyle.Italic);
-            label3.ForeColor = Color.FromArgb(96, 232, 254);
-            label3.Location = new Point(273, 373);
-            label3.Name = "label3";
-            label3.Size = new Size(195, 34);
-            label3.TabIndex = 3;
-            label3.Text = "Service Center";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe Print", 50F, FontStyle.Bold | FontStyle.Italic);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(253, 241);
-            label4.Name = "label4";
-            label4.Size = new Size(331, 177);
-            label4.TabIndex = 4;
-            label4.Text = "Fairy";
-            // 
             // panel2
             // 
+            panel2.Controls.Add(btnCancel);
+            panel2.Controls.Add(btnApply);
             panel2.Controls.Add(dteEstimate);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label1);
-            panel2.Controls.Add(richTextBox1);
+            panel2.Controls.Add(txtIssue);
             panel2.Controls.Add(btnAddVehicle);
             panel2.Controls.Add(btnAddCustomer);
             panel2.Controls.Add(dgvVehicle);
@@ -119,10 +74,35 @@
             panel2.Size = new Size(903, 993);
             panel2.TabIndex = 7;
             // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.Firebrick;
+            btnCancel.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(354, 913);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(190, 50);
+            btnCancel.TabIndex = 9;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnApply
+            // 
+            btnApply.BackColor = SystemColors.Highlight;
+            btnApply.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnApply.ForeColor = Color.White;
+            btnApply.Location = new Point(550, 913);
+            btnApply.Name = "btnApply";
+            btnApply.Size = new Size(190, 50);
+            btnApply.TabIndex = 9;
+            btnApply.Text = "Apply";
+            btnApply.UseVisualStyleBackColor = false;
+            // 
             // dteEstimate
             // 
             dteEstimate.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dteEstimate.Location = new Point(79, 914);
+            dteEstimate.Location = new Point(79, 850);
             dteEstimate.Name = "dteEstimate";
             dteEstimate.Size = new Size(661, 39);
             dteEstimate.TabIndex = 15;
@@ -131,7 +111,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(79, 883);
+            label2.Location = new Point(79, 819);
             label2.Name = "label2";
             label2.Size = new Size(154, 28);
             label2.TabIndex = 13;
@@ -141,26 +121,26 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(98, 504);
+            label1.Location = new Point(98, 440);
             label1.Name = "label1";
             label1.Size = new Size(59, 28);
             label1.TabIndex = 14;
             label1.Text = "Issue";
             // 
-            // richTextBox1
+            // txtIssue
             // 
-            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(79, 535);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(661, 337);
-            richTextBox1.TabIndex = 12;
-            richTextBox1.Text = "";
+            txtIssue.BorderStyle = BorderStyle.FixedSingle;
+            txtIssue.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtIssue.Location = new Point(79, 471);
+            txtIssue.Name = "txtIssue";
+            txtIssue.Size = new Size(661, 337);
+            txtIssue.TabIndex = 12;
+            txtIssue.Text = "";
             // 
             // btnAddVehicle
             // 
             btnAddVehicle.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            btnAddVehicle.Location = new Point(760, 284);
+            btnAddVehicle.Location = new Point(748, 277);
             btnAddVehicle.Name = "btnAddVehicle";
             btnAddVehicle.Size = new Size(44, 39);
             btnAddVehicle.TabIndex = 10;
@@ -172,7 +152,7 @@
             // btnAddCustomer
             // 
             btnAddCustomer.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            btnAddCustomer.Location = new Point(760, 35);
+            btnAddCustomer.Location = new Point(748, 54);
             btnAddCustomer.Name = "btnAddCustomer";
             btnAddCustomer.Size = new Size(44, 39);
             btnAddCustomer.TabIndex = 11;
@@ -190,27 +170,28 @@
             dgvVehicle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dgvVehicle.BackgroundColor = SystemColors.ControlLightLight;
             dgvVehicle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvVehicle.DefaultCellStyle = dataGridViewCellStyle1;
-            dgvVehicle.Location = new Point(79, 347);
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvVehicle.DefaultCellStyle = dataGridViewCellStyle5;
+            dgvVehicle.Location = new Point(81, 307);
             dgvVehicle.Name = "dgvVehicle";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.Chocolate;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.Chocolate;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvVehicle.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvVehicle.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.Chocolate;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.Chocolate;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvVehicle.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvVehicle.RowHeadersVisible = false;
             dgvVehicle.RowHeadersWidth = 62;
-            dgvVehicle.Size = new Size(661, 136);
+            dgvVehicle.Size = new Size(661, 113);
             dgvVehicle.TabIndex = 8;
             dgvVehicle.CellContentClick += dgvVehicle_CellContentClick;
             // 
@@ -223,35 +204,37 @@
             dgvCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dgvCustomer.BackgroundColor = SystemColors.ControlLightLight;
             dgvCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvCustomer.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgvCustomer.DefaultCellStyle = dataGridViewCellStyle7;
             dgvCustomer.Location = new Point(79, 98);
             dgvCustomer.Name = "dgvCustomer";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.Chocolate;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = Color.Chocolate;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvCustomer.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvCustomer.ReadOnly = true;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.Chocolate;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = Color.Chocolate;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgvCustomer.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dgvCustomer.RowHeadersVisible = false;
             dgvCustomer.RowHeadersWidth = 62;
-            dgvCustomer.Size = new Size(661, 136);
+            dgvCustomer.Size = new Size(661, 113);
             dgvCustomer.TabIndex = 9;
             dgvCustomer.CellContentClick += dgvCustomer_CellContentClick;
             // 
             // txtVehicleSearch
             // 
             txtVehicleSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtVehicleSearch.Enabled = false;
             txtVehicleSearch.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtVehicleSearch.Location = new Point(79, 288);
+            txtVehicleSearch.Location = new Point(81, 262);
             txtVehicleSearch.Name = "txtVehicleSearch";
             txtVehicleSearch.PlaceholderText = " Search Vehicle...";
             txtVehicleSearch.Size = new Size(661, 39);
@@ -262,7 +245,7 @@
             // 
             txtCustomerSearch.BorderStyle = BorderStyle.FixedSingle;
             txtCustomerSearch.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtCustomerSearch.Location = new Point(79, 39);
+            txtCustomerSearch.Location = new Point(79, 53);
             txtCustomerSearch.Name = "txtCustomerSearch";
             txtCustomerSearch.PlaceholderText = " Search Customer...";
             txtCustomerSearch.Size = new Size(661, 39);
@@ -271,10 +254,10 @@
             // 
             // pnlAct
             // 
-            pnlAct.Dock = DockStyle.Fill;
-            pnlAct.Location = new Point(903, 420);
+            pnlAct.Dock = DockStyle.Top;
+            pnlAct.Location = new Point(903, 0);
             pnlAct.Name = "pnlAct";
-            pnlAct.Size = new Size(816, 573);
+            pnlAct.Size = new Size(816, 872);
             pnlAct.TabIndex = 8;
             // 
             // tmrCustomerDelay
@@ -292,13 +275,9 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(pnlAct);
-            Controls.Add(panel1);
             Controls.Add(panel2);
             Name = "ServiceOrdersUC";
             Size = new Size(1719, 993);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvVehicle).EndInit();
@@ -307,15 +286,11 @@
         }
 
         #endregion
-        private Panel panel1;
-        private PictureBox pictureBox1;
-        private Label label3;
-        private Label label4;
         private Panel panel2;
         private DateTimePicker dteEstimate;
         private Label label2;
         private Label label1;
-        private RichTextBox richTextBox1;
+        private RichTextBox txtIssue;
         private Button btnAddVehicle;
         private Button btnAddCustomer;
         private DataGridView dgvVehicle;
@@ -325,5 +300,7 @@
         private Panel pnlAct;
         private System.Windows.Forms.Timer tmrCustomerDelay;
         private System.Windows.Forms.Timer tmrVehicleDelay;
+        private Button btnCancel;
+        private Button btnApply;
     }
 }

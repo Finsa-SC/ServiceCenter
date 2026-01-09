@@ -17,7 +17,6 @@ namespace ServiceCenter.ServiceOrder
         public ServiceOrdersUC()
         {
             InitializeComponent();
-            loadUC(new AddOrderUC());
         }
         private int customerID = 0;
         private int vehicleID = 0;
@@ -36,12 +35,12 @@ namespace ServiceCenter.ServiceOrder
 
         private void btnAddVehicle_Click(object sender, EventArgs e)
         {
-            loadUC(new AddVehicleUC());
+            loadUC(new AddVehicleUC(txtVehicleSearch.Text));
         }
 
         private void addButtonUse(DataGridView dgv)
         {
-            if (dgv.Columns.Contains("btnUse")) return;
+            if (dgv.Columns.Contains("btnUse")) dgv.Columns.Remove("btnUse");
             DataGridViewImageColumn img = new DataGridViewImageColumn();
             img.HeaderText = "USE";
             img.Name = "btnUse";
@@ -65,8 +64,10 @@ namespace ServiceCenter.ServiceOrder
                 new SqlParameter("@m", "%" + txtVehicleSearch.Text + "%"),
                 new SqlParameter("@c", cid)
             );
-            if (dgvVehicle.Columns.Contains("vehicle_id")) dgvVehicle.Columns["vehicle_id"].Visible = false;
             addButtonUse(dgvVehicle);
+            if (dgvVehicle.Columns.Contains("vehicle_id")) dgvVehicle.Columns["vehicle_id"].Visible = false;
+
+            dgvVehicle.ClearSelection();
         }
 
 
@@ -84,13 +85,14 @@ namespace ServiceCenter.ServiceOrder
         private void tmrCustomerDelay_Tick(object sender, EventArgs e)
         {
             tmrCustomerDelay.Stop();
-            loadCustomer();
+            if(!string.IsNullOrWhiteSpace(txtCustomerSearch.Text)) loadCustomer();
+
         }
 
         private void tmrVehicleDelay_Tick(object sender, EventArgs e)
         {
             tmrVehicleDelay.Stop();
-            loadVehicle(customerID);
+            if (!string.IsNullOrWhiteSpace(txtVehicleSearch.Text)) loadVehicle(customerID);
         }
 
         private void dgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -105,6 +107,7 @@ namespace ServiceCenter.ServiceOrder
                     txtCustomerSearch.Enabled = false;
                     dgvCustomer.DataSource = null;
                     loadVehicle(customerID);
+                    txtVehicleSearch.Enabled = true;
                 }
             }
         }
@@ -113,14 +116,26 @@ namespace ServiceCenter.ServiceOrder
         {
             if (e.RowIndex >= 0)
             {
-                if (dgvCustomer.Columns[e.ColumnIndex].Name == "btnUse")
+                if (dgvVehicle.Columns[e.ColumnIndex].Name == "btnUse")
                 {
                     DataGridViewRow row = dgvVehicle.Rows[e.RowIndex];
-                    txtVehicleSearch.Text = row.Cells["Model"].ToString();
+                    txtVehicleSearch.Text = row.Cells["Model"].Value.ToString();
                     vehicleID = Convert.ToInt32(row.Cells["vehicle_id"].Value);
                     dgvVehicle.DataSource = null;
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            txtCustomerSearch.Clear();
+            txtCustomerSearch.Enabled = true;
+            txtVehicleSearch.Enabled = false;
+            txtVehicleSearch.Clear();
+            txtIssue.Text = null;
+            dteEstimate.Value = DateTime.Now;
+            dgvCustomer.DataSource = null;
+            dgvVehicle.DataSource = null;
         }
     }
 }

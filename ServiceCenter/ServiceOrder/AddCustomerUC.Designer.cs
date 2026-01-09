@@ -56,6 +56,7 @@
             txtNumber.Name = "txtNumber";
             txtNumber.Size = new Size(558, 39);
             txtNumber.TabIndex = 0;
+            txtNumber.KeyPress += txtNumber_KeyPress;
             // 
             // txtName
             // 

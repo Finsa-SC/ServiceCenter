@@ -56,5 +56,23 @@ namespace ServiceCenter.core.util
             }
             return false;
         }
+        public static bool checkEmail(string email)
+        {
+            if (!email.Trim().EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+            {
+                UIHelper.toast("Invalid Email", "Sorry, your email is in incorrect format");
+                return true;
+            }
+            return false;
+        }
+        public static bool checkPhone(string phone)
+        {
+            if (!phone.Trim().StartsWith("08") || (phone.Length<10 || phone.Length>14))
+            {
+                UIHelper.toast("Invalid Phone Number", "Sorry, your phone number is in incorrect format");
+                return true;
+            }
+            return false;
+        }
     }
 }

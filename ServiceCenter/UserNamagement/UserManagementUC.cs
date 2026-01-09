@@ -40,6 +40,7 @@ namespace ServiceCenter
             cmbStatus.SelectedValueChanged += loadChange;
             dteDate.ValueChanged += loadChange;
             chkDte.CheckedChanged += loadChange;
+            dteDate.ValueChanged += loadChange;
         }
 
         private void loadChange(object sender, EventArgs e)
@@ -49,17 +50,14 @@ namespace ServiceCenter
         }
 
 
-        object dateValue = (object)DBNull.Value;
         private void chkDte_CheckedChanged(object sender, EventArgs e)
         {
             if (chkDte.Checked)
             {
-                dateValue = dteDate.Value.Date;
                 dteDate.Enabled = true;
             }
             else
             {
-                dateValue = (object)DBNull.Value;
                 dteDate.Enabled = false;
             }
         }
@@ -103,7 +101,7 @@ namespace ServiceCenter
                 new SqlParameter("@name", "%" + txtName.Text + "%"),
                 new SqlParameter("@role", cmbRole.SelectedValue == null ? (object)DBNull.Value : cmbRole.SelectedValue),
                 new SqlParameter("@status", cmbStatus.SelectedValue == null ? (object)DBNull.Value : cmbStatus.SelectedValue),
-                new SqlParameter("@date", dteDate.Value == null ? (object)DBNull.Value : dateValue)
+                new SqlParameter("@date", dteDate.Enabled == false? (object)DBNull.Value : dteDate.Value)
             );
             if (dataGridView1.Columns.Contains("user_id")) dataGridView1.Columns["user_id"].Visible = false;
         }

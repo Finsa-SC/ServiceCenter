@@ -26,6 +26,7 @@ namespace ServiceCenter
                 form.ShowDialog();
             }
             UIHelper.toast("Login Success", $"Welcome Back Again {UserSession.userName}, Great to Meet You!");
+            chectUserRole();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -222,6 +223,39 @@ namespace ServiceCenter
         private void btnServiceOrder_Click(object sender, EventArgs e)
         {
             loadUC(new ServiceOrder.ServiceOrdersUC());
+        }
+
+
+        public void chectUserRole()
+        {
+            if (UserSession.roleString == "Developer") return;
+            relogButton();
+            UserControl? uc = null;
+            switch (UserSession.roleId)
+            {
+                case 1:
+                    btnUserManagement.Visible = true;
+                    btnServiceOrder.Visible = true;
+                    uc = new UserManagementUC();
+                    break;
+                case 2:
+                    btnUserManagement.Visible = false;
+                    btnServiceOrder.Visible = false;
+                    break;
+                case 4:
+                    btnServiceOrder.Visible = true;
+                    uc = new ServiceOrder.ServiceOrdersUC();
+                    break;
+                case 5:
+                    btnUserManagement.Visible = false;
+                    break;
+            }
+            loadUC(uc);
+        }
+        private void relogButton()
+        {
+            btnUserManagement.Visible = false;
+            btnServiceOrder.Visible = false;
         }
     }
 }

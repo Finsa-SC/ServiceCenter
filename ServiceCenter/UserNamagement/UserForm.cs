@@ -62,21 +62,14 @@ namespace ServiceCenter.UserNamagement
             cmbStatus.SelectedIndex = -1;
         }
 
-        string? image;
+        string? stringImage;
         private void btnImport_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            var (result, image) = ImageHelper.uploadImage();
+            if(result == DialogResult.OK)
             {
-                ofd.Filter = "Image File | *.png;*.img;*.jpg;*.jpeg;";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    using (Image img = Image.FromFile(ofd.FileName))
-                    {
-                        pctProfile.Image?.Dispose();
-                        pctProfile.Image = new Bitmap(img);
-                    }
-                    image = ofd.FileName;
-                }
+                stringImage = image;
+                ImageHelper.loadImage(pctProfile, image);
             }
         }
 
@@ -88,6 +81,7 @@ namespace ServiceCenter.UserNamagement
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.checkEmail(txtEmail.Text)) return;
             if(checkEmail()) { UIHelper.toast("Exists Items", "Email Address Already Taken"); return; }
 
             if (mode == DialogMode.CreateUser)
@@ -110,11 +104,10 @@ namespace ServiceCenter.UserNamagement
 
         private void createUser()
         {
-            if (!txtEmail.Text.Trim().EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase)) { UIHelper.toast("Invalid Format", "Email format is incorrect"); return; }
+            if (ValidationHelper.checkEmail(txtEmail.Text)) return; 
             if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Security Report", "password is not the same, please pay attention to your password"); return; }
             if (txtPassword.TextLength < 8) { UIHelper.toast("Security Report", "Your password is too weak to be called a password, please try a stronger password."); return; }
-            if (!txtPhone.Text.Trim().StartsWith("08")) { UIHelper.toast("Invalid Format", "phone number format is incorrect"); return; }
-            if (txtPhone.Text.Length < 10 || txtPhone.Text.Length > 12) { UIHelper.toast("Invalid Number", "phone number is invalid "); return; }
+            if (ValidationHelper.checkPhone(txtPhone.Text)) return;
 
             string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
             int i = DBHelper.executeNonQuery(query,
@@ -125,7 +118,7 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
-                new SqlParameter("@img", !string.IsNullOrWhiteSpace(image) ? image : DBNull.Value)
+                new SqlParameter("@img", !string.IsNullOrWhiteSpace(stringImage) ? stringImage : DBNull.Value)
             );
             if (i > 0) { 
                 this.Close();

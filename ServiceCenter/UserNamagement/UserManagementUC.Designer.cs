@@ -192,11 +192,11 @@
             dteDate.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
             dteDate.Format = DateTimePickerFormat.Custom;
             dteDate.Location = new Point(1145, 30);
-            dteDate.MaxDate = new DateTime(2026, 1, 4, 0, 0, 0, 0);
+            dteDate.MaxDate = new DateTime(2026, 1, 9, 0, 0, 0, 0);
             dteDate.Name = "dteDate";
             dteDate.Size = new Size(264, 37);
             dteDate.TabIndex = 6;
-            dteDate.Value = new DateTime(2026, 1, 4, 0, 0, 0, 0);
+            dteDate.Value = new DateTime(2026, 1, 9, 0, 0, 0, 0);
             // 
             // chkDte
             // 

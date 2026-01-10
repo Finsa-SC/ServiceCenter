@@ -15,6 +15,7 @@ namespace ServiceCenter.ServiceOrder
 {
     public partial class AddCustomerUC : UserControl
     {
+        public event Action customerAdded;
         public AddCustomerUC(string customer)
         {
             InitializeComponent();
@@ -40,7 +41,11 @@ namespace ServiceCenter.ServiceOrder
                 new SqlParameter("@e", txtEmail.Text.Trim()),
                 new SqlParameter("@a", txtAddress.Text.Trim())
             );
-            if (i > 0) UIHelper.toast("Success", "Success Adding Customer");
+            if (i > 0) 
+            {
+                UIHelper.toast("Success", "Success Adding Customer");
+                customerAdded?.Invoke();
+            }
         }
     }
 }

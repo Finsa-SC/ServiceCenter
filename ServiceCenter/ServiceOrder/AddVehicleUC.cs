@@ -15,6 +15,7 @@ namespace ServiceCenter.ServiceOrder
     public partial class AddVehicleUC : UserControl
     {
         int customerId;
+        public event Action vehicleAdded;
         public AddVehicleUC(string model, int cusId)
         {
             InitializeComponent();
@@ -38,13 +39,17 @@ namespace ServiceCenter.ServiceOrder
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@c", customerId),
                 new SqlParameter("@p", txtPlat.Text.Trim()),
-                new SqlParameter("@b", cmbBrand.Text),
+                new SqlParameter("@b", cmbBrand.SelectedItem),
                 new SqlParameter("@m", txtMode.Text.Trim()),
-                new SqlParameter("@y", cmbYears.Text),
+                new SqlParameter("@y", cmbYears.SelectedItem),
                 new SqlParameter("@e", txtEng.Text.Trim()),
                 new SqlParameter("@f", txtFrm.Text.Trim())
             );
-            if (i > 0) UIHelper.toast("Sucess", "Success Adding Vehicle");
+            if (i > 0)
+            {
+                UIHelper.toast("Sucess", "Success Adding Vehicle");
+                vehicleAdded?.Invoke();
+            }
         }
     }
 }

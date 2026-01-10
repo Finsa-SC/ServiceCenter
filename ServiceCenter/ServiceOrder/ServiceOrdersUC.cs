@@ -32,12 +32,24 @@ namespace ServiceCenter.ServiceOrder
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            loadUC(new AddCustomerUC(txtCustomerSearch.Text));
+            var AddCustomer = new AddCustomerUC(txtCustomerSearch.Text);
+            AddCustomer.customerAdded += () =>
+            {
+                loadCustomer();
+                pnlAct.Controls.Clear();
+            };
+            loadUC(AddCustomer);
         }
 
         private void btnAddVehicle_Click(object sender, EventArgs e)
         {
-            loadUC(new AddVehicleUC(txtVehicleSearch.Text, customerID));
+            var AddVehicle = new AddVehicleUC(txtVehicleSearch.Text, customerID);
+            AddVehicle.vehicleAdded += () =>
+            {
+                loadVehicle(customerID);
+                pnlAct.Controls.Clear();
+            };
+            loadUC(AddVehicle);
         }
 
         private void addButtonUse(DataGridView dgv)
@@ -52,14 +64,14 @@ namespace ServiceCenter.ServiceOrder
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             img.Width = 50;
         }
-        private void loadCustomer()
+        public void loadCustomer()
         {
             string query = "SELECT customer_id, full_name AS [Full Name], phone AS Phone, email AS Email FROM customers WHERE full_name LIKE @c";
             dgvCustomer.DataSource = DBHelper.executeQuery(query, new SqlParameter("@c", "%" + txtCustomerSearch.Text + "%"));
             if (dgvCustomer.Columns.Contains("customer_id")) dgvCustomer.Columns["customer_id"].Visible = false;
             addButtonUse(dgvCustomer);
         }
-        private void loadVehicle(int cid)
+        public void loadVehicle(int cid)
         {
             string query = "SELECT vehicle_id, brand AS Brand, model AS Model, plate_number AS [Plate Number] FROM vehicles WHERE model LIKE @m AND customer_id = @c";
             dgvVehicle.DataSource = DBHelper.executeQuery(query,

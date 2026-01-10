@@ -46,7 +46,11 @@ namespace ServiceCenter
             security();
             string? hashed = null;
             string password = txtPassword.Text.Trim();
-            string query = "select user_id, username, password, role_id, full_name, phone, photo_profile from users where email = @email and status_id = 1";
+            string query = @"
+SELECT u.user_id, u.username, u.password, u.role_id, u.full_name, u.phone, u.photo_profile, t.technician_id
+FROM users u 
+JOIN technicians t ON u.user_id = t.user_id
+WHERE u.email = @email and u.status_id = 1";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@email", txtEmail.Text.Trim()),
@@ -54,13 +58,14 @@ namespace ServiceCenter
             var result = DBHelper.executeReader(query, dr =>
             {
                 hashed = dr["password"].ToString();
-            UserSession.setSession(
-                Convert.ToInt32(dr["user_id"]),
-                dr["username"].ToString(),
-                Convert.ToInt32(dr["role_id"]),
-                dr["full_name"].ToString(),
-                dr["phone"].ToString(),
-                dr["photo_profile"].ToString()
+                UserSession.setSession(
+                    Convert.ToInt32(dr["user_id"]),
+                    dr["username"].ToString(),
+                    Convert.ToInt32(dr["role_id"]),
+                    dr["full_name"].ToString(),
+                    dr["phone"].ToString(),
+                    dr["photo_profile"].ToString(),
+                    Convert.ToInt32(dr["technician_id"])
                 );
                 return true;
             },

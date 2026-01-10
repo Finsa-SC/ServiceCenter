@@ -18,6 +18,7 @@ namespace ServiceCenter
         public static string? phone {  get; private set; }
         public static string? photo {  get; private set; }
         public static string? roleString { get; private set; }
+        public static int? technicianId{  get; private set; }
 
 
         private static void setRole()
@@ -32,7 +33,11 @@ namespace ServiceCenter
 
         public static void loadUserSession()
         {
-            string query = "select user_id, username, role_id, full_name, phone, photo_profile from users where user_id = @userid and status_id = 1";
+            string query = @"
+                    SELECT u.user_id, u.username, u.role_id, u.full_name, u.phone, u.photo_profile t.technician_id 
+                    FROM users u 
+                    JOIN technicians t ON t.user_id = u.user_id
+                    WHERE u.user_id = @userid and u.status_id = 1";
             DBHelper.executeReader(query, dr =>
             {
                  UserSession.setSession(
@@ -41,7 +46,8 @@ namespace ServiceCenter
                      Convert.ToInt32(dr["role_id"]),
                      dr["full_name"].ToString(),
                      dr["phone"].ToString(),
-                     dr["photo_profile"].ToString()
+                     dr["photo_profile"].ToString(),
+                     Convert.ToInt32(dr["tecnician_id"])
                  );
             return true;
             },
@@ -65,7 +71,8 @@ namespace ServiceCenter
             int RoleId,
             string FullName,
             string Phone,
-            string? Photo
+            string? Photo,
+            int TechId
         )
         {
             userId = UserID;
@@ -74,6 +81,7 @@ namespace ServiceCenter
             full_name = FullName;
             phone = Phone;
             photo = Photo;
+            technicianId = TechId;
 
             setRole();
         }
@@ -86,6 +94,7 @@ namespace ServiceCenter
             full_name = null;
             phone = null;
             photo = null;
+            technicianId = null;
         }
     }
 }

@@ -234,7 +234,15 @@ namespace ServiceCenter
 
         public void chectUserRole()
         {
-            if (UserSession.roleString == "Developer") return;
+            if (UserSession.roleString == "Developer")
+            {
+                btnUserManagement.Visible = true;
+                btnServiceOrder.Visible = true;
+                btnServiceProcess.Visible = true;
+                btnServiceWorkshop.Visible = true;
+                return;
+            }
+
             relogButton();
             UserControl? uc = null;
             switch (UserSession.roleId)

@@ -143,7 +143,12 @@ namespace ServiceCenter.UserNamagement
         }
         private void loadUser(int userId)
         {
-            string query = "select full_name, email, username, phone, photo_profile, role_id, status_id from users where user_id = @id";
+            string query = @"
+                    SELECT 
+                        u.full_name, u.email, u.username, u.phone, u.photo_profile, u.role_id, u.status_id, t.skill_level
+                    FROM users u 
+                    LEFT JOIN technicians t ON u.user_id = t.user_id
+                    WHERE u.user_id = @id";
             var i = DBHelper.executeReader(query, dr =>
                 {
                     txtFullName.Text = dr["full_name"].ToString();
@@ -152,6 +157,7 @@ namespace ServiceCenter.UserNamagement
                     txtPhone.Text = dr["phone"].ToString();
                     cmbRole.SelectedValue = Convert.ToInt32(dr["role_id"]);
                     cmbStatus.SelectedValue = Convert.ToInt32(dr["status_id"]);
+                    txtSkill.Text = dr["skill_level"].ToString();
                     string? image = dr["photo_profile"].ToString();
                     if (!string.IsNullOrWhiteSpace(image))
                     {
@@ -166,7 +172,25 @@ namespace ServiceCenter.UserNamagement
 
         private void updateUser(int userId)
         {
-            string query = "UPDATE users set full_name = @f, email = @e, username = @u, phone = @p, role_id = @r, status_id = @s where user_id = @id";
+            string query = @"
+                    DECLARE @role NVARCHAR(20);
+                    UPDATE 
+                        users SET full_name = @f, email = @e, username = @u, phone = @p, role_id = @r, status_id = @s
+                    WHERE 
+                        user_id = @id
+                    SELECT @role = role_name FROM roles WHERE role_id = @r 
+                    IF @role = 'Technician'
+                    BEGIN
+                        IF NOT EXISTS (SELECT 1 FROM technicians WHERE user_id = @id)
+                            INSERT INTO technicians (user_id, skill_level, is_active) VALUES (@id, @skill, 1)
+                        ELSE 
+                            UPDATE technicians SET is_active = 1 WHERE user_id = @id
+                    END
+                    ELSE
+                    BEGIN
+                        UPDATE technicians SET is_active = 0 WHERE user_id = @id
+                    END                    
+                    ";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
                 new SqlParameter("@e", txtEmail.Text.Trim()),
@@ -174,12 +198,13 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@p", txtPhone.Text.Trim()),
                 new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
+                new SqlParameter("@skill", txtSkill.Text.Trim()),
                 new SqlParameter("@id", userid)
             );
             if (i > 0)
             {
-                this.Close();
                 UIHelper.toast("Success Updating", "Success Updateing ");
+                this.Close();
             }
         }
         private bool checkEmail()
@@ -198,14 +223,6 @@ namespace ServiceCenter.UserNamagement
         {
             if (cmbRole.Text == "Technician") { txtSkill.Visible = true; lblSkill.Visible = true; }
             else { txtSkill.Visible = false; lblSkill.Visible = false; }
-            }
-
-        //private void addTechnician()
-        //{
-        //    string query = "INSERT INTO technicians (user_id, skill_level) SELECT @u, @s WHERE EXISTS (SELECT 1 FROM technicians WHERE user_id = @u)";
-        //    int i = DBHelper.executeNonQuery(query,
-        //        new SqlParameter("@u", 
-        //    );
-        //}
+        }
     }
 }

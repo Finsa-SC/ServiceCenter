@@ -32,6 +32,7 @@ namespace ServiceCenter.UserNamagement
                 userid = userId;
                 mode = DialogMode.UpdateUser;
             }
+            dteHire.MaxDate = DateTime.Now.AddMinutes(1);
         }
         private void UserForm_Load(object sender, EventArgs e)
         {
@@ -121,8 +122,8 @@ namespace ServiceCenter.UserNamagement
                     SELECT @roleName = role_name FROM roles WHERE role_id = @r
                     IF @roleName = 'Technician'
                         BEGIN
-                            INSERT INTO technicians (user_id, skill_level, is_active) 
-                            VALUES (@new_userID, @skill, 1)
+                            INSERT INTO technicians (user_id, skill_level, hire_date, is_active) 
+                            VALUES (@new_userID, @skill, @dte, 1)
                         END";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
@@ -133,7 +134,8 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
                 new SqlParameter("@img", !string.IsNullOrWhiteSpace(stringImage) ? stringImage : DBNull.Value),
-                new SqlParameter("@skill", txtSkill.Text.Trim())
+                new SqlParameter("@skill", txtSkill.Text.Trim()),
+                new SqlParameter("@dte", dteHire.Value)
             );
             if (i > 0)
             {
@@ -145,7 +147,7 @@ namespace ServiceCenter.UserNamagement
         {
             string query = @"
                     SELECT 
-                        u.full_name, u.email, u.username, u.phone, u.photo_profile, u.role_id, u.status_id, t.skill_level
+                        u.full_name, u.email, u.username, u.phone, u.photo_profile, u.role_id, u.status_id, t.skill_level, t.hire_date
                     FROM users u 
                     LEFT JOIN technicians t ON u.user_id = t.user_id
                     WHERE u.user_id = @id";
@@ -158,6 +160,7 @@ namespace ServiceCenter.UserNamagement
                     cmbRole.SelectedValue = Convert.ToInt32(dr["role_id"]);
                     cmbStatus.SelectedValue = Convert.ToInt32(dr["status_id"]);
                     txtSkill.Text = dr["skill_level"].ToString();
+                    dteHire.Value = dr["hire_date"] == DBNull.Value ? DateTime.Now : Convert.ToDateTime(dr["hire_date"]);
                     string? image = dr["photo_profile"].ToString();
                     if (!string.IsNullOrWhiteSpace(image))
                     {
@@ -182,9 +185,9 @@ namespace ServiceCenter.UserNamagement
                     IF @role = 'Technician'
                     BEGIN
                         IF NOT EXISTS (SELECT 1 FROM technicians WHERE user_id = @id)
-                            INSERT INTO technicians (user_id, skill_level, is_active) VALUES (@id, @skill, 1)
+                            INSERT INTO technicians (user_id, skill_level, hire_date, is_active) VALUES (@id, @skill, @dte, 1)
                         ELSE 
-                            UPDATE technicians SET is_active = 1 WHERE user_id = @id
+                            UPDATE technicians SET is_active = 1, hire_date = @dte WHERE user_id = @id
                     END
                     ELSE
                     BEGIN
@@ -199,7 +202,8 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
                 new SqlParameter("@skill", txtSkill.Text.Trim()),
-                new SqlParameter("@id", userid)
+                new SqlParameter("@id", userid),
+                new SqlParameter("@dte", dteHire.Value)
             );
             if (i > 0)
             {
@@ -221,8 +225,8 @@ namespace ServiceCenter.UserNamagement
 
         private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbRole.Text == "Technician") { txtSkill.Visible = true; lblSkill.Visible = true; }
-            else { txtSkill.Visible = false; lblSkill.Visible = false; }
+            if (cmbRole.Text == "Technician") pnlTech.Visible = true;
+            else pnlTech.Visible = false;
         }
     }
 }

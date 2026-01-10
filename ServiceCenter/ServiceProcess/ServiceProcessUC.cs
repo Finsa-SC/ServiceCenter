@@ -42,12 +42,16 @@ namespace ServiceCenter
                         c.full_name AS [Customer Name],
                         v.model AS Model,
                         u.username AS [Received by],
+                        st.status_name AS Status,
                         s.complaint AS Complaint,
                         FORMAT(s.entry_date, 'MMMM dd, yyyy') AS Entry
                     FROM service_orders s
                     JOIN customers c ON c.customer_id = s.customer_id
                     JOIN vehicles v ON v.vehicle_id = s.vehicle_id
-                    LEFT JOIN users u ON u.user_id = s.received_by";
+                    JOIN service_status st ON st.status_id = s.status_id
+                    LEFT JOIN users u ON u.user_id = s.received_by
+                    WHERE NOT EXISTS (SELECT 1 FROM service_assignments WHERE service_order_id = s.service_order_id)
+";
 
             dataGridView1.DataSource = DBHelper.executeQuery(query);
             if (dataGridView1.Columns.Contains("service_order_id")) dataGridView1.Columns["service_order_id"].Visible = false;
@@ -69,6 +73,7 @@ namespace ServiceCenter
 
                 FreeTechnicianForm from = new FreeTechnicianForm(serviceID);
                 from.ShowDialog();
+                loadData();
             }
         }
     }

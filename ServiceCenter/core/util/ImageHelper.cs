@@ -23,7 +23,6 @@ namespace ServiceCenter.core.util
             catch(Exception ex) 
             {
                 UIHelper.toast("Failed Load", "Failed while load your Image");
-                pct.Image = Properties.Resources.icons8_user_100;
             }
         }
 

@@ -26,7 +26,7 @@ namespace ServiceCenter.core.network
                 }
             }
             catch(Exception ex) {
-                UIHelper.toast("Failed Get Data: ", ex.Message);
+                MessageBox.Show("Failed Get Data: " + ex.Message);
                 return -1;
             }
         }
@@ -42,7 +42,7 @@ namespace ServiceCenter.core.network
                     return cmd.ExecuteNonQuery();
                 }
             }catch (Exception ex) {
-                UIHelper.toast("Failed Execution", ex.Message);
+                MessageBox.Show("Failed Execution" + ex.Message);
                 return -1;
             }
         }
@@ -65,7 +65,7 @@ namespace ServiceCenter.core.network
                 }
             }catch(Exception ex)
             {
-                UIHelper.toast("Failed Load Data", ex.Message);
+                MessageBox.Show("Failed Load Data" + ex.Message);
                 return new DataTable();
             }
         }
@@ -87,7 +87,7 @@ namespace ServiceCenter.core.network
                         }
                     }
                 }
-            }catch(Exception ex) {UIHelper.toast("Failed to Read Data", ex.Message); }
+            }catch(Exception ex) {MessageBox.Show("Failed to Read Data"+ ex.Message); }
             return list;
         }
     }

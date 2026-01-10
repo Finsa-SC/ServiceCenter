@@ -27,12 +27,14 @@ namespace ServiceCenter.ServiceProcess
         private void loadData()
         {
             string query = @"
-SELECT 
-    t.technician_id,
-    u.username AS Technician,
-    t.skill_level AS [Skill Level]
-FROM technicians t
-JOIN users u ON u.user_id = t.user_id";
+                    SELECT 
+                        t.technician_id,
+                        u.username AS Technician,
+                        t.skill_level AS [Skill Level]
+                    FROM technicians t
+                    JOIN users u ON u.user_id = t.user_id
+                    WHERE NOT EXISTS (SELECT 1 FROM service_assignments WHERE technician_id = t.technician_id AND finished_date IS NULL)
+";
             dataGridView1.DataSource = DBHelper.executeQuery(query);
         }
 
@@ -62,7 +64,17 @@ JOIN users u ON u.user_id = t.user_id";
                     if (!UIHelper.ConfirmationDialog("Assign Order", "Are you sure to apply this order?")) return;
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     int techID = Convert.ToInt32(row.Cells["technician_id"].Value);
-                    string query = "INSERT INTO service_assignments (service_order_id, technician_id, assigned_date) VALUES (@s, @t, GETDATE())";
+                    string query = @"
+BEGIN TRANSACTION;
+BEGIN 
+INSERT INTO 
+    service_assignments (service_order_id, technician_id, assigned_date) 
+VALUES (@s, @t, GETDATE())
+BEGIN
+    UPDATE
+    service_order SET status_id = 2 WHERE service_order_id = @s
+END
+";
                     int i = DBHelper.executeNonQuery(query,
                         new SqlParameter("@s", serviceID),
                         new SqlParameter("@t", techID)

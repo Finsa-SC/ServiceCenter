@@ -51,8 +51,12 @@
             txtCPassword = new TextBox();
             lblSkill = new Label();
             txtSkill = new TextBox();
+            pnlTech = new FlowLayoutPanel();
+            label7 = new Label();
+            dteHire = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)pctProfile).BeginInit();
             flowLayoutPanel1.SuspendLayout();
+            pnlTech.SuspendLayout();
             SuspendLayout();
             // 
             // txtFullName
@@ -175,7 +179,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(981, 63);
+            label5.Location = new Point(964, 142);
             label5.Margin = new Padding(4, 10, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(57, 30);
@@ -189,7 +193,7 @@
             cmbRole.FlatStyle = FlatStyle.Flat;
             cmbRole.ForeColor = Color.White;
             cmbRole.FormattingEnabled = true;
-            cmbRole.Location = new Point(981, 97);
+            cmbRole.Location = new Point(964, 176);
             cmbRole.Margin = new Padding(4);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(241, 38);
@@ -203,7 +207,7 @@
             cmbStatus.FlatStyle = FlatStyle.Flat;
             cmbStatus.ForeColor = Color.White;
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new Point(981, 183);
+            cmbStatus.Location = new Point(964, 94);
             cmbStatus.Margin = new Padding(4);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.Size = new Size(241, 38);
@@ -212,7 +216,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(981, 149);
+            label6.Location = new Point(964, 60);
             label6.Margin = new Padding(4, 10, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(73, 30);
@@ -257,12 +261,10 @@
             flowLayoutPanel1.Controls.Add(txtCPassword);
             flowLayoutPanel1.Controls.Add(label4);
             flowLayoutPanel1.Controls.Add(txtPhone);
-            flowLayoutPanel1.Controls.Add(lblSkill);
-            flowLayoutPanel1.Controls.Add(txtSkill);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(454, 12);
+            flowLayoutPanel1.Location = new Point(454, 60);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(478, 586);
+            flowLayoutPanel1.Size = new Size(478, 538);
             flowLayoutPanel1.TabIndex = 6;
             // 
             // lblPassword
@@ -316,13 +318,12 @@
             // lblSkill
             // 
             lblSkill.AutoSize = true;
-            lblSkill.Location = new Point(4, 510);
+            lblSkill.Location = new Point(4, 10);
             lblSkill.Margin = new Padding(4, 10, 4, 0);
             lblSkill.Name = "lblSkill";
             lblSkill.Size = new Size(113, 30);
             lblSkill.TabIndex = 1;
             lblSkill.Text = "Skill Level";
-            lblSkill.Visible = false;
             // 
             // txtSkill
             // 
@@ -330,12 +331,46 @@
             txtSkill.BorderStyle = BorderStyle.FixedSingle;
             txtSkill.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtSkill.ForeColor = Color.White;
-            txtSkill.Location = new Point(4, 544);
+            txtSkill.Location = new Point(4, 44);
             txtSkill.Margin = new Padding(4);
             txtSkill.Name = "txtSkill";
-            txtSkill.Size = new Size(464, 37);
+            txtSkill.Size = new Size(249, 37);
             txtSkill.TabIndex = 0;
-            txtSkill.Visible = false;
+            // 
+            // pnlTech
+            // 
+            pnlTech.Controls.Add(lblSkill);
+            pnlTech.Controls.Add(txtSkill);
+            pnlTech.Controls.Add(label7);
+            pnlTech.Controls.Add(dteHire);
+            pnlTech.FlowDirection = FlowDirection.TopDown;
+            pnlTech.Location = new Point(964, 228);
+            pnlTech.Name = "pnlTech";
+            pnlTech.Size = new Size(253, 224);
+            pnlTech.TabIndex = 7;
+            pnlTech.Visible = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(4, 95);
+            label7.Margin = new Padding(4, 10, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(108, 30);
+            label7.TabIndex = 1;
+            label7.Text = "Hire Date";
+            label7.Visible = false;
+            // 
+            // dteHire
+            // 
+            dteHire.CustomFormat = "MMMM dd, yyyy";
+            dteHire.Format = DateTimePickerFormat.Custom;
+            dteHire.Location = new Point(3, 128);
+            dteHire.MaxDate = new DateTime(2026, 1, 11, 0, 0, 0, 0);
+            dteHire.Name = "dteHire";
+            dteHire.Size = new Size(250, 37);
+            dteHire.TabIndex = 2;
+            dteHire.Value = new DateTime(2026, 1, 11, 0, 0, 0, 0);
             // 
             // UserForm
             // 
@@ -343,6 +378,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(29, 31, 31);
             ClientSize = new Size(1245, 687);
+            Controls.Add(pnlTech);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
@@ -363,6 +399,8 @@
             ((System.ComponentModel.ISupportInitialize)pctProfile).EndInit();
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
+            pnlTech.ResumeLayout(false);
+            pnlTech.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -392,5 +430,8 @@
         private TextBox txtCPassword;
         private Label lblSkill;
         private TextBox txtSkill;
+        private FlowLayoutPanel pnlTech;
+        private Label label7;
+        private DateTimePicker dteHire;
     }
 }

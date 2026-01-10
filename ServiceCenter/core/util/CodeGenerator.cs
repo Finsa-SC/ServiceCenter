@@ -17,7 +17,7 @@ namespace ServiceCenter.core.util
             string lastCode = stringCode.Replace(prefix, "");
             int number = int.Parse(lastCode);
             number++;
-            return prefix+number;
+            return prefix + number.ToString("D4");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceCenter.core.network;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,25 +8,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Microsoft.Data.SqlClient;
+using ServiceCenter.core.util;
 namespace ServiceCenter.ServiceOrder
 {
     public partial class AddVehicleUC : UserControl
     {
-        public AddVehicleUC(string model)
+        int customerId;
+        public AddVehicleUC(string model, int cusId)
         {
             InitializeComponent();
             txtMode.Text = model;
             loadYear();
+            customerId = cusId;
         }
 
         private void loadYear()
         {
             cmbYears.Items.Clear();
-            for(int years = DateTime.Now.Year; years >= 1880; years--)
+            for (int years = DateTime.Now.Year; years >= 1880; years--)
             {
                 cmbYears.Items.Add(years);
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            string query = "INSERT INTO vehicles (customer_id, plate_number, brand, model, year, engine_number, frame_number) VALUES (@c, @p, @b, @m, @y, @e, @f)";
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@c", customerId),
+                new SqlParameter("@p", txtPlat.Text.Trim()),
+                new SqlParameter("@b", cmbBrand.Text),
+                new SqlParameter("@m", txtMode.Text.Trim()),
+                new SqlParameter("@y", cmbYears.Text),
+                new SqlParameter("@e", txtEng.Text.Trim()),
+                new SqlParameter("@f", txtFrm.Text.Trim())
+            );
+            if (i > 0) UIHelper.toast("Sucess", "Success Adding Vehicle");
         }
     }
 }

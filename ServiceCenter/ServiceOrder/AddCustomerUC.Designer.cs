@@ -34,7 +34,9 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            button1 = new Button();
+            btnAdd = new Button();
+            txtAddress = new RichTextBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // txtEmail
@@ -99,20 +101,45 @@
             label3.TabIndex = 1;
             label3.Text = "Email";
             // 
-            // button1
+            // btnAdd
             // 
-            button1.Location = new Point(589, 477);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 65);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            btnAdd.BackColor = Color.Lime;
+            btnAdd.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(590, 566);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(193, 65);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Add Customer";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // txtAddress
+            // 
+            txtAddress.BorderStyle = BorderStyle.FixedSingle;
+            txtAddress.Location = new Point(121, 443);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(556, 98);
+            txtAddress.TabIndex = 3;
+            txtAddress.Text = "";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(121, 415);
+            label4.Name = "label4";
+            label4.Size = new Size(85, 28);
+            label4.TabIndex = 1;
+            label4.Text = "Address";
             // 
             // AddCustomerUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button1);
+            Controls.Add(txtAddress);
+            Controls.Add(btnAdd);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -120,7 +147,7 @@
             Controls.Add(txtNumber);
             Controls.Add(txtEmail);
             Name = "AddCustomerUC";
-            Size = new Size(816, 573);
+            Size = new Size(816, 654);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -133,6 +160,8 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button button1;
+        private Button btnAdd;
+        private RichTextBox txtAddress;
+        private Label label4;
     }
 }

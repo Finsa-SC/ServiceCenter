@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using ServiceCenter.core.util;
 
 namespace ServiceCenter.ServiceOrder
 {
@@ -17,6 +18,7 @@ namespace ServiceCenter.ServiceOrder
         public ServiceOrdersUC()
         {
             InitializeComponent();
+            btnAddVehicle.Enabled = false;
         }
         private int customerID = 0;
         private int vehicleID = 0;
@@ -35,7 +37,7 @@ namespace ServiceCenter.ServiceOrder
 
         private void btnAddVehicle_Click(object sender, EventArgs e)
         {
-            loadUC(new AddVehicleUC(txtVehicleSearch.Text));
+            loadUC(new AddVehicleUC(txtVehicleSearch.Text, customerID));
         }
 
         private void addButtonUse(DataGridView dgv)
@@ -85,7 +87,7 @@ namespace ServiceCenter.ServiceOrder
         private void tmrCustomerDelay_Tick(object sender, EventArgs e)
         {
             tmrCustomerDelay.Stop();
-            if(!string.IsNullOrWhiteSpace(txtCustomerSearch.Text)) loadCustomer();
+            if (!string.IsNullOrWhiteSpace(txtCustomerSearch.Text)) loadCustomer();
 
         }
 
@@ -108,6 +110,7 @@ namespace ServiceCenter.ServiceOrder
                     dgvCustomer.DataSource = null;
                     loadVehicle(customerID);
                     txtVehicleSearch.Enabled = true;
+                    btnAddVehicle.Enabled = true;
                 }
             }
         }
@@ -126,7 +129,7 @@ namespace ServiceCenter.ServiceOrder
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void clear()
         {
             txtCustomerSearch.Clear();
             txtCustomerSearch.Enabled = true;
@@ -136,6 +139,30 @@ namespace ServiceCenter.ServiceOrder
             dteEstimate.Value = DateTime.Now;
             dgvCustomer.DataSource = null;
             dgvVehicle.DataSource = null;
+            btnAddVehicle.Enabled = false;
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            string code = CodeGenerator.codeGenerator("SV", "SELECT MAX(service_code) FROM service_orders");
+            if (string.IsNullOrWhiteSpace(txtIssue.Text)) { UIHelper.toast("Emty Input", "Issue Could'nt be Emty"); return; }
+            string query = "INSERT INTO service_orders (service_code, customer_id, vehicle_id, status_id, received_by, complaint, entry_date, estimated_finish_date) " +
+                "VALUES (@co, @c, @v, 1, @r, @cm, GETDATE(), @e)";
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@co", code),
+                new SqlParameter("@c", customerID),
+                new SqlParameter("@v", vehicleID),
+                new SqlParameter("@r", UserSession.userId),
+                new SqlParameter("@cm", txtIssue.Text),
+                new SqlParameter("@e", dteEstimate.Value)
+            );
+            if (i > 0) UIHelper.toast("Success", "Success Received Vehicles, Waiting for Process");
+            clear();
+            pnlAct.Controls.Clear();
         }
     }
 }

@@ -20,7 +20,11 @@ namespace ServiceCenter.core.util
                     pct.Image = new Bitmap(image);
                 }
             }
-            catch(Exception ex) { }
+            catch(Exception ex) 
+            {
+                UIHelper.toast("Failed Load", "Failed while load your Image");
+                pct.Image = Properties.Resources.icons8_user_100;
+            }
         }
 
         public static (DialogResult, string?) uploadImage()

@@ -1,4 +1,5 @@
 ﻿using ServiceCenter.core.network;
+using ServiceCenter.ServiceProcess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,7 @@ namespace ServiceCenter
         {
             string query = @"
                     SELECT 
+                        s.service_order_id,
                         s.service_code AS Code, 
                         c.full_name AS [Customer Name],
                         v.model AS Model,
@@ -48,6 +50,7 @@ namespace ServiceCenter
                     LEFT JOIN users u ON u.user_id = s.received_by";
 
             dataGridView1.DataSource = DBHelper.executeQuery(query);
+            if (dataGridView1.Columns.Contains("service_order_id")) dataGridView1.Columns["service_order_id"].Visible = false;
         }
 
         private void ServiceProcessUC_Load(object sender, EventArgs e)
@@ -61,7 +64,11 @@ namespace ServiceCenter
             if(e.RowIndex < 0) return;
             if (dataGridView1.Columns[e.ColumnIndex].Name == "btnAction")
             {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                int serviceID = Convert.ToInt32(row.Cells["service_order_id"].Value);
 
+                FreeTechnicianForm from = new FreeTechnicianForm(serviceID);
+                from.ShowDialog();
             }
         }
     }

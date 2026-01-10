@@ -83,6 +83,26 @@ namespace ServiceCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_gear_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-gear-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_gear_50_1_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-gear-50(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_pencil_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-pencil-64", resourceCulture);

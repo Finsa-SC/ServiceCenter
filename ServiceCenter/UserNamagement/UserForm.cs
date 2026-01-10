@@ -27,7 +27,7 @@ namespace ServiceCenter.UserNamagement
             InitializeComponent();
             loadRole();
             loadStatus();
-            if(userId != 0)
+            if (userId != 0)
             {
                 userid = userId;
                 mode = DialogMode.UpdateUser;
@@ -48,7 +48,9 @@ namespace ServiceCenter.UserNamagement
         private void loadRole()
         {
             string query = "select role_id, role_name from roles";
-            cmbRole.DataSource = DBHelper.executeQuery(query);
+            DataTable dt = DBHelper.executeQuery(query);
+            dt.DefaultView.RowFilter = "role_name <> 'Developer'";
+            cmbRole.DataSource = dt;
             cmbRole.DisplayMember = "role_name";
             cmbRole.ValueMember = "role_id";
             cmbRole.SelectedIndex = -1;
@@ -66,7 +68,7 @@ namespace ServiceCenter.UserNamagement
         private void btnImport_Click(object sender, EventArgs e)
         {
             var (result, image) = ImageHelper.uploadImage();
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 stringImage = image;
                 ImageHelper.loadImage(pctProfile, image);
@@ -82,15 +84,15 @@ namespace ServiceCenter.UserNamagement
         {
             if (ValidationHelper.isNullInput(this)) return;
             if (ValidationHelper.checkEmail(txtEmail.Text)) return;
-            if(checkEmail()) { UIHelper.toast("Exists Items", "Email Address Already Taken"); return; }
+            if (checkEmail()) { UIHelper.toast("Exists Items", "Email Address Already Taken"); return; }
 
             if (mode == DialogMode.CreateUser)
             {
                 createUser();
             }
-            else if(mode == DialogMode.UpdateUser)
+            else if (mode == DialogMode.UpdateUser)
             {
-                if(UIHelper.ConfirmationDialog("Confirm Update", "Are You Sure To Update Old Data To New Data?"))
+                if (UIHelper.ConfirmationDialog("Confirm Update", "Are You Sure To Update Old Data To New Data?"))
                 {
                     updateUser(userid);
                 }
@@ -104,12 +106,24 @@ namespace ServiceCenter.UserNamagement
 
         private void createUser()
         {
-            if (ValidationHelper.checkEmail(txtEmail.Text)) return; 
+            if (ValidationHelper.checkEmail(txtEmail.Text)) return;
             if (txtPassword.Text.Trim() != txtCPassword.Text.Trim()) { UIHelper.toast("Security Report", "password is not the same, please pay attention to your password"); return; }
             if (txtPassword.TextLength < 8) { UIHelper.toast("Security Report", "Your password is too weak to be called a password, please try a stronger password."); return; }
             if (ValidationHelper.checkPhone(txtPhone.Text)) return;
 
-            string query = "insert into users(full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) values(@f, @e, @u, @p, @r, @phn, @s, @img, 1)";
+            string query = @"
+                    DECLARE @new_userID INT;
+                    DECLARE @roleName NVARCHAR(50);
+                    INSERT INTO 
+                        users (full_name, email, username, password, role_id, phone, status_id, photo_profile, is_active) 
+                        VALUES (@f, @e, @u, @p, @r, @phn, @s, @img, 1)
+                    SET @new_userID = SCOPE_IDENTITY();
+                    SELECT @roleName = role_name FROM roles WHERE role_id = @r
+                    IF @roleName = 'Technician'
+                        BEGIN
+                            INSERT INTO technicians (user_id, skill_level, is_active) 
+                            VALUES (@new_userID, @skill, 1)
+                        END";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
                 new SqlParameter("@e", txtEmail.Text.Trim()),
@@ -118,9 +132,11 @@ namespace ServiceCenter.UserNamagement
                 new SqlParameter("@r", cmbRole.SelectedValue),
                 new SqlParameter("@phn", txtPhone.Text.Trim()),
                 new SqlParameter("@s", cmbStatus.SelectedValue),
-                new SqlParameter("@img", !string.IsNullOrWhiteSpace(stringImage) ? stringImage : DBNull.Value)
+                new SqlParameter("@img", !string.IsNullOrWhiteSpace(stringImage) ? stringImage : DBNull.Value),
+                new SqlParameter("@skill", txtSkill.Text.Trim())
             );
-            if (i > 0) { 
+            if (i > 0)
+            {
                 this.Close();
                 UIHelper.toast("Success Insert", "Success Insert User Into User List ");
             }
@@ -150,7 +166,7 @@ namespace ServiceCenter.UserNamagement
 
         private void updateUser(int userId)
         {
-            string query = "update users set full_name = @f, email = @e, username = @u, phone = @p, role_id = @r, status_id = @s where user_id = @id";
+            string query = "UPDATE users set full_name = @f, email = @e, username = @u, phone = @p, role_id = @r, status_id = @s where user_id = @id";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@f", txtFullName.Text.Trim()),
                 new SqlParameter("@e", txtEmail.Text.Trim()),
@@ -172,10 +188,24 @@ namespace ServiceCenter.UserNamagement
             int i = DBHelper.executeReader(query, dr =>
                 Convert.ToInt32(dr[0]),
                 new SqlParameter("@e", txtEmail.Text),
-                new SqlParameter("@id", userid != 0? userid:0)
+                new SqlParameter("@id", userid != 0 ? userid : 0)
             ).FirstOrDefault();
-            if (i > 0) return true; 
+            if (i > 0) return true;
             return false;
         }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbRole.Text == "Technician") { txtSkill.Visible = true; lblSkill.Visible = true; }
+            else { txtSkill.Visible = false; lblSkill.Visible = false; }
+            }
+
+        //private void addTechnician()
+        //{
+        //    string query = "INSERT INTO technicians (user_id, skill_level) SELECT @u, @s WHERE EXISTS (SELECT 1 FROM technicians WHERE user_id = @u)";
+        //    int i = DBHelper.executeNonQuery(query,
+        //        new SqlParameter("@u", 
+        //    );
+        //}
     }
 }

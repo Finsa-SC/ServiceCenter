@@ -206,11 +206,10 @@
             // 
             // txtPhone
             // 
-            txtPhone.AutoSize = true;
             txtPhone.Font = new Font("Segoe UI", 12F);
             txtPhone.Location = new Point(114, 734);
             txtPhone.Name = "txtPhone";
-            txtPhone.Size = new Size(82, 32);
+            txtPhone.Size = new Size(310, 32);
             txtPhone.TabIndex = 2;
             txtPhone.Text = "Phone";
             // 

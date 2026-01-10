@@ -83,12 +83,15 @@ namespace ServiceCenter
         {
             btnUserManagement.MouseEnter += Hover_MouseEnter;
             btnServiceOrder.MouseEnter += Hover_MouseEnter;
+            btnServiceProcess.MouseEnter += Hover_MouseEnter;
 
             btnUserManagement.MouseLeave += Hover_MouseLeave;
             btnServiceOrder.MouseLeave += Hover_MouseLeave;
+            btnServiceProcess.MouseLeave += Hover_MouseLeave;
 
             btnUserManagement.MouseHover += Mouse_hover_button;
             btnServiceOrder.MouseHover += Mouse_hover_button;
+            btnServiceProcess.MouseHover += Mouse_hover_button;
             pctProfile.MouseHover += Mouse_hover_button;
         }
         private void Hover_MouseEnter(object sender, EventArgs e)
@@ -236,6 +239,7 @@ namespace ServiceCenter
                 case 1:
                     btnUserManagement.Visible = true;
                     btnServiceOrder.Visible = true;
+                    btnServiceProcess.Visible = true;
                     uc = new UserManagementUC();
                     break;
                 case 2:
@@ -244,6 +248,7 @@ namespace ServiceCenter
                     break;
                 case 4:
                     btnServiceOrder.Visible = true;
+                    btnServiceProcess.Visible = true;
                     uc = new ServiceOrder.ServiceOrdersUC();
                     break;
                 case 5:
@@ -256,6 +261,12 @@ namespace ServiceCenter
         {
             btnUserManagement.Visible = false;
             btnServiceOrder.Visible = false;
+            btnServiceProcess.Visible = false;
+        }
+
+        private void btnServiceProcess_Click(object sender, EventArgs e)
+        {
+            loadUC(new ServiceProcessUC());
         }
     }
 }

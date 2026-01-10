@@ -49,6 +49,8 @@
             txtPassword = new TextBox();
             lblCPassword = new Label();
             txtCPassword = new TextBox();
+            lblSkill = new Label();
+            txtSkill = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pctProfile).BeginInit();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -192,6 +194,7 @@
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(241, 38);
             cmbRole.TabIndex = 4;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // cmbStatus
             // 
@@ -254,10 +257,12 @@
             flowLayoutPanel1.Controls.Add(txtCPassword);
             flowLayoutPanel1.Controls.Add(label4);
             flowLayoutPanel1.Controls.Add(txtPhone);
+            flowLayoutPanel1.Controls.Add(lblSkill);
+            flowLayoutPanel1.Controls.Add(txtSkill);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(454, 63);
+            flowLayoutPanel1.Location = new Point(454, 12);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(478, 501);
+            flowLayoutPanel1.Size = new Size(478, 586);
             flowLayoutPanel1.TabIndex = 6;
             // 
             // lblPassword
@@ -307,6 +312,30 @@
             txtCPassword.Size = new Size(464, 37);
             txtCPassword.TabIndex = 5;
             txtCPassword.Tag = "nullable";
+            // 
+            // lblSkill
+            // 
+            lblSkill.AutoSize = true;
+            lblSkill.Location = new Point(4, 510);
+            lblSkill.Margin = new Padding(4, 10, 4, 0);
+            lblSkill.Name = "lblSkill";
+            lblSkill.Size = new Size(113, 30);
+            lblSkill.TabIndex = 1;
+            lblSkill.Text = "Skill Level";
+            lblSkill.Visible = false;
+            // 
+            // txtSkill
+            // 
+            txtSkill.BackColor = Color.FromArgb(29, 31, 31);
+            txtSkill.BorderStyle = BorderStyle.FixedSingle;
+            txtSkill.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSkill.ForeColor = Color.White;
+            txtSkill.Location = new Point(4, 544);
+            txtSkill.Margin = new Padding(4);
+            txtSkill.Name = "txtSkill";
+            txtSkill.Size = new Size(464, 37);
+            txtSkill.TabIndex = 0;
+            txtSkill.Visible = false;
             // 
             // UserForm
             // 
@@ -361,5 +390,7 @@
         private TextBox txtPassword;
         private Label lblCPassword;
         private TextBox txtCPassword;
+        private Label lblSkill;
+        private TextBox txtSkill;
     }
 }

@@ -152,6 +152,7 @@ namespace ServiceCenter.ServiceOrder
             dgvCustomer.DataSource = null;
             dgvVehicle.DataSource = null;
             btnAddVehicle.Enabled = false;
+            dteEstimate.Value = DateTime.Now;
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {

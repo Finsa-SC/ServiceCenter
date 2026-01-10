@@ -44,6 +44,7 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             btnUserManagement = new Button();
             btnServiceOrder = new Button();
+            btnServiceProcess = new Button();
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -189,6 +190,7 @@
             flowLayoutPanel1.BackColor = Color.FromArgb(29, 31, 31);
             flowLayoutPanel1.Controls.Add(btnUserManagement);
             flowLayoutPanel1.Controls.Add(btnServiceOrder);
+            flowLayoutPanel1.Controls.Add(btnServiceProcess);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -232,9 +234,29 @@
             btnServiceOrder.Name = "btnServiceOrder";
             btnServiceOrder.Size = new Size(72, 72);
             btnServiceOrder.TabIndex = 0;
-            btnServiceOrder.Tag = "apalah";
+            btnServiceOrder.Tag = "Service Order";
             btnServiceOrder.UseVisualStyleBackColor = false;
             btnServiceOrder.Click += btnServiceOrder_Click;
+            // 
+            // btnServiceProcess
+            // 
+            btnServiceProcess.BackColor = Color.FromArgb(29, 31, 31);
+            btnServiceProcess.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnServiceProcess.FlatAppearance.BorderSize = 0;
+            btnServiceProcess.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnServiceProcess.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnServiceProcess.FlatStyle = FlatStyle.Flat;
+            btnServiceProcess.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnServiceProcess.ForeColor = Color.White;
+            btnServiceProcess.Image = Properties.Resources.icons8_gear_50_1_;
+            btnServiceProcess.Location = new Point(6, 159);
+            btnServiceProcess.Margin = new Padding(6, 3, 3, 3);
+            btnServiceProcess.Name = "btnServiceProcess";
+            btnServiceProcess.Size = new Size(72, 72);
+            btnServiceProcess.TabIndex = 0;
+            btnServiceProcess.Tag = "Service Process";
+            btnServiceProcess.UseVisualStyleBackColor = false;
+            btnServiceProcess.Click += btnServiceProcess_Click;
             // 
             // pctProfile
             // 
@@ -330,5 +352,6 @@
         private Panel pnlActivity;
         private System.Windows.Forms.Timer tmrTitleSlide;
         private ToolTip toolTip1;
+        private Button btnServiceProcess;
     }
 }

@@ -34,7 +34,7 @@ namespace ServiceCenter
             UserSession.loadUserSession();
             form?.initImage();
             txtUsername.Text = UserSession.userName;
-            txtPhone.Text = UserSession.phone;
+            txtPhone.Text = "+62 " + UserSession.phone;
             loadImage(pctProfil, UserSession.photo);
             txtRole.Text = UserSession.roleString;
         }

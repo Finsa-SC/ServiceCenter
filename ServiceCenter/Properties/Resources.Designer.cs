@@ -73,6 +73,26 @@ namespace ServiceCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_car_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-car-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_car_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-car-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_choose_58 {
             get {
                 object obj = ResourceManager.GetObject("icons8-choose-58", resourceCulture);

@@ -65,19 +65,25 @@ namespace ServiceCenter.ServiceProcess
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     int techID = Convert.ToInt32(row.Cells["technician_id"].Value);
                     string query = @"
-BEGIN TRANSACTION;
-BEGIN 
-INSERT INTO 
-    service_assignments (service_order_id, technician_id, assigned_date) 
-VALUES (@s, @t, GETDATE())
-BEGIN
-    UPDATE
-    service_order SET status_id = 2 WHERE service_order_id = @s
-END
-";
+                            BEGIN TRANSACTION;
+                            BEGIN TRY
+                            INSERT INTO 
+                                service_assignments (service_order_id, technician_id, assigned_date) 
+                                VALUES (@s, @t, GETDATE())
+
+                            UPDATE
+                                service_orders SET status_id = 2, assigned_by = @a WHERE service_order_id = @s
+
+                            COMMIT TRANSACTION;
+                            END TRY
+                            BEGIN CATCH
+                                ROLLBACK TRANSACTION;
+                                THROW;
+                            END CATCH";
                     int i = DBHelper.executeNonQuery(query,
                         new SqlParameter("@s", serviceID),
-                        new SqlParameter("@t", techID)
+                        new SqlParameter("@t", techID),
+                        new SqlParameter("@a", UserSession.userId)
                     );
                     if (i > 0)
                     {

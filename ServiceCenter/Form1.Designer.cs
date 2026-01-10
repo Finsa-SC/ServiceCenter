@@ -45,6 +45,7 @@
             btnUserManagement = new Button();
             btnServiceOrder = new Button();
             btnServiceProcess = new Button();
+            btnServiceWorkshop = new Button();
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -191,6 +192,7 @@
             flowLayoutPanel1.Controls.Add(btnUserManagement);
             flowLayoutPanel1.Controls.Add(btnServiceOrder);
             flowLayoutPanel1.Controls.Add(btnServiceProcess);
+            flowLayoutPanel1.Controls.Add(btnServiceWorkshop);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -257,6 +259,26 @@
             btnServiceProcess.Tag = "Service Process";
             btnServiceProcess.UseVisualStyleBackColor = false;
             btnServiceProcess.Click += btnServiceProcess_Click;
+            // 
+            // btnServiceWorkshop
+            // 
+            btnServiceWorkshop.BackColor = Color.FromArgb(29, 31, 31);
+            btnServiceWorkshop.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnServiceWorkshop.FlatAppearance.BorderSize = 0;
+            btnServiceWorkshop.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnServiceWorkshop.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnServiceWorkshop.FlatStyle = FlatStyle.Flat;
+            btnServiceWorkshop.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnServiceWorkshop.ForeColor = Color.White;
+            btnServiceWorkshop.Image = Properties.Resources.icons8_car_48;
+            btnServiceWorkshop.Location = new Point(6, 237);
+            btnServiceWorkshop.Margin = new Padding(6, 3, 3, 3);
+            btnServiceWorkshop.Name = "btnServiceWorkshop";
+            btnServiceWorkshop.Size = new Size(72, 72);
+            btnServiceWorkshop.TabIndex = 0;
+            btnServiceWorkshop.Tag = "Service Workshop";
+            btnServiceWorkshop.UseVisualStyleBackColor = false;
+            btnServiceWorkshop.Click += btnRepair_Click;
             // 
             // pctProfile
             // 
@@ -353,5 +375,6 @@
         private System.Windows.Forms.Timer tmrTitleSlide;
         private ToolTip toolTip1;
         private Button btnServiceProcess;
+        private Button btnServiceWorkshop;
     }
 }

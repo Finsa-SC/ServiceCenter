@@ -359,7 +359,6 @@
             label7.Size = new Size(108, 30);
             label7.TabIndex = 1;
             label7.Text = "Hire Date";
-            label7.Visible = false;
             // 
             // dteHire
             // 

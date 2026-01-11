@@ -47,10 +47,10 @@ namespace ServiceCenter
             string? hashed = null;
             string password = txtPassword.Text.Trim();
             string query = @"
-SELECT u.user_id, u.username, u.password, u.role_id, u.full_name, u.phone, u.photo_profile, t.technician_id
-FROM users u 
-JOIN technicians t ON u.user_id = t.user_id
-WHERE u.email = @email and u.status_id = 1";
+                    SELECT u.user_id, u.username, u.password, u.role_id, u.full_name, u.phone, u.photo_profile, t.technician_id
+                    FROM users u 
+                    LEFT JOIN technicians t ON u.user_id = t.user_id
+                    WHERE u.email = @email AND u.status_id = 1";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@email", txtEmail.Text.Trim()),
@@ -65,7 +65,7 @@ WHERE u.email = @email and u.status_id = 1";
                     dr["full_name"].ToString(),
                     dr["phone"].ToString(),
                     dr["photo_profile"].ToString(),
-                    Convert.ToInt32(dr["technician_id"])
+                    dr["technician_id"] == DBNull.Value ? 0: Convert.ToInt32(dr["technician_id"])
                 );
                 return true;
             },
@@ -74,12 +74,12 @@ WHERE u.email = @email and u.status_id = 1";
 
             if (!result.Any())
             {
-                UIHelper.toast("Un-Authorization", "Email or Password Wrong");
+                UIHelper.toast("Un-Authorization", "Email Wrong");
                 return;
             }
             if(!PasswordHelper.Verify(password, hashed))
             {
-                UIHelper.toast("Un-Authorization", "Email or Password Wrong");
+                UIHelper.toast("Un-Authorization", "Password Wrong");
                 return;
             }
 
@@ -88,9 +88,6 @@ WHERE u.email = @email and u.status_id = 1";
                 DBHelper.executeNonQuery("update users set last_active = GETDATE() where user_id = @userid",
                     new SqlParameter("@userid", UserSession.userId));
                 this.Close();
-            }
-            else
-            {
             }
         }
 

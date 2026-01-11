@@ -34,7 +34,7 @@ namespace ServiceCenter
         public static void loadUserSession()
         {
             string query = @"
-                    SELECT u.user_id, u.username, u.role_id, u.full_name, u.phone, u.photo_profile t.technician_id 
+                    SELECT u.user_id, u.username, u.role_id, u.full_name, u.phone, u.photo_profile, t.technician_id 
                     FROM users u 
                     JOIN technicians t ON t.user_id = u.user_id
                     WHERE u.user_id = @userid and u.status_id = 1";
@@ -47,7 +47,7 @@ namespace ServiceCenter
                      dr["full_name"].ToString(),
                      dr["phone"].ToString(),
                      dr["photo_profile"].ToString(),
-                     Convert.ToInt32(dr["tecnician_id"])
+                     dr["technician_id"] == DBNull.Value?0: Convert.ToInt32(dr["technician_id"])
                  );
             return true;
             },

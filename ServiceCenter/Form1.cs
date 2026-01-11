@@ -13,7 +13,6 @@ namespace ServiceCenter
         private void Form1_Load(object sender, EventArgs e)
         {
             isLogged();
-            loadUC(new UserManagementUC());
             initImage();
             loadBottomNav();
         }

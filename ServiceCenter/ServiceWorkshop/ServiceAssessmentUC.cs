@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ServiceCenter
+namespace ServiceCenter.ServiceWorkshop
 {
-    public partial class ServiceWorkshopUC : UserControl
+    public partial class ServiceAssessmentUC : UserControl
     {
-        public ServiceWorkshopUC()
+        public ServiceAssessmentUC()
         {
             InitializeComponent();
         }

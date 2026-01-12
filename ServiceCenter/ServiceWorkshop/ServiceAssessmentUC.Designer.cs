@@ -28,59 +28,175 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            dgvSparePart = new DataGridView();
+            dgvCart = new DataGridView();
+            label1 = new Label();
+            label2 = new Label();
+            richTextBox1 = new RichTextBox();
+            button1 = new Button();
             textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dgvSparePart).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
             SuspendLayout();
+            // 
+            // dgvSparePart
+            // 
+            dgvSparePart.AllowUserToAddRows = false;
+            dgvSparePart.AllowUserToDeleteRows = false;
+            dgvSparePart.AllowUserToResizeColumns = false;
+            dgvSparePart.AllowUserToResizeRows = false;
+            dgvSparePart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSparePart.BackgroundColor = Color.FromArgb(243, 248, 254);
+            dgvSparePart.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvSparePart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dgvSparePart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvSparePart.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvSparePart.EnableHeadersVisualStyles = false;
+            dgvSparePart.GridColor = Color.DarkGray;
+            dgvSparePart.Location = new Point(45, 70);
+            dgvSparePart.Name = "dgvSparePart";
+            dgvSparePart.ReadOnly = true;
+            dgvSparePart.RowHeadersVisible = false;
+            dgvSparePart.RowHeadersWidth = 62;
+            dgvSparePart.Size = new Size(764, 596);
+            dgvSparePart.TabIndex = 5;
+            dgvSparePart.CellContentClick += dgvSparePart_CellContentClick;
+            // 
+            // dgvCart
+            // 
+            dgvCart.AllowUserToAddRows = false;
+            dgvCart.AllowUserToDeleteRows = false;
+            dgvCart.AllowUserToResizeColumns = false;
+            dgvCart.AllowUserToResizeRows = false;
+            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCart.BackgroundColor = Color.FromArgb(243, 248, 254);
+            dgvCart.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvCart.DefaultCellStyle = dataGridViewCellStyle8;
+            dgvCart.EnableHeadersVisualStyles = false;
+            dgvCart.GridColor = Color.DarkGray;
+            dgvCart.Location = new Point(907, 70);
+            dgvCart.Name = "dgvCart";
+            dgvCart.ReadOnly = true;
+            dgvCart.RowHeadersVisible = false;
+            dgvCart.RowHeadersWidth = 62;
+            dgvCart.Size = new Size(764, 596);
+            dgvCart.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(45, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(265, 38);
+            label1.TabIndex = 6;
+            label1.Text = "Sparepart Available";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(890, 12);
+            label2.Name = "label2";
+            label2.Size = new Size(223, 38);
+            label2.TabIndex = 6;
+            label2.Text = "Sparepart Taken";
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.BackColor = Color.FromArgb(243, 248, 254);
+            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            richTextBox1.Location = new Point(45, 729);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(764, 211);
+            richTextBox1.TabIndex = 7;
+            richTextBox1.Text = "";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(45, 98, 223);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(1416, 903);
+            button1.Name = "button1";
+            button1.Size = new Size(255, 62);
+            button1.TabIndex = 8;
+            button1.Text = "Finished";
+            button1.UseVisualStyleBackColor = false;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(98, 223);
+            textBox1.BackColor = Color.FromArgb(243, 248, 254);
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(1177, 773);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(273, 31);
-            textBox1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(98, 286);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(273, 31);
-            textBox2.TabIndex = 0;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(98, 354);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(273, 31);
-            textBox3.TabIndex = 0;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(98, 419);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(273, 31);
-            textBox4.TabIndex = 0;
+            textBox1.Size = new Size(494, 39);
+            textBox1.TabIndex = 9;
             // 
             // ServiceAssessmentUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
+            BackColor = Color.FromArgb(238, 238, 238);
             Controls.Add(textBox1);
+            Controls.Add(button1);
+            Controls.Add(richTextBox1);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(dgvCart);
+            Controls.Add(dgvSparePart);
             Name = "ServiceAssessmentUC";
             Size = new Size(1719, 993);
+            ((System.ComponentModel.ISupportInitialize)dgvSparePart).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
+        private DataGridView dgvSparePart;
+        private DataGridView dgvCart;
+        private Label label1;
+        private Label label2;
+        private RichTextBox richTextBox1;
+        private Button button1;
         private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
     }
 }

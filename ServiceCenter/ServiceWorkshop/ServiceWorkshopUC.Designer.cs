@@ -32,9 +32,7 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             pnlAvailable = new Panel();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            pnlAvailable.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -59,22 +57,12 @@
             // 
             // pnlAvailable
             // 
-            pnlAvailable.Controls.Add(button1);
             pnlAvailable.Dock = DockStyle.Fill;
             pnlAvailable.Location = new Point(0, 0);
             pnlAvailable.Name = "pnlAvailable";
             pnlAvailable.Size = new Size(1719, 993);
             pnlAvailable.TabIndex = 2;
             pnlAvailable.Visible = false;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(209, 675);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
             // 
             // ServiceWorkshopUC
             // 
@@ -86,7 +74,6 @@
             Name = "ServiceWorkshopUC";
             Size = new Size(1719, 993);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            pnlAvailable.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -96,6 +83,5 @@
         private PictureBox pictureBox1;
         private Label label1;
         private Panel pnlAvailable;
-        private Button button1;
     }
 }

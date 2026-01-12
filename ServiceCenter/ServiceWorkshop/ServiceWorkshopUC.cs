@@ -14,10 +14,17 @@ namespace ServiceCenter
 {
     public partial class ServiceWorkshopUC : UserControl
     {
+        private ServiceDiagnosisUC serviceDiagnosisUC;
         public ServiceWorkshopUC()
         {
             InitializeComponent();
-            if (checkJob() == 1) { loadActivity(new ServiceDiagnosisUC()); pnlAvailable.Visible = true; }
+
+            serviceDiagnosisUC = new ServiceDiagnosisUC();
+            serviceDiagnosisUC.clickMethod += (i) =>
+            {
+                loadActivity(new ServiceAssessmentUC(i));
+            };
+            if (checkJob() == 1) { loadActivity(serviceDiagnosisUC); pnlAvailable.Visible = true; }
         }
 
         private void ServiceWorkshopUC_Load(object sender, EventArgs e)

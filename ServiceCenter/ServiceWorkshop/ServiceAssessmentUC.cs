@@ -12,9 +12,17 @@ namespace ServiceCenter.ServiceWorkshop
 {
     public partial class ServiceAssessmentUC : UserControl
     {
-        public ServiceAssessmentUC()
+        int serviceId;
+        public ServiceAssessmentUC(int serviceID)
         {
             InitializeComponent();
+            serviceId = serviceID;
+            MessageBox.Show(serviceId.ToString());
+        }
+
+        private void dgvSparePart_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

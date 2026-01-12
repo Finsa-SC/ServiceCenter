@@ -17,13 +17,13 @@ namespace ServiceCenter.ServiceWorkshop
         public ServiceDiagnosisUC()
         {
             InitializeComponent();
-            loadServiceMethod();
         }
         private void ServiceDiagnosisUC_Load(object sender, EventArgs e)
         {
             loadData();
             addCategorySearch();
             addButton();
+            loadServiceMethod();
         }
 
         private void loadData()
@@ -66,6 +66,7 @@ namespace ServiceCenter.ServiceWorkshop
         {
             string query = @"
                     SELECT 
+                        s.service_id,
                         s.service_name AS Service,
                         c.category_name AS Category
                     FROM services s
@@ -76,6 +77,7 @@ namespace ServiceCenter.ServiceWorkshop
                 new SqlParameter("@sn", "%" + txtSearch.Text + "%"),
                 new SqlParameter("@cid", cmbCategory.SelectedValue == null ? DBNull.Value : cmbCategory.SelectedValue)
             );
+            if (dataGridView1.Columns.Contains("service_id")) dataGridView1.Columns["service_id"].Visible = false;
         }
         private void addButton()
         {
@@ -90,13 +92,16 @@ namespace ServiceCenter.ServiceWorkshop
             }
         }
 
+        public event Action<int> clickMethod;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 if (dataGridView1.Columns[e.ColumnIndex].Name == "btn")
                 {
-                    MessageBox.Show("hello");
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    int i = Convert.ToInt32(row.Cells["service_id"].Value);
+                    clickMethod?.Invoke(i);
                 }
             }
         }

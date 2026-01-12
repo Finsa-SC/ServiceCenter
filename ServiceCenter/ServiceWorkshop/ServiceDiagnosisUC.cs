@@ -8,19 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace ServiceCenter.ServiceWorkshop
 {
     public partial class ServiceDiagnosisUC : UserControl
     {
-        public event Action Action;
         public ServiceDiagnosisUC()
         {
             InitializeComponent();
+            loadServiceMethod();
         }
         private void ServiceDiagnosisUC_Load(object sender, EventArgs e)
         {
             loadData();
+            addCategorySearch();
+            addButton();
         }
 
         private void loadData()
@@ -32,6 +35,7 @@ namespace ServiceCenter.ServiceWorkshop
                     SELECT @cid = customer_id FROM service_orders WHERE service_order_id = @sid;
 
                     SELECT 
+                        s.service_code,
                         v.plate_number AS [Plate Number], 
                         v.brand AS Brand,
                         v.model AS Model,
@@ -44,16 +48,86 @@ namespace ServiceCenter.ServiceWorkshop
                     WHERE s.customer_id = @cid";
             var data = DBHelper.executeReader(query, dr =>
             {
-
-                return 1;
+                txtCode.Text = dr["service_code"].ToString();
+                txtPlate.Text = dr["Plate Number"].ToString();
+                txtBrand.Text = dr["Brand"].ToString();
+                txtModel.Text = dr["Model"].ToString();
+                txtYear.Text = dr["Year"].ToString();
+                txtEngine.Text = dr["Engine Number"].ToString();
+                txtFrame.Text = dr["Frame Number"].ToString();
+                txtComplaint.Text = dr["complaint"].ToString();
+                return true;
             },
-            new Microsoft.Data.SqlClient.SqlParameter("@tid", UserSession.technicianId)
+            new SqlParameter("@tid", UserSession.technicianId)
             );
-            if (data != null && data.Contains(1))
+        }
+
+        private void loadServiceMethod()
+        {
+            string query = @"
+                    SELECT 
+                        s.service_name AS Service,
+                        c.category_name AS Category
+                    FROM services s
+                    LEFT JOIN service_categories c ON c.category_id = s.category_id
+                    WHERE (@sn IS NULL OR s.service_name LIKE @sn)
+                        AND (@cid IS NULL OR c.category_id = @cid)";
+            dataGridView1.DataSource = DBHelper.executeQuery(query,
+                new SqlParameter("@sn", "%" + txtSearch.Text + "%"),
+                new SqlParameter("@cid", cmbCategory.SelectedValue == null ? DBNull.Value : cmbCategory.SelectedValue)
+            );
+        }
+        private void addButton()
+        {
+            if (!dataGridView1.Columns.Contains("btn"))
             {
-                Action?.Invoke();
+                DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+                btn.Name = "btn";
+                btn.Text = "Use";
+                btn.HeaderText = "Action";
+                btn.UseColumnTextForButtonValue = true;
+                dataGridView1.Columns.Add(btn);
             }
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "btn")
+                {
+                    MessageBox.Show("hello");
+                }
+            }
+        }
+
+        private void addCategorySearch()
+        {
+            string query = "SELECT category_id, category_name FROM service_categories";
+            var dt = DBHelper.executeQuery(query);
+            var dr = dt.NewRow();
+            dr["category_id"] = DBNull.Value;
+            dr["category_name"] = "All Category";
+            dt.Rows.InsertAt(dr, 0);
+            cmbCategory.DataSource = dt;
+            cmbCategory.ValueMember = "category_id";
+            cmbCategory.DisplayMember = "category_name";
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            tmrSearchDelay.Stop();
+            tmrSearchDelay.Start();
+        }
+        private void tmrSearchDelay_Tick(object sender, EventArgs e)
+        {
+            loadServiceMethod();
+            tmrSearchDelay.Stop();
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadServiceMethod();
+        }
     }
 }

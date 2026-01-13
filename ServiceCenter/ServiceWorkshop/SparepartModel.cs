@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ServiceCenter.ServiceWorkshop
 {
-    internal class CartModel
+    internal class SparepartModel
     {
         [DisplayName("Sparepart Code")]
         public string sparepartCode {  get; set; }
         [DisplayName("Sparepart Name")]
-        public string sparepartName { get; set; }
+        public string sparepartName {  get; set; }
         [DisplayName("Stock")]
         public int stock {  get; set; }
         [DisplayName("Unit")]

@@ -28,15 +28,23 @@ namespace ServiceCenter.ServiceWorkshop
 
         private void loadSparepart()
         {
-            string query = "SELECT sparepart_code, sparepart_name, stock, unit FROM spareparts";
+            string query = @"
+                    SELECT 
+                        s.sparepart_code, 
+                        s.sparepart_name, 
+                        s.stock, 
+                        s.unit,
+                        p.selling_price
+                    FROM spareparts s
+                    JOIN sparepart_price p ON s.sparepart_id = p.sparepart_id";
             sparepart =
                DBHelper.executeReader(query, dr => new SparepartModel
                {
-                   sparepartCode = dr[0].ToString(),
-                   sparepartName = dr[1].ToString(),
-                   stock = Convert.ToInt32(dr[2]),
-                   unit = dr[3].ToString(),
-                   price = Convert.ToDecimal(dr[4])
+                   sparepartCode = dr["sparepart_code"].ToString(),
+                   sparepartName = dr["sparepart_name"].ToString(),
+                   stock = Convert.ToInt32(dr["stock"]),
+                   unit = dr["unit"].ToString(),
+                   price = Convert.ToDecimal(dr["selling_price"])
                }
                );
 
@@ -50,8 +58,9 @@ namespace ServiceCenter.ServiceWorkshop
                 DataGridViewRow row = dgvSparePart.Rows[e.RowIndex];
                 string code = row.Cells["sparepartCode"].Value.ToString();
                 string name = row.Cells["sparepartName"].Value.ToString();
+                int stock = Convert.ToInt32(row.Cells["stock"].Value);
                 string unit = row.Cells["unit"].Value.ToString();
-                decimal price = Convert.ToDecimal(row.Cells["unit"]);
+                decimal price = Convert.ToDecimal(row.Cells["price"].Value);
                 if (dgvSparePart.Columns[e.ColumnIndex].Name == "btnAction")
                 {
                     //decrese stock
@@ -70,11 +79,11 @@ namespace ServiceCenter.ServiceWorkshop
                             .FirstOrDefault(u => u.sparepartCode == code && u.sparepartName == name);
                     if (itemExist != null)
                     {
-                        itemExist.stock += 1;
+                        itemExist.qty += 1;
                         dgvCart.Refresh();
                         return;
                     }
-                    cart.Add(new CartModel { sparepartCode = code, sparepartName = name, stock = 1, unit = unit, price = price });
+                    cart.Add(new CartModel { sparepartCode = code, sparepartName = name, qty = 1, unit = unit, unitPrice = price });
                     dgvCart.Refresh();
 
                     addButtonReturn();
@@ -88,15 +97,14 @@ namespace ServiceCenter.ServiceWorkshop
                 DataGridViewRow row = dgvCart.Rows[e.RowIndex];
                 string code = row.Cells["sparepartCode"].Value.ToString();
                 string name = row.Cells["sparepartName"].Value.ToString();
-                string unit = row.Cells["unit"].Value.ToString();
                 //decrese from cart
                 var item = cart
                     .FirstOrDefault(u => u.sparepartCode == code && u.sparepartName == name);
-                if (item.stock <= 1)
+                if (item.qty <= 1)
                 {
                     cart.Remove(item);
                 }
-                item.stock -= 1;
+                item.qty -= 1;
                 dgvCart.Refresh();
 
                 //give back to sparepart 
@@ -139,13 +147,14 @@ namespace ServiceCenter.ServiceWorkshop
         {
             if(chkPrice.Checked)
             {
-                if (dgvCart.Columns.Contains("price")) dgvCart.Columns["price"].Visible = true;
-                if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["price"].Visible = true;
+                if (dgvCart.Columns.Contains("price")) dgvCart.Columns["price"].Visible = false;
+                if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["price"].Visible = false;
             }
             else
             {
-                if (dgvCart.Columns.Contains("price")) dgvCart.Columns["price"].Visible = false;
-                if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["price"].Visible = false;
+                
+                if (dgvCart.Columns.Contains("Price")) dgvCart.Columns["Price"].Visible = true;
+                if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["Price"].Visible = true;
             }
         }
     }

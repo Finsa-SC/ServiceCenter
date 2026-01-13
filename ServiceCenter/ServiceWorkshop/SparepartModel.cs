@@ -17,6 +17,7 @@ namespace ServiceCenter.ServiceWorkshop
         public int stock {  get; set; }
         [DisplayName("Unit")]
         public string unit { get; set; }
+        [DisplayName("Price")]
         public decimal price { get; set; }
     }
 }

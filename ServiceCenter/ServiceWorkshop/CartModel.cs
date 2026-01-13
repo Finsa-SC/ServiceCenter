@@ -13,10 +13,12 @@ namespace ServiceCenter.ServiceWorkshop
         public string sparepartCode {  get; set; }
         [DisplayName("Sparepart Name")]
         public string sparepartName { get; set; }
-        [DisplayName("Stock")]
-        public int stock {  get; set; }
+        [DisplayName("Quantity")]
+        public int qty {  get; set; }
         [DisplayName("Unit")]
         public string unit { get; set; }
-        public decimal price { get; set; }
+        public decimal unitPrice { get; set; }
+        [DisplayName("Price")]
+        public decimal price => unitPrice * qty;
     }
 }

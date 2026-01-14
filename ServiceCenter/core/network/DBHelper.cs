@@ -11,7 +11,7 @@ namespace ServiceCenter.core.network
 {
     internal class DBHelper
     {
-        private static string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
+        public static string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
 
         public static object executeScalar(string query, params SqlParameter[] parameter)
         {

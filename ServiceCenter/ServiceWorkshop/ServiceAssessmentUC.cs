@@ -1,15 +1,18 @@
-﻿using ServiceCenter.core.network;
+﻿using Microsoft.Data.SqlClient;
+using ServiceCenter.core.network;
+using ServiceCenter.core.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using ServiceCenter.core.util;
+using static Azure.Core.HttpHeader;
 
 namespace ServiceCenter.ServiceWorkshop
 {
@@ -107,7 +110,7 @@ namespace ServiceCenter.ServiceWorkshop
             if (e.RowIndex >= 0 && dgvCart.Columns[e.ColumnIndex].Name == "btnAction")
             {
                 DataGridViewRow row = dgvCart.Rows[e.RowIndex];
-                int spareId = Convert.ToInt32(row.Cells["sparepartCode"].Value);
+                int spareId = Convert.ToInt32(row.Cells["spareId"].Value);
                 //decrese from cart
                 var item = cart
                     .FirstOrDefault(u => u.spareId == spareId);
@@ -177,45 +180,53 @@ namespace ServiceCenter.ServiceWorkshop
             if (!UIHelper.ConfirmationDialog("Finish Vehicle", "Do you sure to finish the vehicle right now?")) return;
             int i = 0;
 
-            using (var conn = new SqlConnection())
+            using (var conn = new SqlConnection(DBHelper.connectionString))
             {
+                conn.Open();
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    string qSparepartUsage = "INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)";
+//                  insert into service order details
+                    string qSparepartUsage = "INSERT INTO service_order_details(service_order_id, service_id, price, notes) VALUES(@s, @sid, @p, @n)";
                     using(var cmd = new SqlCommand(qSparepartUsage, conn, transaction))
                     {
                         cmd.Parameters.AddWithValue("@s", serviceOrderId);
-                        cmd.Parameters.AddWithValue("@si", serviceId);
-                        cmd.Parameters.AddWithValue("@q", cart.qua);
+                        cmd.Parameters.AddWithValue("@sid", serviceId);
+                        cmd.Parameters.AddWithValue("@p", Convert.ToDecimal(txtSubtotal.Text));
+                        cmd.Parameters.AddWithValue("@n", txtNote.Text.ToString());
+                        cmd.ExecuteNonQuery();
                     }
-
-                    //memperbaiki peletakan
 
                     foreach (var item in cart)
                     {
-                        string query = @"
-                            BEGIN TRANSACTION;
-                            BEGIN TRY
-                            
-                   
-                                INSERT INTO service_order_details (service_order_id, service_id, price, notes) VALUES (@s, @sid, @p, @n)
-                                COMMIT TRANSACTION
-                            END TRY
-                                BEGIN CATCH
-                            ROLLBACK TRANSACTION
-                            END CATCH";
+//                      insert each sparepart use into sparepart usage
+                        string qsparepart = "INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)";
+                        using(var cmd = new SqlCommand(qsparepart, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@s", serviceOrderId);
+                            cmd.Parameters.AddWithValue("@si", item.spareId);
+                            cmd.Parameters.AddWithValue("@q", item.qty);
+                            cmd.Parameters.AddWithValue("@p", Convert.ToDecimal(item.price));
+                            cmd.ExecuteNonQuery();
+                        }
 
-                        i = DBHelper.executeNonQuery(query,
-                            new SqlParameter("@s", serviceOrderId),
-                            new SqlParameter("@sid", serviceId),
-                            new SqlParameter("@si", item.spareId),
-                            new SqlParameter("@q", item.qty),
-                            new SqlParameter("@p", Convert.ToDecimal(txtSubtotal.Text)),
-                            new SqlParameter("@n", txtNote.Text)
-                        );
+//                      insert each sparepart use into sparepart usage
+                        string qstock = "UPDATE spareparts SET stock = stock - @q WHERE sparepart_id = @sid";
+                        using (var cmd = new SqlCommand(qstock, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@sid", item.spareId);
+                            cmd.Parameters.AddWithValue("@q", item.qty);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    transaction.Commit();
                 }
+                catch(Exception ex)
+                {
+                    UIHelper.toast("Failed", "Failed to Finished Vehicle: " + ex.Message);
+                    transaction.Rollback();
+                }
+                finally { conn.Close(); }
             }
             if (i > 0)
             {

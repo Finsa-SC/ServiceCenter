@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using ServiceCenter.core.util;
 
 namespace ServiceCenter.ServiceWorkshop
 {
@@ -30,6 +31,7 @@ namespace ServiceCenter.ServiceWorkshop
         {
             string query = @"
                     SELECT 
+                        s.sparepart_id,
                         s.sparepart_code, 
                         s.sparepart_name, 
                         s.stock, 
@@ -40,6 +42,7 @@ namespace ServiceCenter.ServiceWorkshop
             sparepart =
                DBHelper.executeReader(query, dr => new SparepartModel
                {
+                   spareId = Convert.ToInt32(dr["sparepart_id"]),
                    sparepartCode = dr["sparepart_code"].ToString(),
                    sparepartName = dr["sparepart_name"].ToString(),
                    stock = Convert.ToInt32(dr["stock"]),
@@ -50,12 +53,15 @@ namespace ServiceCenter.ServiceWorkshop
 
             dgvSparePart.DataSource = new BindingList<SparepartModel>(sparepart);
             addButtonUse();
+            if (dgvSparePart.Columns.Contains("spareId")) dgvSparePart.Columns["spareId"].Visible = false;
+            if (dgvCart.Columns.Contains("spareId")) dgvCart.Columns["spareId"].Visible = false;
         }
         private void dgvSparePart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvSparePart.Rows[e.RowIndex];
+                int spareId = Convert.ToInt32(row.Cells["spareId"].Value);
                 string code = row.Cells["sparepartCode"].Value.ToString();
                 string name = row.Cells["sparepartName"].Value.ToString();
                 int stock = Convert.ToInt32(row.Cells["stock"].Value);
@@ -65,7 +71,7 @@ namespace ServiceCenter.ServiceWorkshop
                 {
                     //decrese stock
                     var item = sparepart
-                        .FirstOrDefault(u => u.sparepartCode == code && u.sparepartName == name);
+                        .FirstOrDefault(u => u.spareId == spareId);
 
                     item.stock--;
                     if (item.stock <= 0)
@@ -81,9 +87,13 @@ namespace ServiceCenter.ServiceWorkshop
                     {
                         itemExist.qty += 1;
                         dgvCart.Refresh();
+                        txtSubtotal.Text = cart.Sum(u => u.price).ToString();
+
                         return;
                     }
-                    cart.Add(new CartModel { sparepartCode = code, sparepartName = name, qty = 1, unit = unit, unitPrice = price });
+                    cart.Add(new CartModel { spareId = spareId, sparepartCode = code, sparepartName = name, qty = 1, unit = unit, unitPrice = price });
+
+                    txtSubtotal.Text = cart.Sum(u => u.price).ToString();
                     dgvCart.Refresh();
 
                     addButtonReturn();
@@ -95,21 +105,22 @@ namespace ServiceCenter.ServiceWorkshop
             if (e.RowIndex >= 0 && dgvCart.Columns[e.ColumnIndex].Name == "btnAction")
             {
                 DataGridViewRow row = dgvCart.Rows[e.RowIndex];
-                string code = row.Cells["sparepartCode"].Value.ToString();
-                string name = row.Cells["sparepartName"].Value.ToString();
+                int spareId = Convert.ToInt32(row.Cells["sparepartCode"].Value);
                 //decrese from cart
                 var item = cart
-                    .FirstOrDefault(u => u.sparepartCode == code && u.sparepartName == name);
+                    .FirstOrDefault(u => u.spareId == spareId);
                 if (item.qty <= 1)
                 {
                     cart.Remove(item);
+                    txtSubtotal.Text = cart.Sum(u => u.price).ToString();
                 }
                 item.qty -= 1;
+                txtSubtotal.Text = cart.Sum(u => u.price).ToString();
                 dgvCart.Refresh();
 
                 //give back to sparepart 
                 var spare = sparepart
-                    .FirstOrDefault(u => u.sparepartCode == code && u.sparepartName == name);
+                    .FirstOrDefault(u => u.spareId == spareId);
                 if (spare != null)
                 {
                     spare.stock++;
@@ -145,16 +156,43 @@ namespace ServiceCenter.ServiceWorkshop
 
         private void chkPrice_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkPrice.Checked)
+            if (chkPrice.Checked)
             {
                 if (dgvCart.Columns.Contains("price")) dgvCart.Columns["price"].Visible = false;
                 if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["price"].Visible = false;
             }
             else
             {
-                
+
                 if (dgvCart.Columns.Contains("Price")) dgvCart.Columns["Price"].Visible = true;
                 if (dgvSparePart.Columns.Contains("price")) dgvSparePart.Columns["Price"].Visible = true;
+            }
+        }
+
+        private void btnFinished_Click(object sender, EventArgs e)
+        {
+            if (!UIHelper.ConfirmationDialog("Finish Vehicle", "Do you sure to finish the vehicle right now?")) return;
+            int i = 0;
+            foreach (var item in cart)
+            {
+                string query = @"
+BEGIN TRANSACTION;
+INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)
+
+INSERT INTO service_order_details (service_order_id, service_id, sparepart)
+";
+
+
+                i = DBHelper.executeNonQuery(query,
+                    new SqlParameter("@s", serviceId),
+                    new SqlParameter("@si", item.spareId),
+                    new SqlParameter("@q", item.qty),
+                    new SqlParameter("@p", item.price)
+                );
+            }
+            if (i > 0)
+            {
+                UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
             }
         }
     }

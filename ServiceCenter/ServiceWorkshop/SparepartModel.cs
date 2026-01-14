@@ -9,6 +9,7 @@ namespace ServiceCenter.ServiceWorkshop
 {
     internal class SparepartModel
     {
+        public int spareId { get; set; }
         [DisplayName("Sparepart Code")]
         public string sparepartCode {  get; set; }
         [DisplayName("Sparepart Name")]

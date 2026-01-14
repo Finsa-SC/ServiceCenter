@@ -59,7 +59,7 @@
             txtCode.BackColor = Color.White;
             txtCode.BorderStyle = BorderStyle.FixedSingle;
             txtCode.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtCode.Location = new Point(47, 75);
+            txtCode.Location = new Point(85, 75);
             txtCode.Name = "txtCode";
             txtCode.ReadOnly = true;
             txtCode.Size = new Size(616, 45);
@@ -70,7 +70,7 @@
             txtPlate.BackColor = Color.White;
             txtPlate.BorderStyle = BorderStyle.FixedSingle;
             txtPlate.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtPlate.Location = new Point(47, 196);
+            txtPlate.Location = new Point(85, 196);
             txtPlate.Name = "txtPlate";
             txtPlate.ReadOnly = true;
             txtPlate.Size = new Size(616, 45);
@@ -81,7 +81,7 @@
             txtBrand.BackColor = Color.White;
             txtBrand.BorderStyle = BorderStyle.FixedSingle;
             txtBrand.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtBrand.Location = new Point(47, 323);
+            txtBrand.Location = new Point(85, 323);
             txtBrand.Name = "txtBrand";
             txtBrand.ReadOnly = true;
             txtBrand.Size = new Size(616, 45);
@@ -92,7 +92,7 @@
             txtModel.BackColor = Color.White;
             txtModel.BorderStyle = BorderStyle.FixedSingle;
             txtModel.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtModel.Location = new Point(47, 442);
+            txtModel.Location = new Point(85, 442);
             txtModel.Name = "txtModel";
             txtModel.ReadOnly = true;
             txtModel.Size = new Size(616, 45);
@@ -103,7 +103,7 @@
             txtYear.BackColor = Color.White;
             txtYear.BorderStyle = BorderStyle.FixedSingle;
             txtYear.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtYear.Location = new Point(47, 567);
+            txtYear.Location = new Point(85, 567);
             txtYear.Name = "txtYear";
             txtYear.ReadOnly = true;
             txtYear.Size = new Size(616, 45);
@@ -114,7 +114,7 @@
             txtFrame.BackColor = Color.White;
             txtFrame.BorderStyle = BorderStyle.FixedSingle;
             txtFrame.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtFrame.Location = new Point(47, 817);
+            txtFrame.Location = new Point(85, 817);
             txtFrame.Name = "txtFrame";
             txtFrame.ReadOnly = true;
             txtFrame.Size = new Size(616, 45);
@@ -125,7 +125,7 @@
             txtEngine.BackColor = Color.White;
             txtEngine.BorderStyle = BorderStyle.FixedSingle;
             txtEngine.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtEngine.Location = new Point(52, 688);
+            txtEngine.Location = new Point(90, 688);
             txtEngine.Name = "txtEngine";
             txtEngine.ReadOnly = true;
             txtEngine.Size = new Size(616, 45);
@@ -135,7 +135,7 @@
             // 
             txtComplaint.BackColor = Color.White;
             txtComplaint.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtComplaint.Location = new Point(797, 76);
+            txtComplaint.Location = new Point(835, 76);
             txtComplaint.Name = "txtComplaint";
             txtComplaint.ReadOnly = true;
             txtComplaint.Size = new Size(887, 165);
@@ -146,7 +146,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label1.Location = new Point(47, 295);
+            label1.Location = new Point(85, 295);
             label1.Name = "label1";
             label1.Size = new Size(75, 26);
             label1.TabIndex = 2;
@@ -156,7 +156,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label2.Location = new Point(47, 416);
+            label2.Location = new Point(85, 416);
             label2.Name = "label2";
             label2.Size = new Size(76, 26);
             label2.TabIndex = 2;
@@ -166,7 +166,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label3.Location = new Point(47, 168);
+            label3.Location = new Point(85, 168);
             label3.Name = "label3";
             label3.Size = new Size(158, 26);
             label3.TabIndex = 2;
@@ -176,7 +176,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label4.Location = new Point(47, 47);
+            label4.Location = new Point(85, 47);
             label4.Name = "label4";
             label4.Size = new Size(68, 26);
             label4.TabIndex = 2;
@@ -186,7 +186,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label5.Location = new Point(47, 789);
+            label5.Location = new Point(85, 789);
             label5.Name = "label5";
             label5.Size = new Size(171, 26);
             label5.TabIndex = 2;
@@ -196,7 +196,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label6.Location = new Point(47, 660);
+            label6.Location = new Point(85, 660);
             label6.Name = "label6";
             label6.Size = new Size(177, 26);
             label6.TabIndex = 2;
@@ -206,7 +206,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label7.Location = new Point(47, 539);
+            label7.Location = new Point(85, 539);
             label7.Name = "label7";
             label7.Size = new Size(63, 26);
             label7.TabIndex = 2;
@@ -216,7 +216,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
-            label8.Location = new Point(797, 51);
+            label8.Location = new Point(835, 51);
             label8.Name = "label8";
             label8.Size = new Size(120, 26);
             label8.TabIndex = 2;
@@ -250,7 +250,7 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(797, 397);
+            dataGridView1.Location = new Point(835, 397);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
@@ -264,7 +264,7 @@
             txtSearch.BackColor = Color.White;
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            txtSearch.Location = new Point(797, 323);
+            txtSearch.Location = new Point(835, 323);
             txtSearch.MaxLength = 30;
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = " Search Service...";
@@ -277,7 +277,7 @@
             cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategory.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbCategory.FormattingEnabled = true;
-            cmbCategory.Location = new Point(1399, 323);
+            cmbCategory.Location = new Point(1437, 323);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(285, 46);
             cmbCategory.TabIndex = 5;

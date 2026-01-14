@@ -9,6 +9,7 @@ namespace ServiceCenter.ServiceWorkshop
 {
     internal class CartModel
     {
+        public int spareId { get; set; }
         [DisplayName("Sparepart Code")]
         public string sparepartCode {  get; set; }
         [DisplayName("Sparepart Name")]
@@ -17,6 +18,7 @@ namespace ServiceCenter.ServiceWorkshop
         public int qty {  get; set; }
         [DisplayName("Unit")]
         public string unit { get; set; }
+        [Browsable(false)]
         public decimal unitPrice { get; set; }
         [DisplayName("Price")]
         public decimal price => unitPrice * qty;

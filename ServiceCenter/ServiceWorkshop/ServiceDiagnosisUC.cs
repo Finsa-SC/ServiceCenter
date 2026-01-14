@@ -36,7 +36,7 @@ namespace ServiceCenter.ServiceWorkshop
                     SELECT @cid = customer_id FROM service_orders WHERE service_order_id = @sid;
 
                     SELECT 
-                        s.service_order_id,
+                        @sid AS assignId,
                         s.service_order_id,
                         s.service_code,
                         v.plate_number AS [Plate Number], 
@@ -51,7 +51,8 @@ namespace ServiceCenter.ServiceWorkshop
                     WHERE s.customer_id = @cid";
             var data = DBHelper.executeReader(query, dr =>
             {
-                serviceOrderID = Convert.ToInt32(dr["service_order_id"]);
+                ServiceSession.serviceOrderId = Convert.ToInt32(dr["service_order_id"]);
+                ServiceSession.serviceAssignId = Convert.ToInt32(dr["assignId"]);
                 txtCode.Text = dr["service_code"].ToString();
                 txtPlate.Text = dr["Plate Number"].ToString();
                 txtBrand.Text = dr["Brand"].ToString();
@@ -96,7 +97,7 @@ namespace ServiceCenter.ServiceWorkshop
             }
         }
 
-        public event Action<int, int> clickMethod;
+        public event Action clickMethod;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -104,8 +105,8 @@ namespace ServiceCenter.ServiceWorkshop
                 if (dataGridView1.Columns[e.ColumnIndex].Name == "btn")
                 {
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                    int i = Convert.ToInt32(row.Cells["service_id"].Value);
-                    clickMethod?.Invoke(i, serviceOrderID);
+                    ServiceSession.serviceId = Convert.ToInt32(row.Cells["service_id"].Value);
+                    clickMethod?.Invoke();
                 }
             }
         }

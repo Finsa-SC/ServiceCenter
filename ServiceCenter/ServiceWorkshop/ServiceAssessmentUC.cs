@@ -18,16 +18,14 @@ namespace ServiceCenter.ServiceWorkshop
 {
     public partial class ServiceAssessmentUC : UserControl
     {
-        int serviceId;
-        int serviceOrderId;
+        //int serviceId;
+        //int serviceOrderId;
         BindingList<CartModel> cart = new BindingList<CartModel>();
         List<SparepartModel> sparepart;
-        public ServiceAssessmentUC(int serviceID, int serviceOrderID)
+        public ServiceAssessmentUC()
         {
             InitializeComponent();
             dgvCart.DataSource = cart;
-            serviceId = serviceID;
-            serviceOrderId = serviceOrderID;
             loadSparepart();
         }
 
@@ -178,7 +176,6 @@ namespace ServiceCenter.ServiceWorkshop
         {
             if (ValidationHelper.isNullInput(this)) return;
             if (!UIHelper.ConfirmationDialog("Finish Vehicle", "Do you sure to finish the vehicle right now?")) return;
-            int i = 0;
 
             using (var conn = new SqlConnection(DBHelper.connectionString))
             {
@@ -186,14 +183,18 @@ namespace ServiceCenter.ServiceWorkshop
                 var transaction = conn.BeginTransaction();
                 try
                 {
-//                  insert into service order details
-                    string qSparepartUsage = "INSERT INTO service_order_details(service_order_id, service_id, price, notes) VALUES(@s, @sid, @p, @n)";
+//                  insert into service order exists data
+                    string qSparepartUsage = @"
+                                INSERT INTO service_order_details(service_order_id, service_id, price, notes) VALUES(@s, @sid, @p, @n)
+                                UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
+                                UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id";
                     using(var cmd = new SqlCommand(qSparepartUsage, conn, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@s", serviceOrderId);
-                        cmd.Parameters.AddWithValue("@sid", serviceId);
+                        cmd.Parameters.AddWithValue("@s", ServiceSession.serviceOrderId);
+                        cmd.Parameters.AddWithValue("@sid", ServiceSession.serviceId);
                         cmd.Parameters.AddWithValue("@p", Convert.ToDecimal(txtSubtotal.Text));
                         cmd.Parameters.AddWithValue("@n", txtNote.Text.ToString());
+                        cmd.Parameters.AddWithValue("@id", ServiceSession.serviceOrderId);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -203,7 +204,7 @@ namespace ServiceCenter.ServiceWorkshop
                         string qsparepart = "INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)";
                         using(var cmd = new SqlCommand(qsparepart, conn, transaction))
                         {
-                            cmd.Parameters.AddWithValue("@s", serviceOrderId);
+                            cmd.Parameters.AddWithValue("@s", ServiceSession.serviceOrderId);
                             cmd.Parameters.AddWithValue("@si", item.spareId);
                             cmd.Parameters.AddWithValue("@q", item.qty);
                             cmd.Parameters.AddWithValue("@p", Convert.ToDecimal(item.price));
@@ -220,17 +221,14 @@ namespace ServiceCenter.ServiceWorkshop
                         }
                     }
                     transaction.Commit();
+                    UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     UIHelper.toast("Failed", "Failed to Finished Vehicle: " + ex.Message);
                     transaction.Rollback();
                 }
                 finally { conn.Close(); }
-            }
-            if (i > 0)
-            {
-                UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
             }
         }
     }

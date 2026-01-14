@@ -14,6 +14,7 @@ namespace ServiceCenter.ServiceWorkshop
 {
     public partial class ServiceDiagnosisUC : UserControl
     {
+        int serviceOrderID;
         public ServiceDiagnosisUC()
         {
             InitializeComponent();
@@ -35,6 +36,8 @@ namespace ServiceCenter.ServiceWorkshop
                     SELECT @cid = customer_id FROM service_orders WHERE service_order_id = @sid;
 
                     SELECT 
+                        s.service_order_id,
+                        s.service_order_id,
                         s.service_code,
                         v.plate_number AS [Plate Number], 
                         v.brand AS Brand,
@@ -48,6 +51,7 @@ namespace ServiceCenter.ServiceWorkshop
                     WHERE s.customer_id = @cid";
             var data = DBHelper.executeReader(query, dr =>
             {
+                serviceOrderID = Convert.ToInt32(dr["service_order_id"]);
                 txtCode.Text = dr["service_code"].ToString();
                 txtPlate.Text = dr["Plate Number"].ToString();
                 txtBrand.Text = dr["Brand"].ToString();
@@ -92,7 +96,7 @@ namespace ServiceCenter.ServiceWorkshop
             }
         }
 
-        public event Action<int> clickMethod;
+        public event Action<int, int> clickMethod;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -101,7 +105,7 @@ namespace ServiceCenter.ServiceWorkshop
                 {
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     int i = Convert.ToInt32(row.Cells["service_id"].Value);
-                    clickMethod?.Invoke(i);
+                    clickMethod?.Invoke(i, serviceOrderID);
                 }
             }
         }

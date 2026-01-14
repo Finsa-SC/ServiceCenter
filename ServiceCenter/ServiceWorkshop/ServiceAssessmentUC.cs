@@ -16,13 +16,15 @@ namespace ServiceCenter.ServiceWorkshop
     public partial class ServiceAssessmentUC : UserControl
     {
         int serviceId;
+        int serviceOrderId;
         BindingList<CartModel> cart = new BindingList<CartModel>();
         List<SparepartModel> sparepart;
-        public ServiceAssessmentUC(int serviceID)
+        public ServiceAssessmentUC(int serviceID, int serviceOrderID)
         {
             InitializeComponent();
             dgvCart.DataSource = cart;
             serviceId = serviceID;
+            serviceOrderId = serviceOrderID;
             loadSparepart();
         }
 
@@ -171,24 +173,49 @@ namespace ServiceCenter.ServiceWorkshop
 
         private void btnFinished_Click(object sender, EventArgs e)
         {
+            if (ValidationHelper.isNullInput(this)) return;
             if (!UIHelper.ConfirmationDialog("Finish Vehicle", "Do you sure to finish the vehicle right now?")) return;
             int i = 0;
-            foreach (var item in cart)
+
+            using (var conn = new SqlConnection())
             {
-                string query = @"
-BEGIN TRANSACTION;
-INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)
+                var transaction = conn.BeginTransaction();
+                try
+                {
+                    string qSparepartUsage = "INSERT INTO sparepart_usage (service_order_id, sparepart_id, quantity, price) VALUES (@s, @si, @q, @p)";
+                    using(var cmd = new SqlCommand(qSparepartUsage, conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@s", serviceOrderId);
+                        cmd.Parameters.AddWithValue("@si", serviceId);
+                        cmd.Parameters.AddWithValue("@q", cart.qua);
+                    }
 
-INSERT INTO service_order_details (service_order_id, service_id, sparepart)
-";
+                    //memperbaiki peletakan
 
+                    foreach (var item in cart)
+                    {
+                        string query = @"
+                            BEGIN TRANSACTION;
+                            BEGIN TRY
+                            
+                   
+                                INSERT INTO service_order_details (service_order_id, service_id, price, notes) VALUES (@s, @sid, @p, @n)
+                                COMMIT TRANSACTION
+                            END TRY
+                                BEGIN CATCH
+                            ROLLBACK TRANSACTION
+                            END CATCH";
 
-                i = DBHelper.executeNonQuery(query,
-                    new SqlParameter("@s", serviceId),
-                    new SqlParameter("@si", item.spareId),
-                    new SqlParameter("@q", item.qty),
-                    new SqlParameter("@p", item.price)
-                );
+                        i = DBHelper.executeNonQuery(query,
+                            new SqlParameter("@s", serviceOrderId),
+                            new SqlParameter("@sid", serviceId),
+                            new SqlParameter("@si", item.spareId),
+                            new SqlParameter("@q", item.qty),
+                            new SqlParameter("@p", Convert.ToDecimal(txtSubtotal.Text)),
+                            new SqlParameter("@n", txtNote.Text)
+                        );
+                    }
+                }
             }
             if (i > 0)
             {

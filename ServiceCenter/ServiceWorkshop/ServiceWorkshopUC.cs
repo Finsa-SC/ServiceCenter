@@ -20,10 +20,15 @@ namespace ServiceCenter
             InitializeComponent();
 
             serviceDiagnosisUC = new ServiceDiagnosisUC();
+
+            
             serviceDiagnosisUC.clickMethod += () =>
             {
-                loadActivity(new ServiceAssessmentUC());
+                var serviceAssess = new ServiceAssessmentUC();
+                serviceAssess.finishedClick += () => loadActivity(serviceDiagnosisUC);
+                loadActivity(serviceAssess);
             };
+
             if (checkJob() == 1) { loadActivity(serviceDiagnosisUC); pnlAvailable.Visible = true; }
         }
 

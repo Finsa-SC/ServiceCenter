@@ -173,7 +173,7 @@ namespace ServiceCenter
             loginform.ShowDialog();
             form.loadBottomNav();
             loadData();
-            form.chectUserRole();
+            form.checkUserRole();
         }
     }
 }

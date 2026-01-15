@@ -172,6 +172,7 @@ namespace ServiceCenter.ServiceWorkshop
             }
         }
 
+        public event Action finishedClick;
         private void btnFinished_Click(object sender, EventArgs e)
         {
             if (ValidationHelper.isNullInput(this)) return;
@@ -183,18 +184,14 @@ namespace ServiceCenter.ServiceWorkshop
                 var transaction = conn.BeginTransaction();
                 try
                 {
-//                  insert into service order exists data
-                    string qSparepartUsage = @"
-                                INSERT INTO service_order_details(service_order_id, service_id, price, notes) VALUES(@s, @sid, @p, @n)
-                                UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
-                                UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id";
+//                  insert into service order data
+                    string qSparepartUsage = "INSERT INTO service_order_details(service_order_id, service_id, price, notes) VALUES(@s, @sid, @p, @n)";
                     using(var cmd = new SqlCommand(qSparepartUsage, conn, transaction))
                     {
                         cmd.Parameters.AddWithValue("@s", ServiceSession.serviceOrderId);
                         cmd.Parameters.AddWithValue("@sid", ServiceSession.serviceId);
                         cmd.Parameters.AddWithValue("@p", Convert.ToDecimal(txtSubtotal.Text));
                         cmd.Parameters.AddWithValue("@n", txtNote.Text.ToString());
-                        cmd.Parameters.AddWithValue("@id", ServiceSession.serviceOrderId);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -221,6 +218,8 @@ namespace ServiceCenter.ServiceWorkshop
                         }
                     }
                     transaction.Commit();
+                    ServiceSession.total_cost += Convert.ToDecimal(txtSubtotal.Text);
+                    finishedClick?.Invoke();
                     UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
                 }
                 catch (Exception ex)

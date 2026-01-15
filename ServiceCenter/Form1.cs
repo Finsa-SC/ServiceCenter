@@ -1,4 +1,5 @@
 using ServiceCenter.core.util;
+using ServiceCenter.ServiceWorkshop;
 using System.Windows.Forms;
 
 namespace ServiceCenter
@@ -10,11 +11,18 @@ namespace ServiceCenter
             InitializeComponent();
             initButton();
         }
+
+        public event Action action;
         private void Form1_Load(object sender, EventArgs e)
         {
             isLogged();
             initImage();
             loadBottomNav();
+
+            var serviceDiag = new ServiceDiagnosisUC();
+            currentUc = null;
+            serviceDiag.action += () => loadUC(new ServiceWorkshopUC());
+            action?.Invoke();
         }
 
         public void isLogged()
@@ -25,7 +33,7 @@ namespace ServiceCenter
                 form.ShowDialog();
             }
             UIHelper.toast("Login Success", $"Welcome Back Again {UserSession.userName}, Great to Meet You!");
-            chectUserRole();
+            checkUserRole();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -231,7 +239,7 @@ namespace ServiceCenter
         }
 
 
-        public void chectUserRole()
+        public void checkUserRole()
         {
             if (UserSession.roleString == "Developer")
             {
@@ -246,12 +254,14 @@ namespace ServiceCenter
             UserControl? uc = null;
             switch (UserSession.roleId)
             {
+                //admin
                 case 1:
                     btnUserManagement.Visible = true;
                     btnServiceOrder.Visible = true;
                     btnServiceProcess.Visible = true;
                     uc = new UserManagementUC();
                     break;
+                //technician
                 case 2:
                     btnServiceWorkshop.Visible = true;
                     uc = new ServiceWorkshopUC();
@@ -265,6 +275,7 @@ namespace ServiceCenter
                     btnUserManagement.Visible = false;
                     break;
             }
+            currentUc = null;
             loadUC(uc);
         }
         private void relogButton()

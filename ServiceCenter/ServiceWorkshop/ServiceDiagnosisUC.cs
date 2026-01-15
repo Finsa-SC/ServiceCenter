@@ -25,6 +25,7 @@ namespace ServiceCenter.ServiceWorkshop
             addCategorySearch();
             addButton();
             loadServiceMethod();
+            txtSubTotal.Text = ServiceSession.total_cost.ToString();
         }
 
         private void loadData()
@@ -138,6 +139,21 @@ namespace ServiceCenter.ServiceWorkshop
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             loadServiceMethod();
+        }
+
+        public event Action action;
+        private void btnFinish_Click(object sender, EventArgs e)
+        {
+            string query = @"UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
+            UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id";
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@p", ServiceSession.total_cost),
+                new SqlParameter("@id", ServiceSession.serviceOrderId)
+            );
+            if (i > 0)
+            {
+                action?.Invoke();
+            }
         }
     }
 }

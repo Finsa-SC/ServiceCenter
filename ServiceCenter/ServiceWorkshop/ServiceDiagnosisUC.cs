@@ -14,10 +14,11 @@ namespace ServiceCenter.ServiceWorkshop
 {
     public partial class ServiceDiagnosisUC : UserControl
     {
-        int serviceOrderID;
         public ServiceDiagnosisUC()
         {
             InitializeComponent();
+
+
         }
         private void ServiceDiagnosisUC_Load(object sender, EventArgs e)
         {
@@ -25,7 +26,7 @@ namespace ServiceCenter.ServiceWorkshop
             addCategorySearch();
             addButton();
             loadServiceMethod();
-            txtSubTotal.Text = ServiceSession.total_cost.ToString();
+            txtSubTotal.Text = "0";
         }
 
         private void loadData()
@@ -141,19 +142,37 @@ namespace ServiceCenter.ServiceWorkshop
             loadServiceMethod();
         }
 
-        public event Action action;
+        public event Action finishOrder;
         private void btnFinish_Click(object sender, EventArgs e)
         {
-            string query = @"UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
-            UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id";
+            string query = @"
+                    BEGIN TRANSACTION;
+                    BEGIN TRY
+                        UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
+                        UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id
+                    COMMIT TRANSACTION
+                    END TRY
+                    BEGIN CATCH
+                        ROLLBACK TRANSACTION;
+                    END CATCH";
+
             int i = DBHelper.executeNonQuery(query,
-                new SqlParameter("@p", ServiceSession.total_cost),
+                new SqlParameter("@p", Convert.ToDecimal(txtSubTotal.Text)),
                 new SqlParameter("@id", ServiceSession.serviceOrderId)
             );
             if (i > 0)
             {
-                action?.Invoke();
+                finishOrder?.Invoke();
             }
+        }
+
+        public void setSubtotal()
+        {
+            string query = "SELECT SUM(price) FROM service_order_details WHERE service_order_id = @id";
+            decimal total = Convert.ToDecimal(DBHelper.executeScalar(query,
+                new SqlParameter("@id", ServiceSession.serviceOrderId)
+            ));
+            txtSubTotal.Text = total.ToString();
         }
     }
 }

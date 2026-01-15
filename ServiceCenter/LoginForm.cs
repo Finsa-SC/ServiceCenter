@@ -65,7 +65,7 @@ namespace ServiceCenter
                     dr["full_name"].ToString(),
                     dr["phone"].ToString(),
                     dr["photo_profile"].ToString(),
-                    dr["technician_id"] == DBNull.Value ? 0: Convert.ToInt32(dr["technician_id"])
+                    dr["technician_id"] == DBNull.Value ? 0 : Convert.ToInt32(dr["technician_id"])
                 );
                 return true;
             },

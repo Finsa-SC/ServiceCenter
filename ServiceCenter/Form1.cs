@@ -1,4 +1,5 @@
 using ServiceCenter.core.util;
+using ServiceCenter.ServiceOrder;
 using ServiceCenter.ServiceWorkshop;
 using System.Windows.Forms;
 
@@ -6,23 +7,34 @@ namespace ServiceCenter
 {
     public partial class Form1 : Form
     {
+
+        public static Form1 Instance { get; set; }
+
+        private ServiceWorkshopUC serviceWorkshopUC;
+        private UserManagementUC userManagementUC;
+        private ServiceOrdersUC serviceOrdersUC;
+        private ServiceProcessUC serviceProcessUC;
+
         public Form1()
         {
             InitializeComponent();
             initButton();
+            Instance = this;
+
+            userManagementUC = new UserManagementUC();
+            serviceOrdersUC = new ServiceOrdersUC();
+            serviceProcessUC = new ServiceProcessUC();
         }
 
-        public event Action action;
         private void Form1_Load(object sender, EventArgs e)
         {
             isLogged();
             initImage();
             loadBottomNav();
 
-            var serviceDiag = new ServiceDiagnosisUC();
-            currentUc = null;
-            serviceDiag.action += () => loadUC(new ServiceWorkshopUC());
-            action?.Invoke();
+            //var serviceDiag = serviceDiagnosisUC;
+            //currentUc = null;
+            //serviceDiag.finishOrder += () => loadUC(new ServiceWorkshopUC());
         }
 
         public void isLogged()
@@ -53,14 +65,6 @@ namespace ServiceCenter
             }
         }
 
-        private void btnUserManagement_Click(object sender, EventArgs e)
-        {
-            if (UserSession.isLogged())
-            {
-                loadUC(new UserManagementUC());
-            }
-        }
-
         public void loadBottomNav()
         {
             if (UserSession.isLogged())
@@ -81,7 +85,7 @@ namespace ServiceCenter
         {
             if (UserSession.isLogged())
             {
-                loadUC(new UserManagementUC());
+                loadUC(userManagementUC);
             }
         }
 
@@ -235,7 +239,7 @@ namespace ServiceCenter
 
         private void btnServiceOrder_Click(object sender, EventArgs e)
         {
-            loadUC(new ServiceOrder.ServiceOrdersUC());
+            loadUC(serviceOrdersUC);
         }
 
 
@@ -259,18 +263,21 @@ namespace ServiceCenter
                     btnUserManagement.Visible = true;
                     btnServiceOrder.Visible = true;
                     btnServiceProcess.Visible = true;
-                    uc = new UserManagementUC();
+                    uc = userManagementUC;
                     break;
                 //technician
                 case 2:
+                    serviceWorkshopUC = new ServiceWorkshopUC();
                     btnServiceWorkshop.Visible = true;
-                    uc = new ServiceWorkshopUC();
+                    uc = serviceWorkshopUC;
                     break;
+                //cashier
                 case 4:
                     btnServiceOrder.Visible = true;
                     btnServiceProcess.Visible = true;
-                    uc = new ServiceOrder.ServiceOrdersUC();
+                    uc = serviceOrdersUC;
                     break;
+                //supplier
                 case 5:
                     btnUserManagement.Visible = false;
                     break;
@@ -288,12 +295,12 @@ namespace ServiceCenter
 
         private void btnServiceProcess_Click(object sender, EventArgs e)
         {
-            loadUC(new ServiceProcessUC());
+            loadUC(serviceProcessUC);
         }
 
         private void btnRepair_Click(object sender, EventArgs e)
         {
-            loadUC(new ServiceWorkshopUC());
+            loadUC(serviceWorkshopUC);
         }
     }
 }

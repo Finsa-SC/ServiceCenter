@@ -173,10 +173,11 @@ namespace ServiceCenter.ServiceWorkshop
         }
 
         public event Action finishedClick;
+        public event Action setTotalCost;
         private void btnFinished_Click(object sender, EventArgs e)
         {
             if (ValidationHelper.isNullInput(this)) return;
-            if (!UIHelper.ConfirmationDialog("Finish Vehicle", "Do you sure to finish the vehicle right now?")) return;
+            if (!UIHelper.ConfirmationDialog("Finish Service", "Do you sure to finish the vehicle right now?")) return;
 
             using (var conn = new SqlConnection(DBHelper.connectionString))
             {
@@ -218,13 +219,13 @@ namespace ServiceCenter.ServiceWorkshop
                         }
                     }
                     transaction.Commit();
-                    ServiceSession.total_cost += Convert.ToDecimal(txtSubtotal.Text);
+                    setTotalCost?.Invoke();
                     finishedClick?.Invoke();
-                    UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
+                    UIHelper.toast("Finished", $"Service Has Been Finished By {UserSession.userName}");
                 }
                 catch (Exception ex)
                 {
-                    UIHelper.toast("Failed", "Failed to Finished Vehicle: " + ex.Message);
+                    UIHelper.toast("Failed", "Failed to Finished Service: " + ex.Message);
                     transaction.Rollback();
                 }
                 finally { conn.Close(); }

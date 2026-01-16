@@ -18,7 +18,7 @@ namespace ServiceCenter.ServiceWorkshop
         {
             InitializeComponent();
 
-
+            ServiceWorkshopUC.serviceWorkshopUC.setCost += () => txtSubTotal.Text = setSubtotal().ToString();
         }
         private void ServiceDiagnosisUC_Load(object sender, EventArgs e)
         {
@@ -26,19 +26,20 @@ namespace ServiceCenter.ServiceWorkshop
             addCategorySearch();
             addButton();
             loadServiceMethod();
-            txtSubTotal.Text = "0";
+            txtSubTotal.Text = setSubtotal().ToString();
         }
 
         private void loadData()
         {
             string query = @"
                     DECLARE @sid INT;
+                    DECLARE @said INT;
                     DECLARE @cid INT;
-                    SELECT @sid = service_order_id FROM service_assignments WHERE technician_id = @tid AND finished_date IS NULL;
+                    SELECT @sid = service_order_id, @said = assignment_id FROM service_assignments WHERE technician_id = @tid AND finished_date IS NULL;
                     SELECT @cid = customer_id FROM service_orders WHERE service_order_id = @sid;
 
                     SELECT 
-                        @sid AS assignId,
+                        @said AS assignId,
                         s.service_order_id,
                         s.service_code,
                         v.plate_number AS [Plate Number], 
@@ -148,9 +149,9 @@ namespace ServiceCenter.ServiceWorkshop
             string query = @"
                     BEGIN TRANSACTION;
                     BEGIN TRY
-                        UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @id
-                        UPDATE service_assignments SET finished_date = GETDATE() WHERE service_order_id = @id
-                    COMMIT TRANSACTION
+                        UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @sid
+                        UPDATE service_assignments SET finished_date = GETDATE() WHERE assignment_id = @id
+                        COMMIT TRANSACTION
                     END TRY
                     BEGIN CATCH
                         ROLLBACK TRANSACTION;
@@ -158,7 +159,8 @@ namespace ServiceCenter.ServiceWorkshop
 
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@p", Convert.ToDecimal(txtSubTotal.Text)),
-                new SqlParameter("@id", ServiceSession.serviceOrderId)
+                new SqlParameter("@sid", ServiceSession.serviceOrderId),
+                new SqlParameter("@id", ServiceSession.serviceAssignId)
             );
             if (i > 0)
             {
@@ -166,13 +168,16 @@ namespace ServiceCenter.ServiceWorkshop
             }
         }
 
-        public void setSubtotal()
+        public decimal setSubtotal()
         {
             string query = "SELECT SUM(price) FROM service_order_details WHERE service_order_id = @id";
-            decimal total = Convert.ToDecimal(DBHelper.executeScalar(query,
+            object result = DBHelper.executeScalar(query,
                 new SqlParameter("@id", ServiceSession.serviceOrderId)
-            ));
-            txtSubTotal.Text = total.ToString();
+            );
+
+            decimal total;
+            decimal.TryParse(result?.ToString(), out total);
+            return total;
         }
     }
 }

@@ -17,19 +17,32 @@ namespace ServiceCenter
     public partial class ServiceWorkshopUC : UserControl
     {
         private ServiceDiagnosisUC serviceDiagnosisUC;
+        public static ServiceWorkshopUC serviceWorkshopUC { get; private set; }
 
-
+        public event Action setCost;
         public ServiceWorkshopUC()
         {
             InitializeComponent();
+            serviceWorkshopUC = this;
 
             serviceDiagnosisUC = new ServiceDiagnosisUC();
 
+            serviceDiagnosisUC.finishOrder += () =>
+            {
+                ServiceSession.clearOrderSession();
+                serviceDiagnosisUC = new ServiceDiagnosisUC();
+                loadActivity(serviceDiagnosisUC);
+                UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
+            };
 
             serviceDiagnosisUC.clickMethod += () =>
             {
                 var serviceAssess = new ServiceAssessmentUC();
-                serviceAssess.finishedClick += () => loadActivity(serviceDiagnosisUC);
+                serviceAssess.finishedClick += () =>
+                {
+                    setCost?.Invoke();
+                    loadActivity(serviceDiagnosisUC);
+                };
                 loadActivity(serviceAssess);
             };
             if (checkJob() == 1) { loadActivity(serviceDiagnosisUC); pnlAvailable.Visible = true; }
@@ -37,12 +50,7 @@ namespace ServiceCenter
 
         private void ServiceWorkshopUC_Load(object sender, EventArgs e)
         {
-            serviceDiagnosisUC.finishOrder += () =>
-            {
-                serviceDiagnosisUC = new ServiceDiagnosisUC();
-                loadActivity(serviceDiagnosisUC);
-                UIHelper.toast("Finished", $"Vehicles Has Been Finished By {UserSession.userName}");
-            };
+            
         }
         private void loadActivity(UserControl uc)
         {

@@ -98,16 +98,19 @@ namespace ServiceCenter
             btnServiceOrder.MouseEnter += Hover_MouseEnter;
             btnServiceProcess.MouseEnter += Hover_MouseEnter;
             btnServiceWorkshop.MouseEnter += Hover_MouseEnter;
+            btnServicePayment.MouseEnter += Hover_MouseEnter;
 
             btnUserManagement.MouseLeave += Hover_MouseLeave;
             btnServiceOrder.MouseLeave += Hover_MouseLeave;
             btnServiceProcess.MouseLeave += Hover_MouseLeave;
             btnServiceWorkshop.MouseLeave += Hover_MouseLeave;
+            btnServicePayment.MouseEnter += Hover_MouseLeave;
 
             btnUserManagement.MouseHover += Mouse_hover_button;
             btnServiceOrder.MouseHover += Mouse_hover_button;
             btnServiceProcess.MouseHover += Mouse_hover_button;
             btnServiceWorkshop.MouseHover += Mouse_hover_button;
+            btnServicePayment.MouseEnter += Mouse_hover_button;
             pctProfile.MouseHover += Mouse_hover_button;
         }
         private void Hover_MouseEnter(object sender, EventArgs e)

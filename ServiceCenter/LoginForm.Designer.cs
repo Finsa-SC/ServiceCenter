@@ -85,7 +85,7 @@
             txtPassword.PlaceholderText = " Password...";
             txtPassword.Size = new Size(393, 42);
             txtPassword.TabIndex = 4;
-            txtPassword.Text = "test";
+            txtPassword.Text = "agus080200";
             // 
             // txtEmail
             // 
@@ -98,7 +98,7 @@
             txtEmail.PlaceholderText = " Email...";
             txtEmail.Size = new Size(393, 42);
             txtEmail.TabIndex = 4;
-            txtEmail.Text = "test";
+            txtEmail.Text = "agus@gmail.com";
             // 
             // label3
             // 

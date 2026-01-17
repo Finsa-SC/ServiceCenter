@@ -1,4 +1,5 @@
 ﻿using ServiceCenter.core.network;
+using ServiceCenter.core.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace ServiceCenter
         {
             InitializeComponent();
             loadData();
+            cmbMethod.SelectedIndex = 0;
         }
 
         private void loadData()
@@ -28,7 +30,7 @@ namespace ServiceCenter
                         v.model AS Model,
                         s.status_name AS Status,
                         o.actual_finish_date AS [Finished At],
-                        o.total_cost,
+                        o.total_cost AS [Total Cost],
                         u.username AS [Assigned By]
                     FROM service_orders o
                     JOIN customers c ON o.customer_id = c.customer_id
@@ -38,5 +40,43 @@ namespace ServiceCenter
                     WHERE o.status_id = 3";
             dataGridView1.DataSource = DBHelper.executeQuery(query);
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                txtTotal.Text = row.Cells["Total Cost"].Value.ToString();
+            }
+        }
+
+        private void txtPaid_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPaid.Text)) return;
+            decimal total = Convert.ToDecimal(txtTotal.Text);
+            decimal paid = Convert.ToDecimal(txtPaid.Text);
+            if (paid > total)
+            {
+                string change = (total - paid).ToString().Replace("-", "");
+                txtChange.Text = change.ToString();
+            }
+            else txtChange.Clear();
+
+        }
+
+        private void txtPaid_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ValidationHelper.onlyDigit(e);
+        }
+
+        private void btnFinish_Click(object sender, EventArgs e)
+        {
+            if(Convert.ToDecimal(txtPaid.Text) < Convert.ToDecimal(txtTotal.Text))
+            {
+                UIHelper.toast("Not Enaugh Money", "Paid is less than Total Cost");
+                return;
+            }
+        }
     }
 }
+

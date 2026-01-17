@@ -149,7 +149,7 @@ namespace ServiceCenter.ServiceWorkshop
             string query = @"
                     BEGIN TRANSACTION;
                     BEGIN TRY
-                        UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p WHERE service_order_id = @sid
+                        UPDATE service_orders SET actual_finish_date = GETDATE(), total_cost = @p, status_id = 3 WHERE service_order_id = @sid
                         UPDATE service_assignments SET finished_date = GETDATE() WHERE assignment_id = @id
                         COMMIT TRANSACTION
                     END TRY

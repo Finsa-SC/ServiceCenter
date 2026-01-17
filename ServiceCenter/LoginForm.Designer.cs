@@ -85,7 +85,7 @@
             txtPassword.PlaceholderText = " Password...";
             txtPassword.Size = new Size(393, 42);
             txtPassword.TabIndex = 4;
-            txtPassword.Text = "tess";
+            txtPassword.Text = "test";
             // 
             // txtEmail
             // 
@@ -98,7 +98,7 @@
             txtEmail.PlaceholderText = " Email...";
             txtEmail.Size = new Size(393, 42);
             txtEmail.TabIndex = 4;
-            txtEmail.Text = "tess";
+            txtEmail.Text = "test";
             // 
             // label3
             // 
@@ -144,9 +144,9 @@
             lblForgotPass.AutoSize = true;
             lblForgotPass.Location = new Point(126, 676);
             lblForgotPass.Name = "lblForgotPass";
-            lblForgotPass.Size = new Size(201, 25);
+            lblForgotPass.Size = new Size(197, 25);
             lblForgotPass.TabIndex = 8;
-            lblForgotPass.Text = "Forgot you'r password?";
+            lblForgotPass.Text = "Forgot your password?";
             lblForgotPass.Visible = false;
             // 
             // LoginForm

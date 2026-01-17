@@ -14,6 +14,7 @@ namespace ServiceCenter
         private UserManagementUC userManagementUC;
         private ServiceOrdersUC serviceOrdersUC;
         private ServiceProcessUC serviceProcessUC;
+        private ServicePaymentUC servicePaymentUC;
 
         public Form1()
         {
@@ -24,6 +25,7 @@ namespace ServiceCenter
             userManagementUC = new UserManagementUC();
             serviceOrdersUC = new ServiceOrdersUC();
             serviceProcessUC = new ServiceProcessUC();
+            servicePaymentUC = new ServicePaymentUC();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -247,6 +249,7 @@ namespace ServiceCenter
         {
             if (UserSession.roleString == "Developer")
             {
+                serviceWorkshopUC = new ServiceWorkshopUC();
                 btnUserManagement.Visible = true;
                 btnServiceOrder.Visible = true;
                 btnServiceProcess.Visible = true;
@@ -301,6 +304,11 @@ namespace ServiceCenter
         private void btnRepair_Click(object sender, EventArgs e)
         {
             loadUC(serviceWorkshopUC);
+        }
+
+        private void btnServicePayment_Click(object sender, EventArgs e)
+        {
+            loadUC(servicePaymentUC);
         }
     }
 }

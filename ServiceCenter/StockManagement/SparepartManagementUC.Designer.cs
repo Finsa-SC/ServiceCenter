@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label2 = new Label();
@@ -56,6 +57,11 @@
             cmbSupplier = new ComboBox();
             pnlButton = new Panel();
             btnAdds = new Button();
+            txtSSparepart = new TextBox();
+            txtSSupplier = new TextBox();
+            cmbSUnit = new ComboBox();
+            tmrSparepart = new System.Windows.Forms.Timer(components);
+            tmrSupplier = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcMinimum).BeginInit();
@@ -100,12 +106,12 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(33, 67);
+            dataGridView1.Location = new Point(33, 111);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(1562, 641);
+            dataGridView1.Size = new Size(1562, 597);
             dataGridView1.TabIndex = 14;
             dataGridView1.CellContentDoubleClick += dataGridView1_CellContentDoubleClick;
             // 
@@ -362,12 +368,54 @@
             btnAdds.UseVisualStyleBackColor = false;
             btnAdds.Click += btnAdds_Click;
             // 
+            // txtSSparepart
+            // 
+            txtSSparepart.BorderStyle = BorderStyle.FixedSingle;
+            txtSSparepart.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSSparepart.Location = new Point(53, 68);
+            txtSSparepart.Name = "txtSSparepart";
+            txtSSparepart.PlaceholderText = " Search Sparepart...";
+            txtSSparepart.Size = new Size(366, 37);
+            txtSSparepart.TabIndex = 24;
+            // 
+            // txtSSupplier
+            // 
+            txtSSupplier.BorderStyle = BorderStyle.FixedSingle;
+            txtSSupplier.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSSupplier.Location = new Point(464, 68);
+            txtSSupplier.Name = "txtSSupplier";
+            txtSSupplier.PlaceholderText = "Search Supplier";
+            txtSSupplier.Size = new Size(366, 37);
+            txtSSupplier.TabIndex = 24;
+            // 
+            // cmbSUnit
+            // 
+            cmbSUnit.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSUnit.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cmbSUnit.FormattingEnabled = true;
+            cmbSUnit.Items.AddRange(new object[] { "Pcs", "Set", "Unit", "Box", "Botol", "Kaleng", "Tube", "Liter", "Biji", "Pack" });
+            cmbSUnit.Location = new Point(869, 68);
+            cmbSUnit.Name = "cmbSUnit";
+            cmbSUnit.Size = new Size(153, 38);
+            cmbSUnit.TabIndex = 20;
+            // 
+            // tmrSparepart
+            // 
+            tmrSparepart.Interval = 500;
+            // 
+            // tmrSupplier
+            // 
+            tmrSupplier.Interval = 500;
+            // 
             // SparepartManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(txtSSupplier);
+            Controls.Add(txtSSparepart);
             Controls.Add(pnlButton);
             Controls.Add(cmbSupplier);
+            Controls.Add(cmbSUnit);
             Controls.Add(cmbUnit);
             Controls.Add(btnAdds);
             Controls.Add(nmcMinimum);
@@ -426,5 +474,10 @@
         private ComboBox cmbSupplier;
         private Panel pnlButton;
         private Button btnAdds;
+        private TextBox txtSSparepart;
+        private TextBox txtSSupplier;
+        private ComboBox cmbSUnit;
+        private System.Windows.Forms.Timer tmrSparepart;
+        private System.Windows.Forms.Timer tmrSupplier;
     }
 }

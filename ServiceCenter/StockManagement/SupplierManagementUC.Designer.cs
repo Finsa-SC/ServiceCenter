@@ -42,6 +42,8 @@
             txtAddress = new TextBox();
             txtPhone = new TextBox();
             txtSupplier = new TextBox();
+            txtSAddress = new TextBox();
+            txtSSupplier = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -52,9 +54,9 @@
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label2.Location = new Point(43, 9);
             label2.Name = "label2";
-            label2.Size = new Size(329, 38);
+            label2.Size = new Size(309, 38);
             label2.TabIndex = 17;
-            label2.Text = "Sparepart Management";
+            label2.Text = "Supplier Management";
             // 
             // dataGridView1
             // 
@@ -84,12 +86,12 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(529, 71);
+            dataGridView1.Location = new Point(529, 114);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(1065, 879);
+            dataGridView1.Size = new Size(1065, 836);
             dataGridView1.TabIndex = 16;
             dataGridView1.CellContentDoubleClick += dataGridView1_CellContentDoubleClick;
             // 
@@ -201,7 +203,7 @@
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(369, 37);
             txtPhone.TabIndex = 0;
-            txtPhone.KeyPress += this.txtPhone_KeyPress;
+            txtPhone.KeyPress += txtPhone_KeyPress;
             // 
             // txtSupplier
             // 
@@ -213,10 +215,32 @@
             txtSupplier.Size = new Size(369, 37);
             txtSupplier.TabIndex = 0;
             // 
+            // txtSAddress
+            // 
+            txtSAddress.BorderStyle = BorderStyle.FixedSingle;
+            txtSAddress.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSAddress.Location = new Point(1228, 71);
+            txtSAddress.Name = "txtSAddress";
+            txtSAddress.PlaceholderText = "Search Address...";
+            txtSAddress.Size = new Size(366, 37);
+            txtSAddress.TabIndex = 25;
+            // 
+            // txtSSupplier
+            // 
+            txtSSupplier.BorderStyle = BorderStyle.FixedSingle;
+            txtSSupplier.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSSupplier.Location = new Point(527, 71);
+            txtSSupplier.Name = "txtSSupplier";
+            txtSSupplier.PlaceholderText = " Search Supplier...";
+            txtSSupplier.Size = new Size(366, 37);
+            txtSSupplier.TabIndex = 26;
+            // 
             // SupplierManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(txtSAddress);
+            Controls.Add(txtSSupplier);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
@@ -243,5 +267,7 @@
         private TextBox txtSupplier;
         private Button btnClear;
         private Button btnAdd;
+        private TextBox txtSAddress;
+        private TextBox txtSSupplier;
     }
 }

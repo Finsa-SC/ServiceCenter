@@ -120,6 +120,7 @@
             txtPaid.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             txtPaid.Location = new Point(1286, 333);
             txtPaid.Name = "txtPaid";
+            txtPaid.ReadOnly = true;
             txtPaid.Size = new Size(401, 45);
             txtPaid.TabIndex = 6;
             txtPaid.TextChanged += txtPaid_TextChanged;

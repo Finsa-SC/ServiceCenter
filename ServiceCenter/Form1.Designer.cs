@@ -46,6 +46,7 @@
             btnServiceOrder = new Button();
             btnServiceProcess = new Button();
             btnServiceWorkshop = new Button();
+            btnServicePayment = new Button();
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -53,7 +54,7 @@
             pnlActivity = new Panel();
             tmrTitleSlide = new System.Windows.Forms.Timer(components);
             toolTip1 = new ToolTip(components);
-            btnServicePayment = new Button();
+            btnStockManagemtn = new Button();
             navInfo.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             pnlTitle.SuspendLayout();
@@ -195,6 +196,7 @@
             flowLayoutPanel1.Controls.Add(btnServiceProcess);
             flowLayoutPanel1.Controls.Add(btnServiceWorkshop);
             flowLayoutPanel1.Controls.Add(btnServicePayment);
+            flowLayoutPanel1.Controls.Add(btnStockManagemtn);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -282,6 +284,26 @@
             btnServiceWorkshop.UseVisualStyleBackColor = false;
             btnServiceWorkshop.Click += btnRepair_Click;
             // 
+            // btnServicePayment
+            // 
+            btnServicePayment.BackColor = Color.FromArgb(29, 31, 31);
+            btnServicePayment.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnServicePayment.FlatAppearance.BorderSize = 0;
+            btnServicePayment.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnServicePayment.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnServicePayment.FlatStyle = FlatStyle.Flat;
+            btnServicePayment.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnServicePayment.ForeColor = Color.White;
+            btnServicePayment.Image = Properties.Resources.icons8_payment_48;
+            btnServicePayment.Location = new Point(6, 315);
+            btnServicePayment.Margin = new Padding(6, 3, 3, 3);
+            btnServicePayment.Name = "btnServicePayment";
+            btnServicePayment.Size = new Size(72, 72);
+            btnServicePayment.TabIndex = 0;
+            btnServicePayment.Tag = "Service Payment";
+            btnServicePayment.UseVisualStyleBackColor = false;
+            btnServicePayment.Click += btnServicePayment_Click;
+            // 
             // pctProfile
             // 
             pctProfile.ErrorImage = Properties.Resources.icons8_user_100;
@@ -325,25 +347,25 @@
             tmrTitleSlide.Interval = 1;
             tmrTitleSlide.Tick += tmrTitleSlide_Tick;
             // 
-            // btnServicePayment
+            // btnStockManagemtn
             // 
-            btnServicePayment.BackColor = Color.FromArgb(29, 31, 31);
-            btnServicePayment.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
-            btnServicePayment.FlatAppearance.BorderSize = 0;
-            btnServicePayment.FlatAppearance.MouseDownBackColor = Color.DimGray;
-            btnServicePayment.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
-            btnServicePayment.FlatStyle = FlatStyle.Flat;
-            btnServicePayment.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnServicePayment.ForeColor = Color.White;
-            btnServicePayment.Image = Properties.Resources.icons8_payment_48;
-            btnServicePayment.Location = new Point(6, 315);
-            btnServicePayment.Margin = new Padding(6, 3, 3, 3);
-            btnServicePayment.Name = "btnServicePayment";
-            btnServicePayment.Size = new Size(72, 72);
-            btnServicePayment.TabIndex = 0;
-            btnServicePayment.Tag = "Service Payment";
-            btnServicePayment.UseVisualStyleBackColor = false;
-            btnServicePayment.Click += btnServicePayment_Click;
+            btnStockManagemtn.BackColor = Color.FromArgb(29, 31, 31);
+            btnStockManagemtn.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnStockManagemtn.FlatAppearance.BorderSize = 0;
+            btnStockManagemtn.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnStockManagemtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnStockManagemtn.FlatStyle = FlatStyle.Flat;
+            btnStockManagemtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnStockManagemtn.ForeColor = Color.White;
+            btnStockManagemtn.Image = Properties.Resources.icons8_stock_48;
+            btnStockManagemtn.Location = new Point(6, 393);
+            btnStockManagemtn.Margin = new Padding(6, 3, 3, 3);
+            btnStockManagemtn.Name = "btnStockManagemtn";
+            btnStockManagemtn.Size = new Size(72, 72);
+            btnStockManagemtn.TabIndex = 0;
+            btnStockManagemtn.Tag = "Stock Management";
+            btnStockManagemtn.UseVisualStyleBackColor = false;
+            btnStockManagemtn.Click += btnStockManagemtn_Click;
             // 
             // Form1
             // 
@@ -399,5 +421,6 @@
         private Button btnServiceProcess;
         private Button btnServiceWorkshop;
         private Button btnServicePayment;
+        private Button btnStockManagemtn;
     }
 }

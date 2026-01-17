@@ -1,6 +1,7 @@
 using ServiceCenter.core.util;
 using ServiceCenter.ServiceOrder;
 using ServiceCenter.ServiceWorkshop;
+using ServiceCenter.StockManagement;
 using System.Windows.Forms;
 
 namespace ServiceCenter
@@ -15,6 +16,8 @@ namespace ServiceCenter
         private ServiceOrdersUC serviceOrdersUC;
         private ServiceProcessUC serviceProcessUC;
         private ServicePaymentUC servicePaymentUC;
+        private StockManagementUC stockManagementUC;
+
 
         public Form1()
         {
@@ -26,6 +29,7 @@ namespace ServiceCenter
             serviceOrdersUC = new ServiceOrdersUC();
             serviceProcessUC = new ServiceProcessUC();
             servicePaymentUC = new ServicePaymentUC();
+            stockManagementUC = new StockManagementUC();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -312,6 +316,11 @@ namespace ServiceCenter
         private void btnServicePayment_Click(object sender, EventArgs e)
         {
             loadUC(servicePaymentUC);
+        }
+
+        private void btnStockManagemtn_Click(object sender, EventArgs e)
+        {
+            loadUC(stockManagementUC);
         }
     }
 }

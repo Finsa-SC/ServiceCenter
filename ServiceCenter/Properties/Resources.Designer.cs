@@ -123,6 +123,16 @@ namespace ServiceCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_item_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-item-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_payment_30 {
             get {
                 object obj = ResourceManager.GetObject("icons8-payment-30", resourceCulture);
@@ -156,6 +166,16 @@ namespace ServiceCenter.Properties {
         internal static System.Drawing.Bitmap icons8_pencil_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-pencil-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_stock_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-stock-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

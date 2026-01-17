@@ -32,18 +32,20 @@
             btnSparepart = new Button();
             btnSupplier = new Button();
             pnlActivity = new Panel();
+            btnStockIn = new Button();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = SystemColors.ActiveCaption;
+            flowLayoutPanel1.Controls.Add(btnStockIn);
             flowLayoutPanel1.Controls.Add(btnSparepart);
             flowLayoutPanel1.Controls.Add(btnSupplier);
             flowLayoutPanel1.Dock = DockStyle.Left;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(0, 20, 0, 0);
+            flowLayoutPanel1.Padding = new Padding(0, 16, 0, 0);
             flowLayoutPanel1.Size = new Size(89, 993);
             flowLayoutPanel1.TabIndex = 0;
             // 
@@ -54,10 +56,10 @@
             btnSparepart.FlatAppearance.BorderSize = 3;
             btnSparepart.FlatStyle = FlatStyle.Flat;
             btnSparepart.Image = Properties.Resources.icons8_item_48;
-            btnSparepart.Location = new Point(2, 20);
-            btnSparepart.Margin = new Padding(2, 0, 0, 0);
+            btnSparepart.Location = new Point(9, 106);
+            btnSparepart.Margin = new Padding(9, 10, 0, 0);
             btnSparepart.Name = "btnSparepart";
-            btnSparepart.Size = new Size(86, 83);
+            btnSparepart.Size = new Size(70, 70);
             btnSparepart.TabIndex = 0;
             btnSparepart.UseVisualStyleBackColor = false;
             btnSparepart.Click += btnSparepart_Click;
@@ -69,10 +71,10 @@
             btnSupplier.FlatAppearance.BorderSize = 3;
             btnSupplier.FlatStyle = FlatStyle.Flat;
             btnSupplier.Image = Properties.Resources.icons8_supplier_48;
-            btnSupplier.Location = new Point(2, 103);
-            btnSupplier.Margin = new Padding(2, 0, 0, 0);
+            btnSupplier.Location = new Point(9, 186);
+            btnSupplier.Margin = new Padding(9, 10, 0, 0);
             btnSupplier.Name = "btnSupplier";
-            btnSupplier.Size = new Size(86, 83);
+            btnSupplier.Size = new Size(70, 70);
             btnSupplier.TabIndex = 0;
             btnSupplier.UseVisualStyleBackColor = false;
             btnSupplier.Click += btnSupplier_Click;
@@ -84,6 +86,21 @@
             pnlActivity.Name = "pnlActivity";
             pnlActivity.Size = new Size(1630, 993);
             pnlActivity.TabIndex = 1;
+            // 
+            // btnStockIn
+            // 
+            btnStockIn.BackColor = Color.RoyalBlue;
+            btnStockIn.FlatAppearance.BorderColor = Color.White;
+            btnStockIn.FlatAppearance.BorderSize = 3;
+            btnStockIn.FlatStyle = FlatStyle.Flat;
+            btnStockIn.Image = Properties.Resources.icons8_insert_48;
+            btnStockIn.Location = new Point(9, 26);
+            btnStockIn.Margin = new Padding(9, 10, 0, 0);
+            btnStockIn.Name = "btnStockIn";
+            btnStockIn.Size = new Size(70, 70);
+            btnStockIn.TabIndex = 0;
+            btnStockIn.UseVisualStyleBackColor = false;
+            btnStockIn.Click += btnStockIn_Click;
             // 
             // StockManagementUC
             // 
@@ -103,5 +120,6 @@
         private Button btnSparepart;
         private Panel pnlActivity;
         private Button btnSupplier;
+        private Button btnStockIn;
     }
 }

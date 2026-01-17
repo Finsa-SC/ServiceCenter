@@ -16,14 +16,16 @@ namespace ServiceCenter.StockManagement
         public static StockManagementUC instance;
         public SparepartManagementUC sparepartManagementUC;
         public SupplierManagementUC supplierManagementUC;
+        public StockInUC stockInUC;
         public StockManagementUC()
         {
             InitializeComponent();
             instance = this;
             supplierManagementUC = new SupplierManagementUC();
             sparepartManagementUC = new SparepartManagementUC();
+            stockInUC = new StockInUC();
 
-            loadActivity(sparepartManagementUC);
+            loadActivity(stockInUC);
         }
 
         private void loadActivity(UserControl uc)
@@ -42,6 +44,10 @@ namespace ServiceCenter.StockManagement
         {
             loadActivity(sparepartManagementUC);
         }
-        
+
+        private void btnStockIn_Click(object sender, EventArgs e)
+        {
+            loadActivity(stockInUC);
+        }
     }
 }

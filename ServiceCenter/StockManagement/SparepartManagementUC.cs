@@ -1,6 +1,7 @@
 ﻿using ServiceCenter.core.network;
 using ServiceCenter.core.util;
 using System;
+using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -84,6 +85,7 @@ namespace ServiceCenter.StockManagement
             dteEffective.Value = DateTime.UtcNow;
             sparepartId = 0;
             cmbUnit.SelectedIndex = -1;
+            pnlButton.Visible = true;
         }
 
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
@@ -94,17 +96,48 @@ namespace ServiceCenter.StockManagement
         //Button
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            clear();
+            txtCode.Text = CodeGenerator.codeGenerator("SP", "SELECT MAX(sparepart_code) FROM spareparts");
+            pnlButton.Visible = false;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (ValidationHelper.isNullInput(this)) return;
+            string query = @"
+                    BEGIN TRANSACTION;
+                    BEGIN TRY
+                        UPDATE spareparts SET sparepart_name = @sn, unit = @su, stock = @ss, minimum_stock = @sm WHERE sparepart_id = @sid;
+                        UPDATE sparepart_price SET supplier_id = @pi, purchase_price = @pp, selling_price = @ps, effective_date = @pe WHERE sparepart_id = @sid;
+                        COMMIT TRANSACTION;
+                    END TRY
+                    BEGIN CATCH
+                        ROLLBACK TRANSACTION;
+                    END CATCH";
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@sn", txtSparepart.Text),
+                new SqlParameter("@su", cmbUnit.SelectedItem),
+                new SqlParameter("@ss", nmcStock.Value),
+                new SqlParameter("@sm", nmcMinimum.Value),
+                new SqlParameter("@pi", cmbSupplier.SelectedValue),
+                new SqlParameter("@pp", Convert.ToDecimal(txtPrice.Text)),
+                new SqlParameter("@ps", Convert.ToDecimal(txtSelling.Text)),
+                new SqlParameter("@pe", dteEffective.Value),
+                new SqlParameter("@sid", sparepartId)
+            );
 
+            if (i > 0)
+            {
+                clear();
+                loadData();
+                UIHelper.toast("Sucess", "Success Updating Sparepart");
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             clear();
+            pnlButton.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -112,6 +145,40 @@ namespace ServiceCenter.StockManagement
 
         }
 
-       
+        private void btnAdds_Click(object sender, EventArgs e)
+        {
+            if (ValidationHelper.isNullInput(this)) return;
+            
+            string query = @"
+                    BEGIN TRANSACTION;
+                    BEGIN TRY
+                        DECLARE @sid INT;
+                        INSERT INTO spareparts (sparepart_code, sparepart_name, unit, stock, minimum_stock) VALUES (@sc, @sn, @su, @ss, @sm);
+                        SET @sid = SCOPE_IDENTITY();
+                        INSERT INTO sparepart_price (sparepart_id, supplier_id, purchase_price, selling_price, effective_date) VALUES (@sid, @pi, @pp, @ps, @pe);
+                        COMMIT TRANSACTION;
+                    END TRY
+                    BEGIN CATCH
+                        ROLLBACK TRANSACTION;
+                    END CATCH";
+
+            int i = DBHelper.executeNonQuery(query,
+                new SqlParameter("@sc", txtCode.Text),
+                new SqlParameter("@sn", txtSparepart.Text),
+                new SqlParameter("@su", cmbUnit.SelectedItem),
+                new SqlParameter("@ss", nmcStock.Value),
+                new SqlParameter("@sm", nmcMinimum.Value),
+                new SqlParameter("@pi", cmbSupplier.SelectedValue),
+                new SqlParameter("@pp", Convert.ToDecimal(txtPrice.Text)),
+                new SqlParameter("@ps", Convert.ToDecimal(txtSelling.Text)),
+                new SqlParameter("@pe", dteEffective.Value)
+            );
+            if (i > 0)
+            {
+                clear();
+                loadData();
+                UIHelper.toast("Sucess", "Success Adding Sparepart");
+            }
+        }
     }
 }

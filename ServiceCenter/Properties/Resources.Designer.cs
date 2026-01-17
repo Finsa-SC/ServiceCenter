@@ -123,6 +123,16 @@ namespace ServiceCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_insert_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-insert-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_item_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-item-48", resourceCulture);

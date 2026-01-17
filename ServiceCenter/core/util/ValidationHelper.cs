@@ -48,6 +48,14 @@ namespace ServiceCenter.core.util
                             return true;
                         }
                     }
+                    if(ctrl is NumericUpDown nmc)
+                    {
+                        if(nmc.Value <= 0)
+                        {
+                            UIHelper.toast("Invalid Value", "Please Set Your Number to Actual Number");
+                            return true;
+                        }
+                    }
                     if (parent.HasChildren)
                     {
                         if(isNullInput(ctrl)) return true;

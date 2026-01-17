@@ -54,9 +54,12 @@
             btnDelete = new Button();
             btnClear = new Button();
             cmbSupplier = new ComboBox();
+            pnlButton = new Panel();
+            btnAdds = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcMinimum).BeginInit();
+            pnlButton.SuspendLayout();
             SuspendLayout();
             // 
             // label2
@@ -277,7 +280,7 @@
             btnUpdate.BackColor = Color.RoyalBlue;
             btnUpdate.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnUpdate.ForeColor = Color.White;
-            btnUpdate.Location = new Point(1448, 754);
+            btnUpdate.Location = new Point(192, 1);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(147, 67);
             btnUpdate.TabIndex = 21;
@@ -290,11 +293,11 @@
             btnAdd.BackColor = Color.SpringGreen;
             btnAdd.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(1284, 754);
+            btnAdd.Location = new Point(28, 1);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(147, 67);
             btnAdd.TabIndex = 21;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "Add New";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -303,7 +306,7 @@
             btnDelete.BackColor = Color.Red;
             btnDelete.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(1448, 827);
+            btnDelete.Location = new Point(192, 74);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(147, 67);
             btnDelete.TabIndex = 21;
@@ -316,7 +319,7 @@
             btnClear.BackColor = Color.DeepPink;
             btnClear.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(1284, 827);
+            btnClear.Location = new Point(28, 74);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(147, 67);
             btnClear.TabIndex = 21;
@@ -335,16 +338,38 @@
             cmbSupplier.Size = new Size(366, 38);
             cmbSupplier.TabIndex = 20;
             // 
+            // pnlButton
+            // 
+            pnlButton.Controls.Add(btnDelete);
+            pnlButton.Controls.Add(btnClear);
+            pnlButton.Controls.Add(btnUpdate);
+            pnlButton.Controls.Add(btnAdd);
+            pnlButton.Location = new Point(1255, 770);
+            pnlButton.Name = "pnlButton";
+            pnlButton.Size = new Size(340, 154);
+            pnlButton.TabIndex = 22;
+            // 
+            // btnAdds
+            // 
+            btnAdds.BackColor = Color.SpringGreen;
+            btnAdds.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnAdds.ForeColor = Color.White;
+            btnAdds.Location = new Point(1294, 769);
+            btnAdds.Name = "btnAdds";
+            btnAdds.Size = new Size(147, 67);
+            btnAdds.TabIndex = 23;
+            btnAdds.Text = "Add";
+            btnAdds.UseVisualStyleBackColor = false;
+            btnAdds.Click += btnAdds_Click;
+            // 
             // SparepartManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnClear);
-            Controls.Add(btnAdd);
-            Controls.Add(btnDelete);
-            Controls.Add(btnUpdate);
+            Controls.Add(pnlButton);
             Controls.Add(cmbSupplier);
             Controls.Add(cmbUnit);
+            Controls.Add(btnAdds);
             Controls.Add(nmcMinimum);
             Controls.Add(nmcStock);
             Controls.Add(dteEffective);
@@ -368,6 +393,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmcStock).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmcMinimum).EndInit();
+            pnlButton.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -398,5 +424,7 @@
         private Button btnDelete;
         private Button btnClear;
         private ComboBox cmbSupplier;
+        private Panel pnlButton;
+        private Button btnAdds;
     }
 }

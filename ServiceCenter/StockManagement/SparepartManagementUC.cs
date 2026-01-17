@@ -20,7 +20,11 @@ namespace ServiceCenter.StockManagement
         {
             InitializeComponent();
             loadData();
-            cmbUnit.SelectedIndex = 0;
+            loadSupplier();
+            cmbSupplier.SelectedIndex = -1;
+            cmbUnit.SelectedIndex = -1;
+
+            StockManagementUC.instance.supplierManagementUC.updateData += () => loadSupplier();
         }
 
         private void loadData()
@@ -43,6 +47,13 @@ namespace ServiceCenter.StockManagement
             dataGridView1.DataSource = DBHelper.executeQuery(query);
             dataGridView1.Columns["sparepart_id"].Visible = false;
         }
+        private void loadSupplier()
+        {
+            string query = "SELECT supplier_id, supplier_name FROM suppliers";
+            cmbSupplier.DataSource = DBHelper.executeQuery(query);
+            cmbSupplier.ValueMember = "supplier_id";
+            cmbSupplier.DisplayMember = "supplier_name";
+        }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -54,7 +65,7 @@ namespace ServiceCenter.StockManagement
                 txtPrice.Text = row.Cells["Purchase"].Value.ToString();
                 txtSelling.Text = row.Cells["Selling"].Value.ToString();
                 txtSparepart.Text = row.Cells["Name"].Value.ToString();
-                txtSupplier.Text = row.Cells["Supplier"].Value.ToString();
+                cmbSupplier.SelectedIndex = cmbSupplier.FindStringExact(row.Cells["Supplier"].Value.ToString());
                 cmbUnit.SelectedIndex = cmbUnit.FindStringExact(row.Cells["Unit"].Value.ToString());
                 nmcStock.Value = Convert.ToInt32(row.Cells["Stock"].Value);
                 nmcMinimum.Value = Convert.ToInt32(row.Cells["Minimum Stock"].Value);
@@ -67,7 +78,7 @@ namespace ServiceCenter.StockManagement
             txtPrice.Clear();
             txtSelling.Clear();
             txtSparepart.Clear();
-            txtSupplier.Clear();
+            cmbSupplier.SelectedIndex = -1;
             nmcMinimum.Value = 0;
             nmcStock.Value = 0;
             dteEffective.Value = DateTime.UtcNow;
@@ -100,5 +111,7 @@ namespace ServiceCenter.StockManagement
         {
 
         }
+
+       
     }
 }

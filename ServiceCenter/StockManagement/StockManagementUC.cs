@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceCenter.core.util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,17 @@ namespace ServiceCenter.StockManagement
 {
     public partial class StockManagementUC : UserControl
     {
+        public static StockManagementUC instance;
+        public SparepartManagementUC sparepartManagementUC;
+        public SupplierManagementUC supplierManagementUC;
         public StockManagementUC()
         {
             InitializeComponent();
-            loadActivity(new SparepartManagementUC());
+            instance = this;
+            supplierManagementUC = new SupplierManagementUC();
+            sparepartManagementUC = new SparepartManagementUC();
+
+            loadActivity(sparepartManagementUC);
         }
 
         private void loadActivity(UserControl uc)
@@ -24,5 +32,16 @@ namespace ServiceCenter.StockManagement
             pnlActivity.Controls.Add(uc);
             uc.Dock = DockStyle.Fill;
         }
+
+        private void btnSupplier_Click(object sender, EventArgs e)
+        {
+            loadActivity(supplierManagementUC);
+        }
+
+        private void btnSparepart_Click(object sender, EventArgs e)
+        {
+            loadActivity(sparepartManagementUC);
+        }
+        
     }
 }

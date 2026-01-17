@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label2 = new Label();
             dataGridView1 = new DataGridView();
-            txtSupplier = new TextBox();
             label1 = new Label();
             ss = new Label();
             txtSparepart = new TextBox();
@@ -54,6 +53,7 @@
             btnAdd = new Button();
             btnDelete = new Button();
             btnClear = new Button();
+            cmbSupplier = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcMinimum).BeginInit();
@@ -78,23 +78,23 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.FromArgb(243, 248, 254);
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle7.SelectionForeColor = Color.White;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(243, 248, 254);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(243, 248, 254);
-            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
             dataGridView1.Location = new Point(33, 67);
@@ -105,16 +105,6 @@
             dataGridView1.Size = new Size(1562, 641);
             dataGridView1.TabIndex = 14;
             dataGridView1.CellContentDoubleClick += dataGridView1_CellContentDoubleClick;
-            // 
-            // txtSupplier
-            // 
-            txtSupplier.BorderStyle = BorderStyle.FixedSingle;
-            txtSupplier.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtSupplier.Location = new Point(230, 838);
-            txtSupplier.Name = "txtSupplier";
-            txtSupplier.ReadOnly = true;
-            txtSupplier.Size = new Size(366, 37);
-            txtSupplier.TabIndex = 16;
             // 
             // label1
             // 
@@ -334,6 +324,17 @@
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
+            // cmbSupplier
+            // 
+            cmbSupplier.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSupplier.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cmbSupplier.FormattingEnabled = true;
+            cmbSupplier.Items.AddRange(new object[] { "Pcs", "Set", "Unit", "Box", "Botol", "Kaleng", "Tube", "Liter", "Biji", "Pack" });
+            cmbSupplier.Location = new Point(230, 841);
+            cmbSupplier.Name = "cmbSupplier";
+            cmbSupplier.Size = new Size(366, 38);
+            cmbSupplier.TabIndex = 20;
+            // 
             // SparepartManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -342,6 +343,7 @@
             Controls.Add(btnAdd);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
+            Controls.Add(cmbSupplier);
             Controls.Add(cmbUnit);
             Controls.Add(nmcMinimum);
             Controls.Add(nmcStock);
@@ -359,7 +361,6 @@
             Controls.Add(txtPrice);
             Controls.Add(txtSparepart);
             Controls.Add(txtSelling);
-            Controls.Add(txtSupplier);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
             Name = "SparepartManagementUC";
@@ -375,7 +376,6 @@
 
         private Label label2;
         private DataGridView dataGridView1;
-        private TextBox txtSupplier;
         private Label label1;
         private Label ss;
         private TextBox txtSparepart;
@@ -397,5 +397,6 @@
         private Button btnAdd;
         private Button btnDelete;
         private Button btnClear;
+        private ComboBox cmbSupplier;
     }
 }

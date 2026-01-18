@@ -25,15 +25,17 @@ namespace ServiceCenter
             initButton();
             Instance = this;
 
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
             userManagementUC = new UserManagementUC();
             serviceOrdersUC = new ServiceOrdersUC();
             serviceProcessUC = new ServiceProcessUC();
             servicePaymentUC = new ServicePaymentUC();
             stockManagementUC = new StockManagementUC();
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
             isLogged();
             initImage();
             loadBottomNav();

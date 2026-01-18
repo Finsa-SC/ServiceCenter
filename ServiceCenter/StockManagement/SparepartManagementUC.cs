@@ -22,10 +22,15 @@ namespace ServiceCenter.StockManagement
             InitializeComponent();
             loadData();
             loadSupplier();
-            cmbSupplier.SelectedIndex = -1;
-            cmbUnit.SelectedIndex = -1;
-
             StockManagementUC.instance.supplierManagementUC.updateData += () => { loadSupplier(); loadData(); };
+        }
+        private void SparepartManagementUC_Load(object sender, EventArgs e)
+        {
+            loadcmbSearch(cmbUnit, false);
+            loadcmbSearch(cmbSUnit, true);
+            cmbUnit.SelectedIndex = -1;
+            cmbSupplier.SelectedIndex = -1;
+            cmbSUnit.SelectedIndex = 0;
         }
 
         private void loadData()
@@ -37,7 +42,7 @@ namespace ServiceCenter.StockManagement
                         s.sparepart_name AS Name,
                         sp.supplier_name AS [Supplier],
                         s.stock AS Stock,
-                        s.unit AS Unit,
+                        u.unit_name AS Unit,
                         s.minimum_stock AS [Minimum Stock],
                         p.purchase_price AS Purchase,
                         p.selling_price AS Selling,
@@ -45,15 +50,16 @@ namespace ServiceCenter.StockManagement
                     FROM spareparts s
                     JOIN sparepart_price p ON p.sparepart_id = s.sparepart_id
                     JOIN suppliers sp ON sp.supplier_id = p.supplier_id
+                    JOIN sparepart_unit u ON u.unit_id = s.unit_id
                     WHERE (@sn IS NULL OR s.sparepart_name LIKE @sn)
                         AND (@su IS NULL OR sp.supplier_name LIKE @su)
-                        AND (@u IS NULL OR s.unit LIKE @u)";
+                        AND (@u IS NULL OR s.unit_id = @u)";
             dataGridView1.DataSource = DBHelper.executeQuery(query,
                 new SqlParameter("@sn", "%" + txtSSparepart.Text + "%"),
                 new SqlParameter("@su", "%" + txtSSupplier.Text + "%"),
-                new SqlParameter("@u", "%" + cmbSUnit.SelectedItem + "%")
+                new SqlParameter("@u", cmbSUnit.SelectedValue == null ? DBNull.Value : cmbSUnit.SelectedValue)
             );
-            dataGridView1.Columns["sparepart_id"].Visible = false;
+            if (dataGridView1.Columns.Contains("sparepart_id")) dataGridView1.Columns["sparepart_id"].Visible = false;
         }
         private void loadSupplier()
         {
@@ -214,12 +220,26 @@ namespace ServiceCenter.StockManagement
         }
 
         //cmb value
-        private void cmbSearch()
+        private void loadcmbSearch(ComboBox box, bool searchMode)
         {
+            string query = "SELECT unit_id, unit_name FROM sparepart_unit";
+            DataTable dt = DBHelper.executeQuery(query);
+            if (searchMode)
+            {
+                var dr = dt.NewRow();
+                dr["unit_id"] = DBNull.Value;
+                dr["unit_name"] = "All Unit";
+                dt.Rows.InsertAt(dr, 0);
+            }
+            box.DataSource = dt;
+            box.ValueMember = "unit_id";
+            box.DisplayMember = "unit_name";
         }
         private void cmbSUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             loadData();
         }
+
+        
     }
 }

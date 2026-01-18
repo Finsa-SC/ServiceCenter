@@ -90,6 +90,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(349, 37);
             textBox1.TabIndex = 18;
+            textBox1.Tag = "nullable";
             // 
             // StockInUC
             // 

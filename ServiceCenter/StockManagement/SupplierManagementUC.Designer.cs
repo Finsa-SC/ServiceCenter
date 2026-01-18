@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label2 = new Label();
@@ -42,8 +43,8 @@
             txtAddress = new TextBox();
             txtPhone = new TextBox();
             txtSupplier = new TextBox();
-            txtSAddress = new TextBox();
-            txtSSupplier = new TextBox();
+            txtSearch = new TextBox();
+            tmrSearchDelay = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -215,32 +216,29 @@
             txtSupplier.Size = new Size(369, 37);
             txtSupplier.TabIndex = 0;
             // 
-            // txtSAddress
+            // txtSearch
             // 
-            txtSAddress.BorderStyle = BorderStyle.FixedSingle;
-            txtSAddress.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtSAddress.Location = new Point(1228, 71);
-            txtSAddress.Name = "txtSAddress";
-            txtSAddress.PlaceholderText = "Search Address...";
-            txtSAddress.Size = new Size(366, 37);
-            txtSAddress.TabIndex = 25;
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtSearch.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSearch.Location = new Point(527, 71);
+            txtSearch.MaxLength = 100;
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = " Search...";
+            txtSearch.Size = new Size(366, 37);
+            txtSearch.TabIndex = 26;
+            txtSearch.Tag = "nullable";
+            txtSearch.TextChanged += txtSSupplier_TextChanged;
             // 
-            // txtSSupplier
+            // tmrSearchDelay
             // 
-            txtSSupplier.BorderStyle = BorderStyle.FixedSingle;
-            txtSSupplier.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtSSupplier.Location = new Point(527, 71);
-            txtSSupplier.Name = "txtSSupplier";
-            txtSSupplier.PlaceholderText = " Search Supplier...";
-            txtSSupplier.Size = new Size(366, 37);
-            txtSSupplier.TabIndex = 26;
+            tmrSearchDelay.Interval = 500;
+            tmrSearchDelay.Tick += tmrSupplier_Tick;
             // 
             // SupplierManagementUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(txtSAddress);
-            Controls.Add(txtSSupplier);
+            Controls.Add(txtSearch);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
@@ -267,7 +265,7 @@
         private TextBox txtSupplier;
         private Button btnClear;
         private Button btnAdd;
-        private TextBox txtSAddress;
-        private TextBox txtSSupplier;
+        private TextBox txtSearch;
+        private System.Windows.Forms.Timer tmrSearchDelay;
     }
 }

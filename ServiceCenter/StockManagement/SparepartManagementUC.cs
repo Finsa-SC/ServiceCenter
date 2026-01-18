@@ -25,7 +25,7 @@ namespace ServiceCenter.StockManagement
             cmbSupplier.SelectedIndex = -1;
             cmbUnit.SelectedIndex = -1;
 
-            StockManagementUC.instance.supplierManagementUC.updateData += () => loadSupplier();
+            StockManagementUC.instance.supplierManagementUC.updateData += () => { loadSupplier(); loadData(); };
         }
 
         private void loadData()
@@ -44,8 +44,15 @@ namespace ServiceCenter.StockManagement
                         p.effective_date AS [Effective Date]
                     FROM spareparts s
                     JOIN sparepart_price p ON p.sparepart_id = s.sparepart_id
-                    JOIN suppliers sp ON sp.supplier_id = p.supplier_id";
-            dataGridView1.DataSource = DBHelper.executeQuery(query);
+                    JOIN suppliers sp ON sp.supplier_id = p.supplier_id
+                    WHERE (@sn IS NULL OR s.sparepart_name LIKE @sn)
+                        AND (@su IS NULL OR sp.supplier_name LIKE @su)
+                        AND (@u IS NULL OR s.unit LIKE @u)";
+            dataGridView1.DataSource = DBHelper.executeQuery(query,
+                new SqlParameter("@sn", "%" + txtSSparepart.Text + "%"),
+                new SqlParameter("@su", "%" + txtSSupplier.Text + "%"),
+                new SqlParameter("@u", "%" + cmbSUnit.SelectedItem + "%")
+            );
             dataGridView1.Columns["sparepart_id"].Visible = false;
         }
         private void loadSupplier()
@@ -148,7 +155,7 @@ namespace ServiceCenter.StockManagement
         private void btnAdds_Click(object sender, EventArgs e)
         {
             if (ValidationHelper.isNullInput(this)) return;
-            
+
             string query = @"
                     BEGIN TRANSACTION;
                     BEGIN TRY
@@ -160,6 +167,7 @@ namespace ServiceCenter.StockManagement
                     END TRY
                     BEGIN CATCH
                         ROLLBACK TRANSACTION;
+                        THROW;
                     END CATCH";
 
             int i = DBHelper.executeNonQuery(query,
@@ -179,6 +187,39 @@ namespace ServiceCenter.StockManagement
                 loadData();
                 UIHelper.toast("Sucess", "Success Adding Sparepart");
             }
+        }
+
+        private void txtSSparepart_TextChanged(object sender, EventArgs e)
+        {
+            tmrSpareDelay.Stop();
+            tmrSpareDelay.Start();
+        }
+
+        private void txtSSupplier_TextChanged(object sender, EventArgs e)
+        {
+            tmrSupDelay.Stop();
+            tmrSupDelay.Start();
+        }
+
+        private void tmrSparepart_Tick(object sender, EventArgs e)
+        {
+            loadData();
+            tmrSpareDelay.Stop();
+        }
+
+        private void tmrSupDelay_Tick(object sender, EventArgs e)
+        {
+            loadData();
+            tmrSupDelay.Stop();
+        }
+
+        //cmb value
+        private void cmbSearch()
+        {
+        }
+        private void cmbSUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadData();
         }
     }
 }

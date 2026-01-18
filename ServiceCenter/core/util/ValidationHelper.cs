@@ -36,7 +36,7 @@ namespace ServiceCenter.core.util
                     {
                         if(cmb.SelectedIndex < 0)
                         {
-                            UIHelper.toast("Invalid Decision", "Please Select Literally one option");
+                            UIHelper.toast("Invalid Decision", "Please Select Literally one Chose in Combo Box");
                             return true;
                         }
                     }

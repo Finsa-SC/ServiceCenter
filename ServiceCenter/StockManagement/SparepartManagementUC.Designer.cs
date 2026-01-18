@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label2 = new Label();
             dataGridView1 = new DataGridView();
             label1 = new Label();
@@ -60,8 +60,9 @@
             txtSSparepart = new TextBox();
             txtSSupplier = new TextBox();
             cmbSUnit = new ComboBox();
-            tmrSparepart = new System.Windows.Forms.Timer(components);
-            tmrSupplier = new System.Windows.Forms.Timer(components);
+            tmrSpareDelay = new System.Windows.Forms.Timer(components);
+            timer1 = new System.Windows.Forms.Timer(components);
+            tmrSupDelay = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmcMinimum).BeginInit();
@@ -87,23 +88,23 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.FromArgb(243, 248, 254);
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(243, 248, 254);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(243, 248, 254);
-            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(46, 67, 88);
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(243, 248, 254);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(46, 67, 88);
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
             dataGridView1.Location = new Point(33, 111);
@@ -377,6 +378,8 @@
             txtSSparepart.PlaceholderText = " Search Sparepart...";
             txtSSparepart.Size = new Size(366, 37);
             txtSSparepart.TabIndex = 24;
+            txtSSparepart.Tag = "nullable";
+            txtSSparepart.TextChanged += txtSSparepart_TextChanged;
             // 
             // txtSSupplier
             // 
@@ -387,6 +390,7 @@
             txtSSupplier.PlaceholderText = "Search Supplier";
             txtSSupplier.Size = new Size(366, 37);
             txtSSupplier.TabIndex = 24;
+            txtSSupplier.Tag = "nullable";
             // 
             // cmbSUnit
             // 
@@ -398,14 +402,22 @@
             cmbSUnit.Name = "cmbSUnit";
             cmbSUnit.Size = new Size(153, 38);
             cmbSUnit.TabIndex = 20;
+            cmbSUnit.Tag = "nullable";
+            cmbSUnit.SelectedIndexChanged += cmbSUnit_SelectedIndexChanged;
             // 
-            // tmrSparepart
+            // tmrSpareDelay
             // 
-            tmrSparepart.Interval = 500;
+            tmrSpareDelay.Interval = 500;
+            tmrSpareDelay.Tick += tmrSparepart_Tick;
             // 
-            // tmrSupplier
+            // timer1
             // 
-            tmrSupplier.Interval = 500;
+            timer1.Interval = 500;
+            // 
+            // tmrSupDelay
+            // 
+            tmrSupDelay.Interval = 500;
+            tmrSupDelay.Tick += tmrSupDelay_Tick;
             // 
             // SparepartManagementUC
             // 
@@ -477,7 +489,8 @@
         private TextBox txtSSparepart;
         private TextBox txtSSupplier;
         private ComboBox cmbSUnit;
-        private System.Windows.Forms.Timer tmrSparepart;
-        private System.Windows.Forms.Timer tmrSupplier;
+        private System.Windows.Forms.Timer tmrSpareDelay;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tmrSupDelay;
     }
 }

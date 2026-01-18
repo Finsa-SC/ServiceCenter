@@ -23,8 +23,15 @@ namespace ServiceCenter.StockManagement
 
         private void loadData()
         {
-            string query = "SELECT supplier_id, supplier_name AS Supplier, phone, address FROM suppliers";
-            dataGridView1.DataSource = DBHelper.executeQuery(query);
+            string query = @"
+                    SELECT 
+                        supplier_id, supplier_name AS Supplier, phone, address 
+                    FROM suppliers 
+                    WHERE (@sn IS NULL OR supplier_name LIKE @sn)
+                        OR (@sn IS NULL OR address LIKE @sn)";
+            dataGridView1.DataSource = DBHelper.executeQuery(query,
+                new SqlParameter("@sn", "%" + txtSearch.Text + "%")
+            );
             dataGridView1.Columns["supplier_id"].Visible = false;
         }
 
@@ -113,6 +120,17 @@ namespace ServiceCenter.StockManagement
                 return true;
             }
             return false;
+        }
+
+        private void txtSSupplier_TextChanged(object sender, EventArgs e)
+        {
+            tmrSearchDelay.Stop();
+            tmrSearchDelay.Start();
+        }
+        private void tmrSupplier_Tick(object sender, EventArgs e)
+        {
+            loadData();
+            tmrSearchDelay.Stop();
         }
     }
 }

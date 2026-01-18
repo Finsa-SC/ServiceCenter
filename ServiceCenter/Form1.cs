@@ -276,6 +276,8 @@ namespace ServiceCenter
                     btnUserManagement.Visible = true;
                     btnServiceOrder.Visible = true;
                     btnServiceProcess.Visible = true;
+                    btnServicePayment.Visible = true;
+                    btnStockManagemtn.Visible = true;
                     uc = userManagementUC;
                     break;
                 //technician
@@ -288,11 +290,12 @@ namespace ServiceCenter
                 case 4:
                     btnServiceOrder.Visible = true;
                     btnServiceProcess.Visible = true;
+                    btnServicePayment.Visible = true;
                     uc = serviceOrdersUC;
                     break;
                 //supplier
                 case 5:
-                    btnUserManagement.Visible = false;
+                    btnStockManagemtn.Visible = true;
                     break;
             }
             currentUc = null;
@@ -304,6 +307,8 @@ namespace ServiceCenter
             btnServiceOrder.Visible = false;
             btnServiceProcess.Visible = false;
             btnServiceWorkshop.Visible = false;
+            btnServicePayment.Visible = false;
+            btnStockManagemtn.Visible = false;
         }
 
         private void btnServiceProcess_Click(object sender, EventArgs e)

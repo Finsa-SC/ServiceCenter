@@ -24,8 +24,9 @@ namespace ServiceCenter
             InitializeComponent();
             initButton();
             Instance = this;
-
-            
+            this.Hide();
+            var loading = new LoadingForm();
+            loading.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,10 +40,6 @@ namespace ServiceCenter
             isLogged();
             initImage();
             loadBottomNav();
-
-            //var serviceDiag = serviceDiagnosisUC;
-            //currentUc = null;
-            //serviceDiag.finishOrder += () => loadUC(new ServiceWorkshopUC());
         }
 
         public void isLogged()

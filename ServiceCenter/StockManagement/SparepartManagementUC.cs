@@ -240,6 +240,5 @@ namespace ServiceCenter.StockManagement
             loadData();
         }
 
-        
     }
 }

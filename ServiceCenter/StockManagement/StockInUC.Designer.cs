@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label2 = new Label();
             dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
+            txtSSparepart = new TextBox();
+            nmcSMaksimum = new NumericUpDown();
+            label1 = new Label();
+            tmrSearchDelay = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmcSMaksimum).BeginInit();
             SuspendLayout();
             // 
             // label2
@@ -81,27 +86,58 @@
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(1559, 822);
             dataGridView1.TabIndex = 16;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // textBox1
+            // txtSSparepart
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(52, 92);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(349, 37);
-            textBox1.TabIndex = 18;
-            textBox1.Tag = "nullable";
+            txtSSparepart.BorderStyle = BorderStyle.FixedSingle;
+            txtSSparepart.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSSparepart.Location = new Point(52, 92);
+            txtSSparepart.Name = "txtSSparepart";
+            txtSSparepart.PlaceholderText = " Search...";
+            txtSSparepart.Size = new Size(349, 37);
+            txtSSparepart.TabIndex = 18;
+            txtSSparepart.Tag = "nullable";
+            txtSSparepart.TextChanged += txtSSparepart_TextChanged;
+            // 
+            // nmcSMaksimum
+            // 
+            nmcSMaksimum.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            nmcSMaksimum.Location = new Point(679, 92);
+            nmcSMaksimum.Name = "nmcSMaksimum";
+            nmcSMaksimum.Size = new Size(134, 37);
+            nmcSMaksimum.TabIndex = 19;
+            nmcSMaksimum.ValueChanged += nmcSMaksimum_ValueChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(485, 94);
+            label1.Name = "label1";
+            label1.Size = new Size(188, 30);
+            label1.TabIndex = 20;
+            label1.Text = "Maksimum Stock:";
+            // 
+            // tmrSearchDelay
+            // 
+            tmrSearchDelay.Interval = 500;
+            tmrSearchDelay.Tick += tmrSearchDelay_Tick;
             // 
             // StockInUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(textBox1);
+            Controls.Add(label1);
+            Controls.Add(nmcSMaksimum);
+            Controls.Add(txtSSparepart);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
             Name = "StockInUC";
             Size = new Size(1630, 993);
+            Load += StockInUC_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmcSMaksimum).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -110,6 +146,9 @@
 
         private Label label2;
         private DataGridView dataGridView1;
-        private TextBox textBox1;
+        private TextBox txtSSparepart;
+        private NumericUpDown nmcSMaksimum;
+        private Label label1;
+        private System.Windows.Forms.Timer tmrSearchDelay;
     }
 }

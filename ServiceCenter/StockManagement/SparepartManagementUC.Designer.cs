@@ -325,7 +325,7 @@
             btnClear.BackColor = Color.DeepPink;
             btnClear.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(28, 74);
+            btnClear.Location = new Point(1283, 843);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(147, 67);
             btnClear.TabIndex = 21;
@@ -347,7 +347,6 @@
             // pnlButton
             // 
             pnlButton.Controls.Add(btnDelete);
-            pnlButton.Controls.Add(btnClear);
             pnlButton.Controls.Add(btnUpdate);
             pnlButton.Controls.Add(btnAdd);
             pnlButton.Location = new Point(1255, 770);
@@ -390,6 +389,7 @@
             txtSSupplier.Size = new Size(366, 37);
             txtSSupplier.TabIndex = 24;
             txtSSupplier.Tag = "nullable";
+            txtSSupplier.TextChanged += txtSSupplier_TextChanged;
             // 
             // cmbSUnit
             // 
@@ -422,6 +422,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(txtSSupplier);
+            Controls.Add(btnClear);
             Controls.Add(txtSSparepart);
             Controls.Add(pnlButton);
             Controls.Add(cmbSupplier);

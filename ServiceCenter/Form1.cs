@@ -24,16 +24,15 @@ namespace ServiceCenter
             InitializeComponent();
             initButton();
             Instance = this;
-            this.Hide();
-            var loading = new LoadingForm();
-            loading.ShowDialog();
+            //this.Hide();
+            //var loading = new LoadingForm();
+            //loading.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             userManagementUC = new UserManagementUC();
             serviceOrdersUC = new ServiceOrdersUC();
-            serviceProcessUC = new ServiceProcessUC();
             servicePaymentUC = new ServicePaymentUC();
             stockManagementUC = new StockManagementUC();
 
@@ -86,13 +85,7 @@ namespace ServiceCenter
         }
 
 
-        private void btnUserManagement_Click_1(object sender, EventArgs e)
-        {
-            if (UserSession.isLogged())
-            {
-                loadUC(userManagementUC);
-            }
-        }
+       
 
 
         private void initButton()
@@ -248,10 +241,7 @@ namespace ServiceCenter
             }
         }
 
-        private void btnServiceOrder_Click(object sender, EventArgs e)
-        {
-            loadUC(serviceOrdersUC);
-        }
+        
 
 
         public void checkUserRole()
@@ -309,9 +299,20 @@ namespace ServiceCenter
             btnServicePayment.Visible = false;
             btnStockManagemtn.Visible = false;
         }
-
+        private void btnUserManagement_Click_1(object sender, EventArgs e)
+        {
+            if (UserSession.isLogged())
+            {
+                loadUC(userManagementUC);
+            }
+        }
+        private void btnServiceOrder_Click(object sender, EventArgs e)
+        {
+            loadUC(serviceOrdersUC);
+        }
         private void btnServiceProcess_Click(object sender, EventArgs e)
         {
+            serviceProcessUC = new ServiceProcessUC();
             loadUC(serviceProcessUC);
         }
 

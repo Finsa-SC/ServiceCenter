@@ -36,16 +36,16 @@
             lblDetail = new Label();
             label1 = new Label();
             lblPercent = new Label();
+            Media1 = new AxWMPLib.AxWindowsMediaPlayer();
             ldngImage = new PictureBox();
             tmrProgress = new System.Windows.Forms.Timer(components);
             tmrLdngAnimation = new System.Windows.Forms.Timer(components);
             tmrAnimationDown = new System.Windows.Forms.Timer(components);
             tmrDetail = new System.Windows.Forms.Timer(components);
-            axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             pnlProgress = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Media1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ldngImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer1).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -88,7 +88,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(1701, 928);
+            label1.Location = new Point(1701, 905);
             label1.Name = "label1";
             label1.Size = new Size(27, 25);
             label1.TabIndex = 16;
@@ -96,6 +96,7 @@
             // 
             // lblPercent
             // 
+            lblPercent.BackColor = Color.Transparent;
             lblPercent.Font = new Font("Lucida Console", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPercent.ForeColor = Color.White;
             lblPercent.Location = new Point(1649, 906);
@@ -105,8 +106,20 @@
             lblPercent.Text = "0";
             lblPercent.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // Media1
+            // 
+            Media1.Dock = DockStyle.Fill;
+            Media1.Enabled = true;
+            Media1.Location = new Point(0, 0);
+            Media1.Name = "Media1";
+            Media1.OcxState = (AxHost.State)resources.GetObject("Media1.OcxState");
+            Media1.Size = new Size(1802, 1033);
+            Media1.TabIndex = 18;
+            Media1.PlayStateChange += axWindowsMediaPlayer1_PlayStateChange;
+            // 
             // ldngImage
             // 
+            ldngImage.BackColor = Color.Transparent;
             ldngImage.Image = (Image)resources.GetObject("ldngImage.Image");
             ldngImage.Location = new Point(50, 842);
             ldngImage.Name = "ldngImage";
@@ -135,17 +148,6 @@
             tmrDetail.Interval = 50;
             tmrDetail.Tick += tmrDetail_Tick;
             // 
-            // axWindowsMediaPlayer1
-            // 
-            axWindowsMediaPlayer1.Dock = DockStyle.Fill;
-            axWindowsMediaPlayer1.Enabled = true;
-            axWindowsMediaPlayer1.Location = new Point(0, 0);
-            axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            axWindowsMediaPlayer1.OcxState = (AxHost.State)resources.GetObject("axWindowsMediaPlayer1.OcxState");
-            axWindowsMediaPlayer1.Size = new Size(1802, 1033);
-            axWindowsMediaPlayer1.TabIndex = 18;
-            axWindowsMediaPlayer1.PlayStateChange += axWindowsMediaPlayer1_PlayStateChange;
-            // 
             // pnlProgress
             // 
             pnlProgress.BackColor = Color.White;
@@ -168,14 +170,14 @@
             Controls.Add(label1);
             Controls.Add(lblPercent);
             Controls.Add(ldngImage);
-            Controls.Add(axWindowsMediaPlayer1);
+            Controls.Add(Media1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LoadingFormPremium";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoadingFormPremium";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Media1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ldngImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -192,7 +194,7 @@
         private System.Windows.Forms.Timer tmrLdngAnimation;
         private System.Windows.Forms.Timer tmrAnimationDown;
         private System.Windows.Forms.Timer tmrDetail;
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private AxWMPLib.AxWindowsMediaPlayer Media1;
         private Panel pnlProgress;
     }
 }

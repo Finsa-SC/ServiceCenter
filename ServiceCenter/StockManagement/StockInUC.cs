@@ -84,7 +84,7 @@ namespace ServiceCenter.StockManagement
                 int spareId = Convert.ToInt32(row.Cells["sparepart_id"].Value);
                 if (dataGridView1.Columns[e.ColumnIndex].Name == "btnAction")
                 {
-                    StockInForm form = new StockInForm();
+                    StockInForm form = new StockInForm(spareId);
                     form.ShowDialog();
                 }
             }

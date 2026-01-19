@@ -268,6 +268,18 @@
         UH+suNsLZxiG74gjAgA7
 </value>
   </data>
+  <data name="Media1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        QXhIb3N0K1N0YXRlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAABcBAAACAQAAAAEAAAAAAAAAAAAAAAAC
+        AQAAAQMAAAgAYAAAAEMAOgBcAFUAcwBlAHIAcwBcAHMAaQBhAGwAYQBcAEQAbwB3AG4AbABvAGEAZABz
+        AFwAQwBvAGwAdQBtAGIAaQBuAGEAXwBMAG8AYQBkAGkAbgBnAHMALgBtAHAANAAAAAUAAAAAAAAA8D8D
+        AAAAAAAFAAAAAAAAAAAACAACAAAAAAADAAEAAAALAP//AwAAAAAACwD//wgAAgAAAAAAAwAyAAAACwAA
+        AAgACgAAAG4AbwBuAGUAAAALAAAACwAAAAsA//8LAP//CwAAAAgAAgAAAAAACAACAAAAAAAIAAIAAAAA
+        AAgAAgAAAAAACwAAACl8AAAtRwAACw==
+</value>
+  </data>
   <data name="ldngImage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAeQAAAKsCAYAAAA9Tc5lAAAABGdBTUEAALGPC/xhBQAA/8dJREFUeF7s
@@ -5999,16 +6011,4 @@
   <metadata name="tmrDetail.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>622, 17</value>
   </metadata>
-  <data name="axWindowsMediaPlayer1.OcxState" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        QXhIb3N0K1N0YXRlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAABcBAAACAQAAAAEAAAAAAAAAAAAAAAAC
-        AQAAAQMAAAgAYAAAAEMAOgBcAFUAcwBlAHIAcwBcAHMAaQBhAGwAYQBcAEQAbwB3AG4AbABvAGEAZABz
-        AFwAQwBvAGwAdQBtAGIAaQBuAGEAXwBMAG8AYQBkAGkAbgBnAHMALgBtAHAANAAAAAUAAAAAAAAA8D8D
-        AAAAAAAFAAAAAAAAAAAACAACAAAAAAADAAEAAAALAP//AwAAAAAACwD//wgAAgAAAAAAAwAyAAAACwAA
-        AAgACgAAAG4AbwBuAGUAAAALAAAACwAAAAsA//8LAP//CwAAAAgAAgAAAAAACAACAAAAAAAIAAIAAAAA
-        AAgAAgAAAAAACwAAACl8AAAtRwAACw==
-</value>
-  </data>
 </root>

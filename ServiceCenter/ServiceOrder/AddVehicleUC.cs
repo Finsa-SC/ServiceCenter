@@ -22,6 +22,7 @@ namespace ServiceCenter.ServiceOrder
             txtMode.Text = model;
             loadYear();
             customerId = cusId;
+            loadBrand();
         }
 
         private void loadYear()
@@ -35,11 +36,11 @@ namespace ServiceCenter.ServiceOrder
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO vehicles (customer_id, plate_number, brand, model, year, engine_number, frame_number) VALUES (@c, @p, @b, @m, @y, @e, @f)";
+            string query = "INSERT INTO vehicles (customer_id, plate_number, brand_id, model, year, engine_number, frame_number) VALUES (@c, @p, @b, @m, @y, @e, @f)";
             int i = DBHelper.executeNonQuery(query,
                 new SqlParameter("@c", customerId),
                 new SqlParameter("@p", txtPlat.Text.Trim()),
-                new SqlParameter("@b", cmbBrand.SelectedItem),
+                new SqlParameter("@b", cmbBrand.SelectedValue),
                 new SqlParameter("@m", txtMode.Text.Trim()),
                 new SqlParameter("@y", cmbYears.SelectedItem),
                 new SqlParameter("@e", txtEng.Text.Trim()),
@@ -50,6 +51,19 @@ namespace ServiceCenter.ServiceOrder
                 UIHelper.toast("Sucess", "Success Adding Vehicle");
                 vehicleAdded?.Invoke();
             }
+        }
+
+        private void loadBrand()
+        {
+            string query = "SELECT brand_id, brand_name FROM vehicle_brand";
+            DataTable dt = DBHelper.executeQuery(query);
+            var dr = dt.NewRow();
+            dr["brand_id"] = DBNull.Value;
+            dr["brand_name"] = "All Brand";
+            dt.Rows.InsertAt(dr, 0);
+            cmbBrand.DataSource = dt;
+            cmbBrand.DisplayMember = "brand_name";
+            cmbBrand.ValueMember = "brand_id";
         }
     }
 }

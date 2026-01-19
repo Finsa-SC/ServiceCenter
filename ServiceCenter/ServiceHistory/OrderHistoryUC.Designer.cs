@@ -1,6 +1,6 @@
-﻿namespace ServiceCenter.StockManagement
+﻿namespace ServiceCenter.ServiceHistory
 {
-    partial class StockInUC
+    partial class OrderHistoryUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,28 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            label2 = new Label();
             dataGridView1 = new DataGridView();
-            txtSSparepart = new TextBox();
-            nmcSMaksimum = new NumericUpDown();
-            label1 = new Label();
-            tmrSearchDelay = new System.Windows.Forms.Timer(components);
+            label2 = new Label();
+            txtSCustomer = new TextBox();
+            cmbSBrand = new ComboBox();
+            dteSDate = new DateTimePicker();
+            chkDte = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nmcSMaksimum).BeginInit();
             SuspendLayout();
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            label2.Location = new Point(25, 19);
-            label2.Name = "label2";
-            label2.Size = new Size(272, 38);
-            label2.TabIndex = 17;
-            label2.Text = "Stock Management";
             // 
             // dataGridView1
             // 
@@ -79,77 +67,91 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(35, 139);
+            dataGridView1.Location = new Point(27, 80);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(1559, 822);
-            dataGridView1.TabIndex = 16;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
+            dataGridView1.TabIndex = 19;
             // 
-            // txtSSparepart
+            // label2
             // 
-            txtSSparepart.BorderStyle = BorderStyle.FixedSingle;
-            txtSSparepart.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtSSparepart.Location = new Point(52, 92);
-            txtSSparepart.Name = "txtSSparepart";
-            txtSSparepart.PlaceholderText = " Search...";
-            txtSSparepart.Size = new Size(349, 37);
-            txtSSparepart.TabIndex = 18;
-            txtSSparepart.Tag = "nullable";
-            txtSSparepart.TextChanged += txtSSparepart_TextChanged;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label2.Location = new Point(27, 22);
+            label2.Name = "label2";
+            label2.Size = new Size(272, 38);
+            label2.TabIndex = 20;
+            label2.Text = "Stock Management";
             // 
-            // nmcSMaksimum
+            // txtSCustomer
             // 
-            nmcSMaksimum.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            nmcSMaksimum.Location = new Point(679, 92);
-            nmcSMaksimum.Name = "nmcSMaksimum";
-            nmcSMaksimum.Size = new Size(134, 37);
-            nmcSMaksimum.TabIndex = 19;
-            nmcSMaksimum.ValueChanged += nmcSMaksimum_ValueChanged;
+            txtSCustomer.BorderStyle = BorderStyle.FixedSingle;
+            txtSCustomer.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSCustomer.Location = new Point(353, 29);
+            txtSCustomer.Name = "txtSCustomer";
+            txtSCustomer.PlaceholderText = " Search...";
+            txtSCustomer.Size = new Size(364, 37);
+            txtSCustomer.TabIndex = 21;
             // 
-            // label1
+            // cmbSBrand
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(485, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(188, 30);
-            label1.TabIndex = 20;
-            label1.Text = "Maksimum Stock:";
+            cmbSBrand.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cmbSBrand.FormattingEnabled = true;
+            cmbSBrand.Location = new Point(794, 29);
+            cmbSBrand.Name = "cmbSBrand";
+            cmbSBrand.Size = new Size(245, 38);
+            cmbSBrand.TabIndex = 22;
             // 
-            // tmrSearchDelay
+            // dteSDate
             // 
-            tmrSearchDelay.Interval = 500;
-            tmrSearchDelay.Tick += tmrSearchDelay_Tick;
+            dteSDate.CustomFormat = "MMMMdd, yyyy";
+            dteSDate.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dteSDate.Format = DateTimePickerFormat.Custom;
+            dteSDate.Location = new Point(1111, 30);
+            dteSDate.MaxDate = new DateTime(2026, 1, 20, 0, 0, 0, 0);
+            dteSDate.Name = "dteSDate";
+            dteSDate.Size = new Size(300, 37);
+            dteSDate.TabIndex = 23;
+            dteSDate.Value = new DateTime(2026, 1, 20, 0, 0, 0, 0);
             // 
-            // StockInUC
+            // chkDte
+            // 
+            chkDte.AutoSize = true;
+            chkDte.Location = new Point(1413, 35);
+            chkDte.Name = "chkDte";
+            chkDte.Size = new Size(183, 29);
+            chkDte.TabIndex = 24;
+            chkDte.Text = "According to Date";
+            chkDte.UseVisualStyleBackColor = true;
+            chkDte.CheckedChanged += chkDte_CheckedChanged;
+            // 
+            // OrderHistoryUC
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
-            Controls.Add(nmcSMaksimum);
-            Controls.Add(txtSSparepart);
+            Controls.Add(chkDte);
+            Controls.Add(dteSDate);
+            Controls.Add(cmbSBrand);
+            Controls.Add(txtSCustomer);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
-            Name = "StockInUC";
-            Size = new Size(1630, 993);
-            Load += StockInUC_Load;
+            Name = "OrderHistoryUC";
+            Size = new Size(1612, 993);
+            Load += OrderHistoryUC_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nmcSMaksimum).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label2;
         private DataGridView dataGridView1;
-        private TextBox txtSSparepart;
-        private NumericUpDown nmcSMaksimum;
-        private Label label1;
-        private System.Windows.Forms.Timer tmrSearchDelay;
+        private Label label2;
+        private TextBox txtSCustomer;
+        private ComboBox cmbSBrand;
+        private DateTimePicker dteSDate;
+        private CheckBox chkDte;
     }
 }

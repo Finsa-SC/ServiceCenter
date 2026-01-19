@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceCenter.core.network;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,5 +17,22 @@ namespace ServiceCenter.ServiceHistory
         {
             InitializeComponent();
         }
+        private void ServiceHistoryUC_Load(object sender, EventArgs e)
+        {
+            loadActivity(new OrderHistoryUC());
+        }
+
+        private void loadActivity(UserControl uc)
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(uc);
+            uc.Dock = DockStyle.Fill;
+        }
+        private void btnOrderHistory_Click(object sender, EventArgs e)
+        {
+            loadActivity(new OrderHistoryUC());
+        }
+
+        
     }
 }

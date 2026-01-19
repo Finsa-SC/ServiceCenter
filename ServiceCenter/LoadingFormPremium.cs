@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace ServiceCenter
 {
-    public partial class LoadingForm : Form
+    public partial class LoadingFormPremium : Form
     {
         Random random = new Random();
-        public LoadingForm()
+        public LoadingFormPremium()
         {
             InitializeComponent();
             tmrProgress.Start();
@@ -21,7 +21,7 @@ namespace ServiceCenter
             tmrDetail.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrProgress_Tick(object sender, EventArgs e)
         {
             if (pnlProgress.Width >= panel1.Width)
             {
@@ -29,7 +29,6 @@ namespace ServiceCenter
                 ldngImage.Left = panel1.Width + 35;
                 tmrDetail.Stop();
                 lblDetail.Text = "Starting Up Application";
-                tmrWaiting.Start();
                 tmrProgress.Stop();
             }
             else
@@ -44,7 +43,7 @@ namespace ServiceCenter
                     ldngImage.Left = pnlProgress.Width + 35;
 
                     int percent = (int)((double)pnlProgress.Width / panel1.Width * 100);
-                    if(percent > 100) percent = 100;
+                    if (percent > 100) percent = 100;
                     lblPercent.Text = percent.ToString();
                 }
             }
@@ -53,7 +52,7 @@ namespace ServiceCenter
         int animationSpeed = 1;
         private void tmrLdngAnimation_Tick(object sender, EventArgs e)
         {
-            if (ldngImage.Top < 830)
+            if (ldngImage.Top < 820)
             {
                 tmrLdngAnimation.Stop();
                 tmrAnimationDown.Start();
@@ -63,9 +62,10 @@ namespace ServiceCenter
                 ldngImage.Top -= animationSpeed;
             }
         }
+
         private void tmrAnimationDown_Tick(object sender, EventArgs e)
         {
-            if (ldngImage.Top > 850)
+            if (ldngImage.Top > 842)
             {
                 tmrAnimationDown.Stop();
                 tmrLdngAnimation.Start();
@@ -75,7 +75,6 @@ namespace ServiceCenter
                 ldngImage.Top += animationSpeed;
             }
         }
-
         List<string> detailList = new List<string>()
         {
             "Connecting to database",
@@ -105,9 +104,12 @@ namespace ServiceCenter
                 lblDetail.Text = detailList[index] + "...";
             }
         }
-        private void tmrWaiting_Tick(object sender, EventArgs e)
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
-            this.Close();
+            if((WMPLib.WMPPlayState)e.newState == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -59,7 +59,7 @@
             // pnlProgress
             // 
             pnlProgress.BackColor = Color.White;
-            pnlProgress.Location = new Point(76, 940);
+            pnlProgress.Location = new Point(76, 941);
             pnlProgress.Name = "pnlProgress";
             pnlProgress.Size = new Size(0, 11);
             pnlProgress.TabIndex = 0;

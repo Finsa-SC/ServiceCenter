@@ -24,9 +24,9 @@ namespace ServiceCenter
             InitializeComponent();
             initButton();
             Instance = this;
-            //this.Hide();
-            //var loading = new LoadingForm();
-            //loading.ShowDialog();
+            this.Hide();
+            var loading = new LoadingFormPremium();
+            loading.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)

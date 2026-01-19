@@ -77,36 +77,39 @@ namespace ServiceCenter
 
         private void btnFinish_Click(object sender, EventArgs e)
         {
-            if(Convert.ToDecimal(txtPaid.Text) < Convert.ToDecimal(txtTotal.Text))
+            try
             {
-                UIHelper.toast("Not Enaugh Money", "Paid is less than Total Cost");
-                return;
-            }
+                if(Convert.ToDecimal(txtPaid.Text) < Convert.ToDecimal(txtTotal.Text))
+                {
+                    UIHelper.toast("Not Enaugh Money", "Paid is less than Total Cost");
+                    return;
+                }
 
-            string query = @"
-                    BEGIN TRANSACTION;
-                    BEGIN TRY
-                        INSERT INTO payments (service_order_id, payment_date, payment_method, total_amount, paid_amount, change_amount) VALUES (@s, GETDATE(), @m, @t, @p, @c);
-                        UPDATE service_orders SET status_id = 4 WHERE service_order_id = @s;
-                        COMMIT TRANSACTION
-                    END TRY
-                    BEGIN CATCH
-                        ROLLBACK TRANSACTION
-                    END CATCH";
+                string query = @"
+                        BEGIN TRANSACTION;
+                        BEGIN TRY
+                            INSERT INTO payments (service_order_id, payment_date, payment_method, total_amount, paid_amount, change_amount) VALUES (@s, GETDATE(), @m, @t, @p, @c);
+                            UPDATE service_orders SET status_id = 4 WHERE service_order_id = @s;
+                            COMMIT TRANSACTION
+                        END TRY
+                        BEGIN CATCH
+                            ROLLBACK TRANSACTION
+                        END CATCH";
 
-            int i = DBHelper.executeNonQuery(query,
-                new SqlParameter("@s", serviceOrderId),
-                new SqlParameter("@m", cmbMethod.Text),
-                new SqlParameter("@t", Convert.ToDecimal(txtTotal.Text)),
-                new SqlParameter("@p", Convert.ToDecimal(txtPaid.Text)),
-                new SqlParameter("@c", Convert.ToDecimal(txtChange.Text))
-            );
-            if (i > 0)
-            {
-                clear();
-                loadData();
-                UIHelper.toast("Sucess", "Payment Successfully");
-            }
+                int i = DBHelper.executeNonQuery(query,
+                    new SqlParameter("@s", serviceOrderId),
+                    new SqlParameter("@m", cmbMethod.Text),
+                    new SqlParameter("@t", Convert.ToDecimal(txtTotal.Text)),
+                    new SqlParameter("@p", Convert.ToDecimal(txtPaid.Text)),
+                    new SqlParameter("@c", Convert.ToDecimal(txtChange.Text))
+                );
+                if (i > 0)
+                {
+                    clear();
+                    loadData();
+                    UIHelper.toast("Sucess", "Payment Successfully");
+                }
+            }catch(Exception ex) { }
         }
 
         private void clear()

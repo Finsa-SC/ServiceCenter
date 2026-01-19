@@ -56,6 +56,7 @@
             // 
             // btnOrderHistory
             // 
+            btnOrderHistory.FlatAppearance.BorderColor = Color.White;
             btnOrderHistory.FlatStyle = FlatStyle.Flat;
             btnOrderHistory.Image = Properties.Resources.icons_history_48;
             btnOrderHistory.Location = new Point(3, 3);
@@ -67,6 +68,7 @@
             // 
             // btnTechPerf
             // 
+            btnTechPerf.FlatAppearance.BorderColor = Color.White;
             btnTechPerf.FlatStyle = FlatStyle.Flat;
             btnTechPerf.Image = Properties.Resources.icons8_technician_48;
             btnTechPerf.Location = new Point(3, 111);

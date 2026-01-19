@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
@@ -36,6 +37,7 @@
             cmbSBrand = new ComboBox();
             dteSDate = new DateTimePicker();
             chkDte = new CheckBox();
+            tmrSearchDelay = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -74,6 +76,7 @@
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(1559, 822);
             dataGridView1.TabIndex = 19;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // label2
             // 
@@ -94,15 +97,18 @@
             txtSCustomer.PlaceholderText = " Search...";
             txtSCustomer.Size = new Size(364, 37);
             txtSCustomer.TabIndex = 21;
+            txtSCustomer.TextChanged += txtSCustomer_TextChanged;
             // 
             // cmbSBrand
             // 
+            cmbSBrand.FlatStyle = FlatStyle.Flat;
             cmbSBrand.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbSBrand.FormattingEnabled = true;
             cmbSBrand.Location = new Point(794, 29);
             cmbSBrand.Name = "cmbSBrand";
             cmbSBrand.Size = new Size(245, 38);
             cmbSBrand.TabIndex = 22;
+            cmbSBrand.SelectedIndexChanged += cmbSBrand_SelectedIndexChanged;
             // 
             // dteSDate
             // 
@@ -115,6 +121,7 @@
             dteSDate.Size = new Size(300, 37);
             dteSDate.TabIndex = 23;
             dteSDate.Value = new DateTime(2026, 1, 20, 0, 0, 0, 0);
+            dteSDate.ValueChanged += dteSDate_ValueChanged;
             // 
             // chkDte
             // 
@@ -126,6 +133,11 @@
             chkDte.Text = "According to Date";
             chkDte.UseVisualStyleBackColor = true;
             chkDte.CheckedChanged += chkDte_CheckedChanged;
+            // 
+            // tmrSearchDelay
+            // 
+            tmrSearchDelay.Interval = 500;
+            tmrSearchDelay.Tick += tmrSearchDelay_Tick;
             // 
             // OrderHistoryUC
             // 
@@ -153,5 +165,6 @@
         private ComboBox cmbSBrand;
         private DateTimePicker dteSDate;
         private CheckBox chkDte;
+        private System.Windows.Forms.Timer tmrSearchDelay;
     }
 }

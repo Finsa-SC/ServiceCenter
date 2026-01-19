@@ -42,12 +42,29 @@ namespace ServiceCenter.StockManagement
             ValidationHelper.onlyDigit(e);
         }
 
+        int stockIn;
         private void txtStockIn_TextChanged(object sender, EventArgs e)
         {
-            int stockIn;
             int.TryParse(txtStockIn.Text, out stockIn);
             int tempStock = stock + stockIn;
             txtStock.Text = tempStock.ToString();
+        }
+
+        private void btnMove_Click(object sender, EventArgs e)
+        {
+            if (!moveStock(stockIn)) return;
+            UIHelper.toast("Sucess", "Success move sparepart into warehouse");
+            this.Close();
+        }
+        private bool moveStock(int stock)
+        {
+            string query = "UPDATE spareparts SET stock = stock + @s WHERE sparepart_id = @sid";
+            int i = DBHelper.executeNonQuery(query, 
+                new SqlParameter("@s", stock),
+                new SqlParameter("@sid", spareId)
+            );
+            if(i>0) return true;
+            else return false;
         }
     }
 }

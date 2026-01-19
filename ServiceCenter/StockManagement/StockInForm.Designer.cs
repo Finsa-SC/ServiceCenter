@@ -38,6 +38,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            btnMove = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -144,6 +145,18 @@
             label3.TabIndex = 5;
             label3.Text = "Available Stock";
             // 
+            // btnMove
+            // 
+            btnMove.FlatStyle = FlatStyle.Flat;
+            btnMove.ForeColor = Color.Cyan;
+            btnMove.Location = new Point(469, 583);
+            btnMove.Name = "btnMove";
+            btnMove.Size = new Size(162, 46);
+            btnMove.TabIndex = 1;
+            btnMove.Text = "Move it";
+            btnMove.UseVisualStyleBackColor = true;
+            btnMove.Click += btnMove_Click;
+            // 
             // StockInForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -157,6 +170,7 @@
             Controls.Add(pictureBox2);
             Controls.Add(txtStockIn);
             Controls.Add(txtStock);
+            Controls.Add(btnMove);
             Controls.Add(btnClose);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
@@ -182,5 +196,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Button btnMove;
     }
 }

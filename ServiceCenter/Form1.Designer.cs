@@ -47,6 +47,8 @@
             btnServiceProcess = new Button();
             btnServiceWorkshop = new Button();
             btnServicePayment = new Button();
+            btnStockManagemtn = new Button();
+            btnHistory = new Button();
             pctProfile = new PictureBox();
             pnlProfile = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
@@ -54,7 +56,6 @@
             pnlActivity = new Panel();
             tmrTitleSlide = new System.Windows.Forms.Timer(components);
             toolTip1 = new ToolTip(components);
-            btnStockManagemtn = new Button();
             navInfo.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             pnlTitle.SuspendLayout();
@@ -197,6 +198,7 @@
             flowLayoutPanel1.Controls.Add(btnServiceWorkshop);
             flowLayoutPanel1.Controls.Add(btnServicePayment);
             flowLayoutPanel1.Controls.Add(btnStockManagemtn);
+            flowLayoutPanel1.Controls.Add(btnHistory);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -304,6 +306,46 @@
             btnServicePayment.UseVisualStyleBackColor = false;
             btnServicePayment.Click += btnServicePayment_Click;
             // 
+            // btnStockManagemtn
+            // 
+            btnStockManagemtn.BackColor = Color.FromArgb(29, 31, 31);
+            btnStockManagemtn.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnStockManagemtn.FlatAppearance.BorderSize = 0;
+            btnStockManagemtn.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnStockManagemtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnStockManagemtn.FlatStyle = FlatStyle.Flat;
+            btnStockManagemtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnStockManagemtn.ForeColor = Color.White;
+            btnStockManagemtn.Image = Properties.Resources.icons8_stock_48;
+            btnStockManagemtn.Location = new Point(6, 393);
+            btnStockManagemtn.Margin = new Padding(6, 3, 3, 3);
+            btnStockManagemtn.Name = "btnStockManagemtn";
+            btnStockManagemtn.Size = new Size(72, 72);
+            btnStockManagemtn.TabIndex = 0;
+            btnStockManagemtn.Tag = "Stock Management";
+            btnStockManagemtn.UseVisualStyleBackColor = false;
+            btnStockManagemtn.Click += btnStockManagemtn_Click;
+            // 
+            // btnHistory
+            // 
+            btnHistory.BackColor = Color.FromArgb(29, 31, 31);
+            btnHistory.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
+            btnHistory.FlatAppearance.BorderSize = 0;
+            btnHistory.FlatAppearance.MouseDownBackColor = Color.DimGray;
+            btnHistory.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            btnHistory.FlatStyle = FlatStyle.Flat;
+            btnHistory.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnHistory.ForeColor = Color.White;
+            btnHistory.Image = Properties.Resources.icons8_history_48;
+            btnHistory.Location = new Point(6, 471);
+            btnHistory.Margin = new Padding(6, 3, 3, 3);
+            btnHistory.Name = "btnHistory";
+            btnHistory.Size = new Size(72, 72);
+            btnHistory.TabIndex = 0;
+            btnHistory.Tag = "Service History";
+            btnHistory.UseVisualStyleBackColor = false;
+            btnHistory.Click += btnHistory_Click;
+            // 
             // pctProfile
             // 
             pctProfile.ErrorImage = Properties.Resources.icons8_user_100;
@@ -346,26 +388,6 @@
             // 
             tmrTitleSlide.Interval = 1;
             tmrTitleSlide.Tick += tmrTitleSlide_Tick;
-            // 
-            // btnStockManagemtn
-            // 
-            btnStockManagemtn.BackColor = Color.FromArgb(29, 31, 31);
-            btnStockManagemtn.FlatAppearance.BorderColor = Color.FromArgb(96, 232, 254);
-            btnStockManagemtn.FlatAppearance.BorderSize = 0;
-            btnStockManagemtn.FlatAppearance.MouseDownBackColor = Color.DimGray;
-            btnStockManagemtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
-            btnStockManagemtn.FlatStyle = FlatStyle.Flat;
-            btnStockManagemtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnStockManagemtn.ForeColor = Color.White;
-            btnStockManagemtn.Image = Properties.Resources.icons8_stock_48;
-            btnStockManagemtn.Location = new Point(6, 393);
-            btnStockManagemtn.Margin = new Padding(6, 3, 3, 3);
-            btnStockManagemtn.Name = "btnStockManagemtn";
-            btnStockManagemtn.Size = new Size(72, 72);
-            btnStockManagemtn.TabIndex = 0;
-            btnStockManagemtn.Tag = "Stock Management";
-            btnStockManagemtn.UseVisualStyleBackColor = false;
-            btnStockManagemtn.Click += btnStockManagemtn_Click;
             // 
             // Form1
             // 
@@ -422,5 +444,6 @@
         private Button btnServiceWorkshop;
         private Button btnServicePayment;
         private Button btnStockManagemtn;
+        private Button btnHistory;
     }
 }

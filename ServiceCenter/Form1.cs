@@ -2,6 +2,7 @@ using ServiceCenter.core.util;
 using ServiceCenter.ServiceOrder;
 using ServiceCenter.ServiceWorkshop;
 using ServiceCenter.StockManagement;
+using ServiceCenter.ServiceHistory;
 using System.Windows.Forms;
 
 namespace ServiceCenter
@@ -17,6 +18,7 @@ namespace ServiceCenter
         private ServiceProcessUC serviceProcessUC;
         private ServicePaymentUC servicePaymentUC;
         private StockManagementUC stockManagementUC;
+        private ServiceHistoryUC serviceHistoryUC;
 
 
         public Form1()
@@ -24,9 +26,9 @@ namespace ServiceCenter
             InitializeComponent();
             initButton();
             Instance = this;
-            this.Hide();
-            var loading = new LoadingFormPremium();
-            loading.ShowDialog();
+            //this.Hide();
+            //var loading = new LoadingFormPremium();
+            //loading.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,6 +37,7 @@ namespace ServiceCenter
             serviceOrdersUC = new ServiceOrdersUC();
             servicePaymentUC = new ServicePaymentUC();
             stockManagementUC = new StockManagementUC();
+            serviceHistoryUC = new ServiceHistoryUC();
 
             isLogged();
             initImage();
@@ -84,10 +87,6 @@ namespace ServiceCenter
             txtTime.Text = DateTime.Now.ToString("yyyy-MMMM-dd    HH:mm:ss");
         }
 
-
-       
-
-
         private void initButton()
         {
             btnUserManagement.MouseEnter += Hover_MouseEnter;
@@ -96,6 +95,7 @@ namespace ServiceCenter
             btnServiceWorkshop.MouseEnter += Hover_MouseEnter;
             btnServicePayment.MouseEnter += Hover_MouseEnter;
             btnStockManagemtn.MouseEnter += Hover_MouseEnter;
+            btnHistory.MouseEnter += Hover_MouseEnter;
 
             btnUserManagement.MouseLeave += Hover_MouseLeave;
             btnServiceOrder.MouseLeave += Hover_MouseLeave;
@@ -103,6 +103,7 @@ namespace ServiceCenter
             btnServiceWorkshop.MouseLeave += Hover_MouseLeave;
             btnServicePayment.MouseLeave += Hover_MouseLeave;
             btnStockManagemtn.MouseLeave += Hover_MouseLeave;
+            btnHistory.MouseLeave += Hover_MouseLeave;
 
             btnUserManagement.MouseHover += Mouse_hover_button;
             btnServiceOrder.MouseHover += Mouse_hover_button;
@@ -111,6 +112,7 @@ namespace ServiceCenter
             btnServicePayment.MouseHover += Mouse_hover_button;
             btnStockManagemtn.MouseHover += Mouse_hover_button;
             pctProfile.MouseHover += Mouse_hover_button;
+            btnHistory.MouseHover += Mouse_hover_button;
         }
         private void Hover_MouseEnter(object sender, EventArgs e)
         {
@@ -241,7 +243,7 @@ namespace ServiceCenter
             }
         }
 
-        
+
 
 
         public void checkUserRole()
@@ -267,6 +269,7 @@ namespace ServiceCenter
                     btnServiceProcess.Visible = true;
                     btnServicePayment.Visible = true;
                     btnStockManagemtn.Visible = true;
+                    btnHistory.Visible = true;
                     uc = userManagementUC;
                     break;
                 //technician
@@ -298,6 +301,7 @@ namespace ServiceCenter
             btnServiceWorkshop.Visible = false;
             btnServicePayment.Visible = false;
             btnStockManagemtn.Visible = false;
+            btnHistory.Visible = false;
         }
         private void btnUserManagement_Click_1(object sender, EventArgs e)
         {
@@ -329,6 +333,11 @@ namespace ServiceCenter
         private void btnStockManagemtn_Click(object sender, EventArgs e)
         {
             loadUC(stockManagementUC);
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+            loadUC(serviceHistoryUC);
         }
     }
 }

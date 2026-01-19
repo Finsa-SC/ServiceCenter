@@ -37,8 +37,7 @@ namespace ServiceCenter.StockManagement
                     FROM spareparts s
                     LEFT JOIN sparepart_unit u ON u.unit_id = s.unit_id
                     WHERE (@sn IS NULL OR s.sparepart_name LIKE @sn)
-                        AND (@s = 0 OR s.stock <= @s)
-                    ORDER BY s.stock DESC";
+                        AND (@s = 0 OR s.stock <= @s)";
             dataGridView1.DataSource = DBHelper.executeQuery(query,
                 new SqlParameter("@sn", "%" + txtSSparepart.Text + "%"),
                 new SqlParameter("@s", nmcSMaksimum.Value)
@@ -86,6 +85,26 @@ namespace ServiceCenter.StockManagement
                 {
                     StockInForm form = new StockInForm(spareId);
                     form.ShowDialog();
+                    loadData();
+                }
+            }
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridView1.Rows)
+            {
+                int stock = Convert.ToInt32(row.Cells["Stock"].Value);
+                int minStock = Convert.ToInt32(row.Cells["Minimum"].Value);
+
+                if(stock <= minStock)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Salmon;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                }else if(stock < 100)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Khaki;
+                    row.DefaultCellStyle.ForeColor = Color.White;
                 }
             }
         }

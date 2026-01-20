@@ -33,13 +33,23 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dataGridView1 = new DataGridView();
-            textBox1 = new TextBox();
+            txtCost = new TextBox();
             label1 = new Label();
             label2 = new Label();
             dataGridView2 = new DataGridView();
             label3 = new Label();
             label4 = new Label();
             btnClose = new Button();
+            txtComplaint = new RichTextBox();
+            label5 = new Label();
+            txtProcesing = new TextBox();
+            label6 = new Label();
+            dteEntry = new DateTimePicker();
+            dteFinish = new DateTimePicker();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -72,7 +82,7 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(512, 57);
+            dataGridView1.Location = new Point(512, 60);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
@@ -80,24 +90,25 @@
             dataGridView1.Size = new Size(639, 253);
             dataGridView1.TabIndex = 20;
             // 
-            // textBox1
+            // txtCost
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(44, 142);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(378, 37);
-            textBox1.TabIndex = 21;
+            txtCost.BorderStyle = BorderStyle.FixedSingle;
+            txtCost.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtCost.Location = new Point(45, 264);
+            txtCost.Name = "txtCost";
+            txtCost.ReadOnly = true;
+            txtCost.Size = new Size(378, 37);
+            txtCost.TabIndex = 21;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            label1.Location = new Point(54, 114);
+            label1.Location = new Point(46, 236);
             label1.Name = "label1";
-            label1.Size = new Size(63, 28);
+            label1.Size = new Size(101, 28);
             label1.TabIndex = 22;
-            label1.Text = "label1";
+            label1.Text = "Total Cost";
             // 
             // label2
             // 
@@ -149,7 +160,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            label3.Location = new Point(512, 31);
+            label3.Location = new Point(512, 23);
             label3.Name = "label3";
             label3.Size = new Size(152, 28);
             label3.TabIndex = 22;
@@ -159,7 +170,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
-            label4.Location = new Point(512, 333);
+            label4.Location = new Point(512, 324);
             label4.Name = "label4";
             label4.Size = new Size(115, 28);
             label4.TabIndex = 22;
@@ -177,15 +188,130 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
             // 
+            // txtComplaint
+            // 
+            txtComplaint.BorderStyle = BorderStyle.FixedSingle;
+            txtComplaint.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtComplaint.Location = new Point(44, 358);
+            txtComplaint.Name = "txtComplaint";
+            txtComplaint.ReadOnly = true;
+            txtComplaint.Size = new Size(383, 253);
+            txtComplaint.TabIndex = 25;
+            txtComplaint.Text = "";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label5.Location = new Point(44, 324);
+            label5.Name = "label5";
+            label5.Size = new Size(105, 28);
+            label5.TabIndex = 22;
+            label5.Text = "Complaint";
+            // 
+            // txtProcesing
+            // 
+            txtProcesing.BorderStyle = BorderStyle.FixedSingle;
+            txtProcesing.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtProcesing.Location = new Point(44, 175);
+            txtProcesing.Name = "txtProcesing";
+            txtProcesing.ReadOnly = true;
+            txtProcesing.Size = new Size(378, 37);
+            txtProcesing.TabIndex = 21;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label6.Location = new Point(45, 147);
+            label6.Name = "label6";
+            label6.Size = new Size(204, 28);
+            label6.TabIndex = 22;
+            label6.Text = "total processing time";
+            // 
+            // dteEntry
+            // 
+            dteEntry.CustomFormat = "MMMMdd, yyyy";
+            dteEntry.Enabled = false;
+            dteEntry.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dteEntry.Format = DateTimePickerFormat.Custom;
+            dteEntry.Location = new Point(22, 90);
+            dteEntry.Name = "dteEntry";
+            dteEntry.Size = new Size(261, 37);
+            dteEntry.TabIndex = 26;
+            // 
+            // dteFinish
+            // 
+            dteFinish.CustomFormat = "MMMMdd, yyyy";
+            dteFinish.Enabled = false;
+            dteFinish.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dteFinish.Format = DateTimePickerFormat.Custom;
+            dteFinish.Location = new Point(255, 90);
+            dteFinish.Name = "dteFinish";
+            dteFinish.Size = new Size(251, 37);
+            dteFinish.TabIndex = 26;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Black", 14F, FontStyle.Bold);
+            label7.ImageAlign = ContentAlignment.TopCenter;
+            label7.Location = new Point(224, 89);
+            label7.Name = "label7";
+            label7.Size = new Size(42, 38);
+            label7.TabIndex = 27;
+            label7.Text = "⇒";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label8.Location = new Point(22, 61);
+            label8.Name = "label8";
+            label8.Size = new Size(59, 28);
+            label8.TabIndex = 22;
+            label8.Text = "Entry";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label9.Location = new Point(273, 62);
+            label9.Name = "label9";
+            label9.Size = new Size(65, 28);
+            label9.TabIndex = 22;
+            label9.Text = "Finish";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI Black", 14F, FontStyle.Bold);
+            label10.ImageAlign = ContentAlignment.TopCenter;
+            label10.Location = new Point(465, 89);
+            label10.Name = "label10";
+            label10.Size = new Size(41, 38);
+            label10.TabIndex = 27;
+            label10.Text = "   ";
+            // 
             // OrderDetailForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1186, 640);
+            Controls.Add(label10);
+            Controls.Add(label7);
+            Controls.Add(dteFinish);
+            Controls.Add(dteEntry);
+            Controls.Add(txtComplaint);
             Controls.Add(btnClose);
             Controls.Add(label2);
+            Controls.Add(label5);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label6);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(txtProcesing);
+            Controls.Add(txtCost);
             Controls.Add(dataGridView2);
             Controls.Add(dataGridView1);
             Controls.Add(label4);
@@ -203,12 +329,22 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private TextBox textBox1;
+        private TextBox txtCost;
         private Label label1;
         private Label label2;
         private DataGridView dataGridView2;
         private Label label3;
         private Label label4;
         private Button btnClose;
+        private RichTextBox txtComplaint;
+        private Label label5;
+        private TextBox txtProcesing;
+        private Label label6;
+        private DateTimePicker dteEntry;
+        private DateTimePicker dteFinish;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private Label label10;
     }
 }

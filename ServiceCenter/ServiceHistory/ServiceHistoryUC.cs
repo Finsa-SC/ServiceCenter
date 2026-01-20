@@ -33,6 +33,9 @@ namespace ServiceCenter.ServiceHistory
             loadActivity(new OrderHistoryUC());
         }
 
-        
+        private void btnTechPerf_Click(object sender, EventArgs e)
+        {
+            loadActivity(new TechnicianPerformanceUC());
+        }
     }
 }

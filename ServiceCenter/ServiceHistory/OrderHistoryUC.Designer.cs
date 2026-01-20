@@ -69,7 +69,7 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.DarkGray;
-            dataGridView1.Location = new Point(27, 80);
+            dataGridView1.Location = new Point(26, 73);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
@@ -82,11 +82,11 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            label2.Location = new Point(27, 22);
+            label2.Location = new Point(26, 15);
             label2.Name = "label2";
-            label2.Size = new Size(272, 38);
+            label2.Size = new Size(196, 38);
             label2.TabIndex = 20;
-            label2.Text = "Stock Management";
+            label2.Text = "Order History";
             // 
             // txtSCustomer
             // 

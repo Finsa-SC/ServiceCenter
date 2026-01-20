@@ -76,6 +76,7 @@
             btnTechPerf.Size = new Size(102, 102);
             btnTechPerf.TabIndex = 0;
             btnTechPerf.UseVisualStyleBackColor = true;
+            btnTechPerf.Click += btnTechPerf_Click;
             // 
             // ServiceHistoryUC
             // 

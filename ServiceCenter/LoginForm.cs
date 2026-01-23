@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using ServiceCenter.core.network;
 using ServiceCenter.core.util;
 using System;
@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace ServiceCenter
 {

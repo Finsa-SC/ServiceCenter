@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 
 namespace ServiceCenter.ServiceHistory
 {
@@ -23,26 +23,16 @@ namespace ServiceCenter.ServiceHistory
         private void loadData()
         {
             string query = @"
-DECLARE @totalService INT;
-SELECT @totalService = COUNT(*) FROM service_assignments WHERE technician_id = @tid;
-
-DECLARE @totalTime DATETIME;
-SELECT @totalTime = DATEDIFF(HOUR, assigned_date, finished_date) FROM service_assignments WHERE finished_date IS NOT NULL AND technician_id = @tid;
-
-DECLARE @totalOrder INT;
-SELECT @totalOrder = COUNT(*) FROM service_assignments WHERE finished_date IS NOT NULL AND technician_id = @tid;
-
-SELECT 
-u.username AS Technician,
-@totalService AS [Number of Service],
-@totalTime AS [Working Hours],
-@totalOrder AS [Order Complete]
-FROM users u
-JOIN technicians t ON t.user_id = u.user_id
-";
-            dataGridView1.DataSource = DBHelper.executeQuery(query,
-                new SqlParameter("@tid", )
-            );
+                    SELECT 
+                    u.username AS Technician,
+                    COUNT (sa.assignment_id) AS [Service Completed],
+                    SUM (DATEDIFF(MINUTE, sa.assigned_date, sa.finished_date)) AS [Hour Working],
+                    COUNT (sa.finished_date) AS [Order Completed]
+                    FROM technicians t 
+                    JOIN users u ON u.user_id = t.user_id
+                    LEFT JOIN service_assignments sa ON sa.technician_id = t.technician_id
+                    GROUP BY u.username";
+            dataGridView1.DataSource = DBHelper.executeQuery(query);
         }
     }
 }

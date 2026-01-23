@@ -11,84 +11,69 @@ namespace ServiceCenter.core.network
 {
     internal class DBHelper
     {
-        public static string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
+        public static readonly string connectionString = "Server=HOSHIMI-MIYABI\\SQLEXPRESS;Database=ServiceCenterDB;Integrated Security=true;TrustServerCertificate=true";
+
+
+        private static T Execute<T>(
+            string query,
+            Func<SqlCommand, T> func,
+            params SqlParameter[] parameter
+        )
+        {
+            try
+            {
+                using(var conn = new SqlConnection( connectionString ))
+                using(var cmd = new SqlCommand(query, conn))
+                {
+                    if (parameter.Length > 0) cmd.Parameters.AddRange(parameter);
+                    conn.Open();
+                    return func(cmd);
+                }
+            }catch (Exception ex)
+            {
+                throw new DataException("Error Database: ", ex);
+            }
+        }
 
         public static object executeScalar(string query, params SqlParameter[] parameter)
         {
-            try
-            {
-                using(SqlConnection conn = new SqlConnection(connectionString)) 
-                using(SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if (parameter != null) cmd.Parameters.AddRange(parameter);
-                    conn.Open();
-                    return cmd.ExecuteScalar();
-                }
-            }
-            catch(Exception ex) {
-                MessageBox.Show("Failed Get Data: " + ex.Message);
-                return -1;
-            }
+            return Execute(query, cmd => cmd.ExecuteScalar(), parameter);
         }
         public static int executeNonQuery(string query, params SqlParameter[] parameter)
         {
-            try
-            {
-                using(SqlConnection conn = new SqlConnection(connectionString))
-                using(SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if(parameter != null) cmd.Parameters.AddRange(parameter);
-                    conn.Open();
-                    return cmd.ExecuteNonQuery();
-                }
-            }catch (Exception ex) {
-                MessageBox.Show("Failed Execution" + ex.Message);
-                return -1;
-            }
+            return Execute(query, cmd => cmd.ExecuteNonQuery(), parameter);
         }
 
         public static DataTable executeQuery(string query, params SqlParameter[] parameter)
         {
-            try
+            return Execute(query, cmd =>
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
-                    if(parameter!=null) cmd.Parameters.AddRange(parameter);
-                    conn.Open();
-                    using(SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        return dt;
-                    }
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
-            }catch(Exception ex)
-            {
-                MessageBox.Show("Failed Load Data" + ex.Message);
-                return new DataTable();
-            }
+            },
+            parameter
+            );
         }
         public static List<T> executeReader<T>(string query, Func<SqlDataReader, T> func ,params SqlParameter[] parameter)
         {
-            List<T> list = new List<T>();
-            try
+            return Execute(query, cmd =>
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using(SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    if (parameter != null) cmd.Parameters.AddRange(parameter);
-                    conn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                List<T> list = new List<T>();
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
-                            list.Add(func(dr));
-                        }
+                        list.Add(func(dr));
                     }
+                return list;
                 }
-            }catch(Exception ex) {MessageBox.Show("Failed to Read Data"+ ex.Message); }
-            return list;
+
+            }, parameter
+            );
         }
     }
 }

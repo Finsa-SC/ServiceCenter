@@ -83,7 +83,11 @@ namespace ServiceCenter.UserNamagement
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
             if (ValidationHelper.checkEmail(txtEmail.Text)) return;
             if (checkEmail()) { UIHelper.toast("Exists Items", "Email Address Already Taken"); return; }
 

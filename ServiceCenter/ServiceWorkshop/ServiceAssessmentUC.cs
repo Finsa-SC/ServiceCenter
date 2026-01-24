@@ -176,7 +176,11 @@ namespace ServiceCenter.ServiceWorkshop
         public event Action setTotalCost;
         private void btnFinished_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
             if (!UIHelper.ConfirmationDialog("Finish Service", "Do you sure to finish the vehicle right now?")) return;
 
             using (var conn = new SqlConnection(DBHelper.connectionString))

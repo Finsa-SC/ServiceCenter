@@ -57,8 +57,12 @@ namespace ServiceCenter.StockManagement
 
         public event Action updateData;
         private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (ValidationHelper.isNullInput(this)) return;
+        {if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
+
             if (existData()) { UIHelper.toast("Update Failed", "Exists data in DataBase"); return; }
             if (ValidationHelper.checkPhone(txtPhone.Text)) return;
             string query = "INSERT INTO suppliers (supplier_name, phone, address) VALUES (@n, @p, @a)";
@@ -79,7 +83,11 @@ namespace ServiceCenter.StockManagement
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (supplierId <= 0) { UIHelper.toast("no choice yet", "Please Select Supplier First"); return; }
-            if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
             if (ValidationHelper.checkPhone(txtPhone.Text)) return;
             if (existData()) { UIHelper.toast("Update Failed", "Exists data in DataBase"); return; }
 

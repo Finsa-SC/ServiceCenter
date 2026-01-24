@@ -116,7 +116,11 @@ namespace ServiceCenter.StockManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
             string query = @"
                     BEGIN TRANSACTION;
                     BEGIN TRY
@@ -160,8 +164,11 @@ namespace ServiceCenter.StockManagement
 
         private void btnAdds_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return;
-
+            if (ValidationHelper.isNullInput(this, out string message))
+                        {
+                            UIHelper.toast("Invalid Input", message);
+                            return;
+                        }
             string query = @"
                     BEGIN TRANSACTION;
                     BEGIN TRY

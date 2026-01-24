@@ -29,7 +29,11 @@ namespace ServiceCenter.ServiceOrder
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.isNullInput(this)) return;
+            if (ValidationHelper.isNullInput(this, out string message))
+            {
+                UIHelper.toast("Invalid Input", message);
+                return;
+            }
             if (ValidationHelper.checkEmail(txtEmail.Text)) return;
             if (ValidationHelper.checkPhone(txtNumber.Text)) return;
             string code = CodeGenerator.codeGenerator("CST", "SELECT MAX(customer_code) FROM customers");

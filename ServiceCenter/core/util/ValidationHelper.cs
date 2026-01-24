@@ -8,7 +8,6 @@ namespace ServiceCenter.core.util
 {
     internal class ValidationHelper
     {
-
         public static void onlyDigit(KeyPressEventArgs e)
         {
             if(!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
@@ -17,49 +16,29 @@ namespace ServiceCenter.core.util
                 e.Handled = true;
             } 
         }
-        public static bool isNullInput(Control parent)
+        public static bool isNullInput(Control parent, out string message)
         {
+            message = string.Empty;
             if(parent != null)
             {
                 foreach(Control ctrl in parent.Controls)
                 {
-                    if (ctrl.Tag?.ToString().Contains("nullable") == true) continue;
-                    if(ctrl is TextBox txt)
+                    switch (ctrl)
                     {
-                        if (string.IsNullOrWhiteSpace(txt.Text)) 
-                        { 
-                            UIHelper.toast("Invalid Input", "Please Fill All of Input");
-                            return true; 
-                        }
-                    }
-                    if(ctrl is ComboBox cmb)
-                    {
-                        if(cmb.SelectedIndex < 0)
-                        {
-                            UIHelper.toast("Invalid Decision", "Please Select Literally one Chose in Combo Box");
+                        case TextBox txt when string.IsNullOrWhiteSpace(txt.Text):
+                            message = "Required text input is missing or emty";
                             return true;
-                        }
-                    }
-                    if(ctrl is PictureBox pct)
-                    {
-                        if(pct.Image == null) 
-                        {
-                            UIHelper.toast("Blank Image", "Please Insert Your Image Actually");
+                        case ComboBox cmb when cmb.SelectedIndex < 0:
+                            message = "No item has been selected from the required dropdown list";
                             return true;
-                        }
-                    }
-                    if(ctrl is NumericUpDown nmc)
-                    {
-                        if(nmc.Value <= 0)
-                        {
-                            UIHelper.toast("Invalid Value", "Please Set Your Number to Actual Number");
+                        case NumericUpDown nmc when nmc.Value <= 0:
+                            message = "Invalid numeric value provide";
                             return true;
-                        }
+                        case PictureBox pct when pct.Image == null:
+                            message = "Required image has been not provided";
+                            return true;
                     }
-                    if (parent.HasChildren)
-                    {
-                        if(isNullInput(ctrl)) return true;
-                    }
+                    if (ctrl.HasChildren && isNullInput(ctrl, out message)) return true;
                 }
             }
             return false;
